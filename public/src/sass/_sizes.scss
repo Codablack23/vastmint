@@ -1,0 +1,29 @@
+@for $i from 1 through 20{
+    $width:$i * 5;
+    .vastmint-w-#{$width}{
+      width: $width * 1%;
+    } 
+    .vastmint-min-w-#{$width}{
+        min-width: $width * 1%;
+    }    
+}
+
+@for $i from 1 through 20{
+    $height:$i * 5;
+    .vastmint-vh-#{$height}{
+      height: $height * 1vh;
+    } 
+    .vastmint-h-#{$height}{
+      height: $height * 10px;
+    }
+    .vastmint-min-h-#{$height}{
+      min-height: $height * 10px;
+    }
+    .vastmint-min-vh-#{$height}{
+      min-height: $height * 1vh;
+    }
+    .vastmint-max-w-#{$height}{
+      max-width: $height * 10px;
+    }
+    
+}

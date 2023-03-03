@@ -1,0 +1,23 @@
+<div class="collection-artworks">
+    <h3 class="title">Artworks</h3>
+    <div class="vastmint-grid">
+    <% for( let index = 1; index < 7; index++ ) { %>
+      
+            <div class="nft vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-h-15">
+              <div class="nft-img">
+                 <img src="/assets/nft-<%= index + 1  %>.jpg" alt="nft image">
+              </div>
+              <div class="nft-desc">
+                 <div class="title-details">
+                     <h3>Golden Spiral</h3>
+                     <button><i class="bi bi-three-dots"></i></button>
+                 </div>
+                 <div class="price-details">
+                     <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
+                     <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
+                 </div>
+              </div>
+            </div>
+    <% } %>
+  </div>
+</div>

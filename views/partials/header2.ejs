@@ -1,0 +1,16 @@
+<header class="marketplace-header-2">
+    <button class="show-nav-btn vastmint-card" id="toggle-nav">
+        <i class="bi bi-justify"></i>
+    </button>
+    <script>
+        const nav = document.querySelector('.sidebar')
+        const openBtn = document.querySelector('#toggle-nav')
+        const closeBtn = document.querySelector('#close-nav')
+        openBtn.addEventListener('click',()=>{
+          nav.classList.toggle("hide-sm")
+        })
+        closeBtn.addEventListener('click',()=>{
+          nav.classList.toggle("hide-sm")
+        })
+      </script>
+</header>

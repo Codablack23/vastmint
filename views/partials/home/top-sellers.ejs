@@ -1,0 +1,61 @@
+<section class="vastmint-top-sellers main-container vastmint-min-vh-50">
+    <br>
+    <header class="header" id="top-seller-header">
+     <div class="text">
+        <h3>Top Sellers</h3>
+        <p>See artists that have made the most sales of the week</p>
+     </div>
+     <div class="seek">
+        <button class="see-all vastmint-card"><i class="bi bi-chevron-left" id="prev"></i></button>
+        <button class="see-all vastmint-card"><i class="bi bi-chevron-right" id="next"></i></button>
+     </div>
+   </header>
+   <ul class="sellers-list" id="seller-list">
+    <% 
+    const sellers = [
+      {sales:1080,user:"Adams John",id:1},    
+      {sales:70,user:"John Doe",id:2},
+      {sales:63,user:"Jane Doe",id:3},
+      {sales:58,user:"Mattew Pete",id:4},
+      {sales:57,user:"Johnny Ted",id:5},
+      {sales:53,user:"Wisdom Amadi",id:6},
+      {sales:48,user:"Peter Parker",id:7},
+      {sales:47,user:"Thomas Edison",id:8},
+      {sales:45,user:"Cameron diaz",id:9},
+      {sales:40,user:"Clark Kent",id:10},
+      {sales:38,user:"Miles Morales",id:11},
+      {sales:35,user:"Martin James",id:12},
+    ];
+    %>
+    <% for( let i = 0; i < sellers.length; i++ ) { %>
+        <li class="vastmint-white vastmint-min-vh-10 vastmint-card">
+            <div class="img-profile vastmint-light-300">
+               <i class="bi bi-person"></i>
+            </div>
+           <div>
+            <h4 class="name"><%=sellers[i].user %></h4>
+            <p><b><%=sellers[i].sales<1000?sellers[i].sales:(sellers[i].sales/1000).toFixed(2) + "K" %></b> sold</p>
+           </div>
+        </li>
+    <% } %>
+   </ul><br>
+   <script>
+    const sellersList = document.getElementById("seller-list")
+    const sellersHeaders = document.getElementById("top-seller-header")
+    console.log(sellersHeaders)
+    const next = sellersHeaders.querySelector("#next")
+    const prev = sellersHeaders.querySelector("#prev")
+     function scrollList(list,x){
+       return ()=> list.scrollBy(x,0)
+     }
+     next.addEventListener('click',scrollList(sellersList,400))
+     prev.addEventListener('click',scrollList(sellersList,-400))
+     function startInterval(){
+        setInterval(()=>{
+            sellersList.scrollBy(400,0)
+            console.log(sellersList.offsetWidth - sellersList.clientWidth)
+         },5000)
+     }
+     setTimeout(startInterval,5000)
+   </script>
+</section>

@@ -1,0 +1,25 @@
+.vastmint-grid{
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    gap: 10px;
+    @for $i from 1 through 12{
+      .grid-col-#{$i}{
+         grid-column: span $i;
+      }
+      @include md{
+        .grid-col-md-#{$i}{
+            grid-column: span $i;
+         }
+      }
+      @include sm{
+        .grid-col-sm-#{$i}{
+            grid-column: span $i;
+         }
+      }
+      @include xs{
+        .grid-col-xs-#{$i}{
+            grid-column: span $i;
+         }
+      }
+    }
+}

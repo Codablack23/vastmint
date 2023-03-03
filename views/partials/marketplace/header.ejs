@@ -1,0 +1,21 @@
+<header class="marketplace-header">
+   <button class="show-nav-btn" id="toggle-nav">
+    <i class="bi bi-justify"></i>
+   </button>
+   <form action="" class="marketplace-searchbar">
+     <input name="query" type="text" placeholder="Search <%= title %>">
+     <button><i class="bi bi-search"></i></button>
+   </form>
+
+<script>
+  const nav = document.querySelector('.sidebar')
+  const openBtn = document.querySelector('#toggle-nav')
+  const closeBtn = document.querySelector('#close-nav')
+  openBtn.addEventListener('click',()=>{
+    nav.classList.toggle("hide-sm")
+  })
+  closeBtn.addEventListener('click',()=>{
+    nav.classList.toggle("hide-sm")
+  })
+</script>
+</header>

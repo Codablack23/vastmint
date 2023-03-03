@@ -1,0 +1,65 @@
+@mixin genColor($color_map,$prefix:""){
+    @each $k,$v in $color_map{
+       @if $prefix == ""{
+        .vastmint-#{$k}{
+            background-color:$v ;
+        } 
+        .vastmint-text-#{$k}{
+            color:$v ;
+        }
+        .vastmint-hover-#{$k}{
+          transition: all ease 0.2s;
+          &:hover{
+            background-color:$v ;
+
+          }
+        }
+         .vastmint-hover-text-#{$k}{
+          transition: all ease 0.2s;
+          &:hover{
+            color:$v ;
+
+          }
+        }
+       }@else{
+        .vastmint-#{$prefix}-#{$k}{
+            background-color:$v ;
+        } 
+        .vastmint-text-#{$prefix}-#{$k}{
+            color:$v ;
+        }  
+        .vastmint-hover-#{$prefix}-#{$k}{
+            transition: all ease 0.2s;
+            &:hover{
+              background-color:$v ;
+  
+            }
+          }
+           .vastmint-hover-text-#{$prefix}-#{$k}{
+            transition: all ease 0.2s;
+            &:hover{
+              background-color:$v ;
+  
+            }
+          } 
+       }
+       
+     }
+}
+
+
+@mixin md(){
+   @media screen  and (max-width:map-get($breakpoints,"md")){
+    @content;
+   }
+}
+@mixin sm(){
+   @media screen  and (max-width:map-get($breakpoints,"sm")){
+    @content;
+   }
+}
+@mixin xs(){
+   @media screen  and (max-width:map-get($breakpoints,"xs")){
+    @content;
+   }
+}

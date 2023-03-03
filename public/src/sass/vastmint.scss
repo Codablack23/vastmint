@@ -1,0 +1,35 @@
+@import "./setup/variables";
+@import "./setup/mixins";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;700;800&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+*{
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-size: 16px;
+    @include xs{
+        font-size: 14px;
+    }
+}
+.vastmint-card{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.vastmint-container{
+    max-width: 11960px;
+    margin: auto;
+    padding: 16px;
+}
+.main-container{
+    max-width: 1196px;
+    margin: auto;
+    padding: 1em;
+}
+img{
+    width: 100%
+}
+@import "./colors";
+@import "./sizes";
+@import "./grid"

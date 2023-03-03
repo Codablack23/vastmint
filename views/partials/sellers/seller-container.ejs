@@ -1,0 +1,23 @@
+<div class="vastmint-artists">
+    <div class="vastmint-grid">
+       <% for( let index = 0; index < 8; index++ ) { %>
+        <a href="/sellers/<%= index + 1 %>" class="artist vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-35">
+            <div class="artist-img">
+               <img src="/assets/nft-<%= index + 1 %>.jpg" alt="nft image">
+            </div>
+            <div class="artist-desc">
+               <div class="title-details">
+                   <h3>Jane Doe</h3>
+               </div>
+               <p class="author vastmint-text-light-600">@janedoe</p>
+               <div class="price-details">
+                   <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*30) + 1 %> Collections</b></p>
+                   <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*1000) %> Minted Art</b></p>
+                   <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
+               </div>
+            </div>
+          </a>
+       <% } %>
+       
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<header class="vastmint-nav-container">
+    <section class="vastmint-white vastmint-lang-selector">
+         <div></div>
+    </section>
+  <section class="main-container">
+        <nav class="vastmint-navbar">
+            <div class="brand">
+                <a href="/" class="brand-name">Vasmint</a>
+                <button class="toggle-nav" id="toggle-nav">
+                    <i class="bi bi-justify"></i>
+                </button>
+            </div>
+            <div class="all-nav-links hidden-sm" id="nav">
+                <div class="nav-links">
+                    <a href="/marketplace">Marketplace</a>
+                    <a href="/sellers">Sellers</a>
+                    <a href="#how-it-works">How It Works</a>
+                </div>
+                <div class="action-links">
+                    <a href="/login" class="login vastmint-dark vastmint-text-white">Login</a>
+                    <a href="/register" class="register">Register</a>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <script>
+        const nav = document.querySelector('#nav')
+        const toggleBtn = document.querySelector('#toggle-nav')
+        toggleBtn.addEventListener('click',()=>{
+           nav.classList.toggle("hidden-sm")
+           toggleBtn.querySelector("i").classList.toggle("bi-justify")
+           toggleBtn.querySelector("i").classList.toggle("bi-x-lg")
+        })
+    </script>
+</header>
