@@ -1,0 +1,30 @@
+<div class="collection-banner vastmint-min-h-25 vastmint-grid">
+    <style>
+        .collection-details .container{
+            border-radius: 10px;
+            padding: 0.75em;
+        }
+        .collection-details .container .add-to-cart{
+            border-radius: 10px;
+            padding-inline: 2em;
+        }
+    </style>
+    <div class="grid-col-5 grid-col-md-12">
+       <img src="/assets/nft-<%= nft_id %>.jpg" alt="">
+       <br>
+    </div>
+    <div class="grid-col-7 grid-col-md-12 collection-details">
+      <div class="vastmint-white container">
+          <h3 class="title">NFT <%= nft_id %></h3>    
+          <a href="/sellers/<%= nft_id %>" class="vastmint-text-light-500" style="display:block;">@theCreator</a>
+          <a href="/collections/<%= nft_id %>" style="display:block;"><b>Collection XYZ</b></a>    
+          <br>
+          <p class="">Current Owner: @owner10</b></p>
+      </div>
+      <br>
+      <div class="vastmint-white container">
+          <p class="title">2.32ETH <small>$53,000</small></p><br>
+          <a class="button vastmint-dark vastmint-text-white add-to-cart">Add to Cart <i class="bi bi-cart"></i></a>
+      </div>
+    </div>
+  </div>

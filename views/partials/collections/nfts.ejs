@@ -3,7 +3,7 @@
     <div class="vastmint-grid">
     <% for( let index = 1; index < 7; index++ ) { %>
       
-            <div class="nft vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-h-15">
+            <a href="/marketplace/<%= index %>" class="nft vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-h-15">
               <div class="nft-img">
                  <img src="/assets/nft-<%= index + 1  %>.jpg" alt="nft image">
               </div>
@@ -17,7 +17,7 @@
                      <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
                  </div>
               </div>
-            </div>
+            </a>
     <% } %>
   </div>
 </div>
