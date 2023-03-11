@@ -1,8 +1,8 @@
 const express = require("express")
 const dotenv = require('dotenv').config()
 const express_session = require('express-session')
-const HomeRoute = require("./routes/Home")
-const DashboardRoute = require("./routes/Dashboard")
+const HomeRoute = require("./routes/home")
+const DashboardRoute = require("./routes/dashboard")
 // const ejsLayouts = require('express-ejs-layouts')
 
 const app = express()
