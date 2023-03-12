@@ -78,10 +78,15 @@ a{
     }
     .sidebar-links{
         padding: 1em;
-        display: block;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         width: 85%;
         margin-bottom: 1em;
         border-radius: 10px;
+        span{
+            margin-left: 4px;
+        }
         &.active{
             color:#fff;
             background-color: #242038;
@@ -131,10 +136,11 @@ a{
        }
        .sidebar-links{
         text-align: left;
+        justify-content: flex-start;
         padding: 1em;
         width: 85%;
         height: auto;
-        display: block;
+        display: flex;
         span{
             display: inline-block;
         }

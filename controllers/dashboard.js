@@ -14,7 +14,19 @@ module.exports = {
     getArtPage(req,res){
         res.render("dashboard/art.ejs",{
             title:"Arts",
-            page:"art"
+            page:"nfts"
+         })
+    },  
+     getNotificationsPage(req,res){
+        res.render("dashboard/notifications.ejs",{
+            title:"notifications",
+            page:"notifications"
+         })
+    },
+    getWalletPage(req,res){
+        res.render("dashboard/wallet.ejs",{
+            title:"wallet",
+            page:"wallet"
          })
     },
 }
