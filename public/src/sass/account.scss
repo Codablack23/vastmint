@@ -1,0 +1,59 @@
+@import "./setup/variables";
+@import "./setup/mixins";
+
+html,body{
+    background-image:url("/assets/nft-3.jpg") ;
+    min-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+.vastmint-login{
+    .brand{
+        font-weight: 800;
+        font-size: 20px;
+        margin-bottom: 2em;
+        display: block;
+    }
+    color:#fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .white-section{
+        padding: 1em;
+    }
+    .login-form{
+        width: 65%;
+        margin:auto; 
+    }
+    .picture-section{
+    min-height: 100vh;
+    color:#fff;
+    }
+    @include md{
+        display: block;
+        .picture-section {
+            display: none;
+        }
+        .login-form{
+            min-height: 60vh;
+        }
+    }
+    @include sm{
+        .login-form{
+            width: 85%;
+        }
+    } 
+    @include xs{
+        .login-form{
+            width: 95%;
+        }
+    }
+}

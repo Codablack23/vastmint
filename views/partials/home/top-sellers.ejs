@@ -1,10 +1,7 @@
-<section class="vastmint-top-sellers main-container vastmint-min-vh-50">
+<section class="vastmint-top-sellers el-container vastmint-min-vh-50">
     <br>
     <header class="header" id="top-seller-header">
-     <div class="text">
-        <h3>Top Sellers</h3>
-        <p>See artists that have made the most sales of the week</p>
-     </div>
+       <p class="title" style="font-size: 22px;">Top sellers</p>
      <div class="seek">
         <button class="see-all vastmint-card"><i class="bi bi-chevron-left" id="prev"></i></button>
         <button class="see-all vastmint-card"><i class="bi bi-chevron-right" id="next"></i></button>
@@ -28,7 +25,7 @@
     ];
     %>
     <% for( let i = 0; i < sellers.length; i++ ) { %>
-        <li class="vastmint-white vastmint-min-vh-10 vastmint-card">
+        <li class="vastmint-dark-2 vastmint-text-white vastmint-min-vh-10 vastmint-card">
             <div class="img-profile vastmint-light-300">
                <i class="bi bi-person"></i>
             </div>

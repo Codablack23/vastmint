@@ -36,6 +36,10 @@ img {
   width: 100%;
 }
 
+.vastmint-dark-gradient {
+  background: linear-gradient(45deg, #fff, #000);
+}
+
 .vastmint-white {
   background-color: #fff;
 }
@@ -408,6 +412,28 @@ img {
 }
 .vastmint-hover-text-primary-900:hover {
   background-color: #f72585;
+}
+
+.vastmint-primary-theme {
+  background-color: #FF7930;
+}
+
+.vastmint-text-primary-theme {
+  color: #FF7930;
+}
+
+.vastmint-hover-primary-theme {
+  transition: all ease 0.2s;
+}
+.vastmint-hover-primary-theme:hover {
+  background-color: #FF7930;
+}
+
+.vastmint-hover-text-primary-theme {
+  transition: all ease 0.2s;
+}
+.vastmint-hover-text-primary-theme:hover {
+  background-color: #FF7930;
 }
 
 .vastmint-light-100 {

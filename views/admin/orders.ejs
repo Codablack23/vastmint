@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include("../partials/head.ejs") %>
+<style>
+ .header{
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .title{
+    font-size: 22px;
+ }
+ .data{
+    min-height: 100px;
+ }
+ .tables-list{
+    padding: 0;
+    list-style: none;
+ }
+ .tables-list li{
+    border-bottom:1px solid #eee ;
+    padding: 0.7em;
+ }
+ .vastmint-table-header{
+    max-width:700px ;
+ }
+ .alert{
+    position: relative;
+ }
+ .alert.alert-failed{
+  background-color: #FFCDD2;
+  color: #F44336;
+  margin-bottom: 0.5em;
+ }
+ .alert.alert-success{
+  background-color: #C8E6C9;
+  color: #4CAF50;
+  margin-bottom: 0.5em;
+ }
+ table {
+    width: 100%;
+   }
+   .table{
+     max-width: 100%;
+     overflow-y: auto;
+     padding: 0.34em;
+   }
+   table th{
+     text-align: left;
+   }
+   .verify{
+    padding:0.3em 1em;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+   }
+   .alert{
+    min-height:50px;
+   }
+   .alert button{
+    top: 10px;
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+   }
+   .loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+   }
+   .hide{
+    display: none;
+   }
+</style>
+</head>
+<body>
+    <main>
+       <div class="vastmint-dark-2 main-header">
+        <header class="el-container vastmint-text-white header">
+            <a href="/admin/" class="title">Artisify Administration</a>
+            <a href="/admin/logout" class="logout">LOGOUT</a>
+        </header>
+       </div>
+       <div class="alert alert-success hide" id="alert">
+        <div class="el-container">
+           <p class="message"></p>
+           <button class="close">
+            <i class="bi bi-x-lg"></i>
+           </button>
+        </div>
+      </div>
+
+      <div class="loader hide" id="loader">
+        <div class="dialog">
+            <img src="/assets/icons/spinner.jpg" alt="">
+            <p>Updating Order</p>
+        </div>
+      </div>
+       
+        <section class="el-container">
+                <header>
+                  <p>Site Data > Orders</p>
+                </header><br><br>
+                <div class="vastmint-dark">
+                    <div class="data">
+                        <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                            <p>All Orders</p>
+                        </header>
+                       <div class="table">
+                        <table>
+                            <tr>
+                              <th>Order ID</th>
+                              <th>Amount</th>
+                              <th>Status</th>
+                              <th>User</th>
+                              <th>Date</th>
+                              <th>Action</th>
+                            </tr>
+                            <% for( history of response.orders) { %>
+                            <tr style="text-transform: capitalize;">
+                              <td style="min-width: 150px;"><%= history.order_id %></td>
+                              <td style="min-width: 150px;"><%= history.amount %>ETH</td>
+                              <td style="min-width: 150px;"><%= history.status %></td> 
+                              <td style="min-width: 150px;"><%= history.user %></td>
+                              <td style="min-width: 150px;"><small style="font-size: 14px;"><%= new Date(history.createdAt).toISOString() %></small></td>
+                              <% if (history.status.toLowerCase() == "pending") { %>
+                                <td style="min-width: 80px;"><button class="verify" onclick="confirmPayment('<%= history.order_id %>')">Verify</button></td>
+                              <% } %>
+                            </tr>
+                            <% } %>
+                          </table>
+                       </div>
+                    </div>
+                </div> 
+        </section>
+    </main>
+    <script>
+        const alertEL = document.querySelector("#alert")
+        const loader = document.querySelector("#loader")
+        const message = alertEL.querySelector(".message")
+        const closeBtn = alertEL.querySelector(".close")
+
+        closeBtn.addEventListener('click',()=>{
+            alertEL.classList.add("hide")
+        })
+        const confirmPayment=async(id)=>{
+         try{
+            loader.classList.remove("hide")
+            const res = await fetch(`/admin/orders/complete/${id}`,{
+                method:"POST",
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accept':'application/json'
+                },
+            })
+            const data = await res.json()
+            loader.classList.add("hide")
+
+            if(data.status == "success"){
+                alertEL.classList.add("alert-success")
+                alertEL.classList.remove("alert-failed")
+                alertEL.classList.remove("hide")
+                message.innerHTML = data.message + ". This Page will reload after 5 seconds"
+                setTimeout(()=>{
+                 window.location.reload()
+                },5000)
+            }else{
+                alertEL.classList.remove("alert-success")
+                alertEL.classList.add("alert-failed")
+                alertEL.classList.remove("hide")
+                message.innerHTML = data.error
+            }
+            
+         }
+         catch(e){
+            console.log(e)
+            loader.classList.add("hide")
+            alertEL.classList.remove("alert-success")
+            alertEL.classList.add("alert-failed")
+            alertEL.classList.remove("hide")
+            message.innerHTML = "Sorry could not connect with servers please try again later"
+         }
+        }
+    </script>
+</body>
+</html>

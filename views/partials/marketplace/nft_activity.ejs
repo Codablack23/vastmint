@@ -19,30 +19,27 @@
     }
 </style>
 
-<section class="item-activity vastmint-white">
-  <p class="title">Item Purchase Activity</p>
+<section class="item-activity vastmint-dark vastmint-card">
+  <p class="title">NFT History</p>
   <br>
   <div class="table">
     <table>
       <tr>
+        <th>Type</th>
         <th>Price</th>
         <th>From</th>
         <th>To</th>
         <th>Date</th>
       </tr>
-      <% const date = new Date().toISOString() %>
-      <tr>
-        <td>2.3ETH</td>
-        <td>Jane Doe</td> 
-        <td>John Doe</td>
-        <td><%=  date.slice(0,date.indexOf("T"))  %></td>
+      <% for( history of response.nft_history) { %>
+      <tr style="text-transform: capitalize;">
+        <td style="min-width: 150px;"><%= history.type %></td>
+        <td style="min-width: 150px;"><%= parseFloat(history.amount) %>ETH</td>
+        <td style="min-width: 150px;"><%= history.from %></td> 
+        <td style="min-width: 150px;"><%= history.to %></td>
+        <td style="min-width: 150px;"><%= new Date(history.createdAt).toUTCString()%></td>
       </tr>
-      <tr>
-        <td>Maria Anders</td>
-        <td>Germany</td> 
-        <td>Maria Anders</td>
-        <td>Germany</td>
-      </tr>
+      <% } %>
     </table>
   </div>
 </section>

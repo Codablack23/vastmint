@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/w3css.css">
+    <%- include('../partials/dashboard/head.ejs') %>
+    <style>
+        .dotted-border{
+            border: 1px dashed black;
+            width: 100%;
+            height: 180px;
+           }
+        .hide{
+            display: none;
+        } 
+        input:invalid.invalid{
+            border: 1px solid red;
+        }
+        .loader-modal{
+           align-items: center;
+           justify-content: center;
+           position: fixed;
+           top: 0;
+           z-index: 10;
+           right: 0;
+           width: 100%;
+           height: 100%;
+           background-color: rgba(0,0,0,0.5);
+        }
+        .loader-modal .dialog{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 250px;
+            min-height: 200px;
+        }
+        input{
+            color: #fff;
+            background:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+       
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Attribute</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger p-2 hide" id="add-attr-err">
+                    <p class="error-message"></p>
+                </div>
+                <form action="" id="add-attr-form">
+                    <div>
+                        <p class="mb-1"><b>Attribute</b></p>
+                        <input 
+                        required
+                        minlength="3"
+                        name="attribute"
+                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                        placeholder="Choose attribute name"
+                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                    </div><br>
+                    <div>
+                        <p class="mb-1"><b>Feature</b></p>
+                        <input 
+                        required
+                        name="feature"
+                        minlength="3"
+                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                        placeholder="What feature do your attribute have"
+                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                    </div><br> 
+                    <div>
+                        <p class="mb-1"><b>Description</b></p>
+                        <input 
+                        required
+                        name="description"
+                        minlength="10"
+                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                        placeholder="briefly describe this feature"
+                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                    </div><br>
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger" id="add-attr-cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary ms-2" >Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+  </div>
+  <main>
+    
+    <%- include('../partials/dashboard/sidebar.ejs') %>
+    <section class="vastmint-dashboard-page">
+    <%- include('../partials/header2.ejs') %>
+    <%- include('../partials/dashboard/header.ejs') %>
+    <div class="loader-modal hide" id="loader">
+        <div class="dialog w3-round-large w3-white">
+                <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+        </div>
+     </div>
+    <!-- Modal -->
+   
+       <p class="fs-4 fw-semi-bold">Mint NFT</p>
+       <section >
+        <div class="mx-auto mb-5" style="max-width: 600px;">
+          
+            <form id="step-1" data-step="1">
+            
+                <div class="w3-card p-3  w3-round-large vastmint-dark" >
+                    <div class="alert alert-danger p-2 hide" id="add-nft-err">
+                        <p class="error-message"></p>
+                    </div>
+                    <small class="d-block mb-3">Add NFT Details</small>
+
+                        <div>
+                            <p class="mb-1"><b>NFT Name</b></p>
+                            <input 
+                            required
+                            minlength="3"
+                            name="name"
+                            pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                            placeholder="Choose Name of art"
+                            class="w3-border vastmint-dark vastmint-w-1 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                        </div><br>
+                        <div>
+                            <p class="mb-1"><b>NFT Description</b></p>
+                            <input 
+                            required
+                            name="description"
+                            minlength="10"
+                            pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                            placeholder="Your description...."
+                            class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                        </div><br>
+                        <div>
+                            <button type="button" class="mb-1 btn btn-primary"><b>Add to a collection</b></button>
+                            <div class="hide">
+                                Choose Collection
+                                <select class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                                    <option value="">Select value</option>
+                                </select>
+                            </div>
+                        </div><br>
+                         <div>
+                            <p class="mb-1"><b>Floor Price</b></p>
+                            <input 
+                            type="text"
+                            required
+                            name="price"
+                            pattern="\d+|(\d+[.]\d+)"
+                            min="0.1"
+                            placeholder="Set your floor price"
+                            class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
+                        </div><br>
+                        <div>
+                            <header class="d-flex justify-content-between">
+                                <p class="mb-1"><b>Add Attributes</b></p>
+                                <button 
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    type="button"
+                                    style="height:30px;width:30px" 
+                                    class="d-flex justify-content-center align-items-center btn vastmint-text-white w3-circle">
+                                    <i class="bi bi-plus-lg"></i>
+                               </button>
+                            </header>
+                            <div class="nft-att" id="nft-att">
+                             <div >
+                                <small class="vastmint-text-light-500">Please Add atleast one attribute</small>
+                             </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex vastmint-w-100">
+                            <button class="btn btn-primary ms-auto" id="continue">Continue</button>
+                        </div>
+                </div>
+            </form><br>
+            <br>
+            <div class="hide" id="step-2">
+                <button class="btn btn-dark mb-3 back-btn">
+                    <i class="bi bi-arrow-left"></i>
+                    <small>Back</small>
+                </button>
+                <div class="w3-card p-3  w3-round-large vastmint-dark" >
+                    <small class="d-block mb-3">Add NFT Details > Pay Mint Fee > Upload Art</small>
+                    <div class="alert alert-danger p-2 hide" id="file-err">
+                        <p class="error-message"></p>
+                    </div>
+                    <div class="success hide w3-center" id="success">
+                        <div class="w3-circle alert alert-success d-flex align-items-center mx-auto justify-content-center" style="height:65px;width:65px">
+                            <i class="bi bi-check fs-1"></i>
+                        </div>
+                        <p>You have successfully uploaded your img</p>
+                        <button type="button" class="btn btn-success my-2" id="mint">Mint and List NFT</button>
+                    </div>
+                    <div class="success w3-center hide" id="created-success">
+                        <div class="w3-circle alert alert-success d-flex align-items-center mx-auto justify-content-center" style="height:65px;width:65px">
+                            <i class="bi bi-check fs-1"></i>
+                        </div>
+                        <p>You have successfully minted your nft</p>
+                        <a class="btn btn-success my-2" id="view-mint">View NFT</a>
+                    </div>
+                     <div class="preview hide" id="preview-box">
+                        <img style="width: 100%;height:250px;object-fit:cover" class="d-none w3-round-large" alt="" id="preview">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="btn btn-secondary my-2" for="nft-img">Change</label>
+                            <button class="btn btn-primary my-2" for="nft-img" id="upload-btn">Upload</button>
+                        </div>
+                     </div>
+                        <div class="w3-center" id="drop-zone">
+                           <label for="nft-img"  class="d-flex w3-round-large justify-content-center align-items-center ms-auto dotted-border">
+                            <div>
+                                <i class="bi bi-image fs-2"></i>
+                                <p>Upload Art Work</p>
+                            </div>
+                           </label>
+                        </div>
+                        <input type="file" class="d-none" name="nft-img" id="nft-img">
+                        <!-- <button class="btn btn-primary ms-3" id="pay"><span>Upload</span></button> -->
+                </div>
+            </div>
+        </div>
+       </section>
+    </section>
+  </main>
+</body>
+<script src="/js/mint.js" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/LazerPay-Finance/checkout-build@main/checkout@1.0.1/dist/index.min.js"></script>
+</html>

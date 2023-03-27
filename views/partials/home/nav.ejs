@@ -1,8 +1,51 @@
-<header class="vastmint-nav-container">
-    <section class="vastmint-white vastmint-lang-selector">
+<style>
+    .logged-in{
+        padding: 0.2em 0.5em;
+        border-radius: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+    .logged-in button{
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: 50%;
+    }
+    .logged-in p{
+        margin-right: 0.5em;
+    }
+    .cart-link{
+        background: none;
+        border: none;
+        border-radius: 50%;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+    }
+    .cart-link i {
+        font-size: 24px;
+    }
+    .cart-link small{
+        position: absolute;
+        bottom: 2px;
+        height: 15px;
+        right: -4px;
+        font-size: 10px;
+        display: block;
+        width: 15px;
+        border-radius: 50%;
+    }
+</style>
+
+<header class="vastmint-nav-container vastmint-text-white vastmint-card">
+    <!-- <section class="vastmint-white vastmint-lang-selector">
          <div></div>
-    </section>
-  <section class="main-container">
+    </section> -->
+  <section class="el-container">
         <nav class="vastmint-navbar">
             <div class="brand">
                 <a href="/" class="brand-name">Vasmint</a>
@@ -12,24 +55,48 @@
             </div>
             <div class="all-nav-links hidden-sm" id="nav">
                 <div class="nav-links">
-                    <a href="/marketplace">Marketplace</a>
+                    <a href="/marketplace">Browse NFTs</a>
                     <a href="/sellers">Sellers</a>
-                    <a href="#how-it-works">How It Works</a>
+                    <a href="#how-it-works">Mint</a>
+                    <a href="/orders">Orders</a>
                 </div>
                 <div class="action-links">
-                    <a href="/login" class="login vastmint-dark vastmint-text-white">Login</a>
-                    <a href="/register" class="register">Register</a>
+                    <% if (!user) { %>
+                        <a href="/accounts/" class="login vastmint-dark vastmint-text-white">Login</a>
+                        <a href="/accounts/register" class="register vastmint-primary-400 vastmint-text-white">Register</a>
+                    <% }else{ %>
+                     <a href="/dashboard/">
+                        <div class="vastmint-card vastmint-dark-2 vastmint-text-white logged-in">
+                            <p><%= user.username %></p>
+                            <button class="vastmint-primary-400 vastmint-text-white"><i class="bi bi-box-arrow-right"></i></button>
+                       </div>
+                     </a>
+                    <% }%>
+                    <button onclick="window.location.assign('/cart/')" class="cart-link ">
+                        <i class="bi bi-cart3 vastmint-text-white"></i>
+                        <small id="cart-count" class="vastmint-white vastmint-text-dark">0</small>
+                    </button>
                 </div>
             </div>
+          
         </nav>
     </section>
     <script>
         const nav = document.querySelector('#nav')
+        const cartEl = document.querySelector('#cart-count')
         const toggleBtn = document.querySelector('#toggle-nav')
         toggleBtn.addEventListener('click',()=>{
            nav.classList.toggle("hidden-sm")
            toggleBtn.querySelector("i").classList.toggle("bi-justify")
            toggleBtn.querySelector("i").classList.toggle("bi-x-lg")
         })
+        const cart = localStorage.getItem("cart")
+        if(cart){
+            cartEl.innerHTML = JSON.parse(cart).length
+        }
+        else{
+            localStorage.setItem("cart",JSON.stringify([]))
+        }
+
     </script>
 </header>

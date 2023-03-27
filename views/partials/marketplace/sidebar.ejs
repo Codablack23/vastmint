@@ -1,23 +1,15 @@
-<div class="sidebar vastmint-white hide-sm">
-    <div class="brand">
-        <button class="open"><i class="bi bi-justify"></i></button>
-        <a href="/">Vastmint</a>
-        <button class="close-btn" id="close-nav"><i class="bi bi-x"></i></button>
+
+    <div class="tabbar  hide-sm">
+        <a href="/sellers" class="sidebar-links <%= page==="artists"?"vastmint-primary-400 vastmint-text-white":"" %>  vastmint-hover-primary-400 vastmint-hover-text-white">
+            <i class="bi bi-person-fill"></i>
+            <span >Sellers</span>
+        </a> 
+        <a href="/collections" class="sidebar-links <%= page==="collections"?"vastmint-primary-400 vastmint-text-white":"" %>  vastmint-hover-primary-400 vastmint-hover-text-white ">
+            <i class="bi bi-collection"></i>
+            <span >Collections</span>
+        </a> 
+        <a href="/marketplace" class="sidebar-links <%= page==="marketplace"?"vastmint-primary-400 vastmint-text-white":"" %> vastmint-hover-primary-400 vastmint-hover-text-white">
+            <i class="bi bi-brush-fill"></i>
+            <span >NFTs</span>
+        </a> 
     </div>
-    <a href="/marketplace" class="sidebar-links <%=page==="marketplace"?"active":"" %> vastmint-hover-dark vastmint-hover-text-light vastmint-light-100 vastmint-text-dark">
-        <i class="bi bi-brush-fill"></i>
-        <span >NFTs</span>
-    </a> 
-    <a href="/sellers" class="sidebar-links <%=page==="artists"?"active":"" %>  vastmint-hover-dark vastmint-hover-text-light vastmint-light-100 vastmint-text-dark">
-        <i class="bi bi-person-fill"></i>
-        <span >Artists</span>
-    </a> 
-    <a href="/collections" class="sidebar-links <%=page==="collections"?"active":"" %>  vastmint-hover-dark vastmint-hover-text-light vastmint-light-100 vastmint-text-dark">
-        <i class="bi bi-collection"></i>
-        <span >Collections</span>
-    </a> 
-    <a class="sidebar-links  vastmint-hover-dark vastmint-hover-text-light vastmint-light-100 vastmint-text-dark">
-        <i class="bi bi-plus-lg"></i>
-        <span href="#">Create </span>
-    </a>
-</div>

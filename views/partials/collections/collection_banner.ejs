@@ -1,15 +1,15 @@
-<div class="collection-banner vastmint-min-h-25 vastmint-grid vastmint-white">
+<div class="collection-banner vastmint-card vastmint-min-h-25 vastmint-grid vastmint-dark">
   <div class="grid-col-6 grid-col-md-12">
-     <img src="/assets/nft-<%= collection_id %>.jpg" alt="">
+     <img src="<%= response.collection.banner_img %>" alt="">
   </div>
   <div class="grid-col-6 grid-col-md-12 collection-details">
     <div>
-        <h3 class="title">Collection <%= collection_id %></h3>    
-        <p class="vastmint-text-light-500">@janedoe</p><br>
+        <h3 class="title"><%= response.collection.name %></h3>    
+        <p class="vastmint-text-light-500">@<%= response.collection.seller %></p><br>
     </div>
     <div>
-        <p><b>7</b> ArtWorks</p><br>
-        <a class="button vastmint-dark vastmint-text-white">See Artist</a>
+        <p><b><%= response.collection.nfts.length %></b> ArtWorks</p><br>
+        <a href="/sellers/<%= response.collection.seller %>" class="button vastmint-primary-400 vastmint-text-white">See Artist</a>
     </div>
   </div>
 </div>

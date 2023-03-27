@@ -4,7 +4,7 @@
         <a href="/" >Vastmint</a>
         <button class="close-btn" id="close-nav"><i class="bi bi-x"></i></button>
     </div>
-    <br><br>
+    <br>
     <a href="/dashboard/" class="sidebar-links <%=page==="dashboard"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
         <i class="bi bi-brush-fill"></i>
         <span >Dashboard</span>
@@ -15,16 +15,19 @@
     </a> 
     <a href="/dashboard/art" class="sidebar-links <%=page==="nfts"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
         <i class="bi bi-collection"></i>
-        <span >Minted Art</span>
+        <span >Listings </span>
+    </a> 
+     <a href="/dashboard/mint" class="sidebar-links <%=page==="mint-nft"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
+        <i class="bi bi-plus-lg"></i>
+        <span >Mint Art</span>
     </a> 
     <a href="/dashboard/notifications" class="sidebar-links <%=page==="notifications"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
         <i class="bi bi-bell"></i>
         <span >Notifications</span>
-        <span class="badge bg-danger ms-5 rounded-pill">8</span>
     </a> 
      <a href="/dashboard/wallets" class="sidebar-links <%=page==="wallet"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
         <i class="bi bi-wallet"></i>
-        <span >Wallet</span>
+        <span >My Wallet</span>
     </a> 
      <!-- <a href="/notifications" class="sidebar-links <%=page==="settings"?"vastmint-dark-2":"" %> vastmint-hover-light-900 vastmint-hover-text-light vastmint-text-light-500">
         <i class="bi bi-gear"></i>
@@ -32,8 +35,8 @@
     </a>  -->
     <br>
     <br>
-    <a class="sidebar-links  vastmint-light-100 vastmint-text-light-900">
+    <a href="/accounts/logout" class="sidebar-links vastmint-primary-400 text-white">
         <i class="bi bi-box-arrow-left"></i>
-        <span href="#">Logout </span>
+        <span >Logout </span>
     </a>
 </div>

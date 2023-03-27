@@ -1,17 +1,17 @@
 <div class="vastmint-collections">
     <div class="vastmint-grid">
-       <% for( let index = 0; index < 8; index++ ) { %>
-        <a href="/collections/<%= index +1 %>" class="collection vastmint-white grid-col-6 grid-col-md-6 grid-col-xs-12 vastmint-card">
-            <img src="/assets/nft-<%= index + 1 %>.jpg" alt="nft image">
+       <% for( let collection of response.collections) { %>
+        <a href="/collections/<%= collection.collection_id %>" class="collection vastmint-dark grid-col-6 grid-col-md-6 grid-col-xs-12 vastmint-card">
+            <img src="<%= collection.banner_img %>" alt="nft image">
          <div class="collection-desc">
            
             <div class="price-details">
               <div class="title-details">
-                  <h3>NFT collection <%= index+1 %></h3>
+                  <h3><%= collection.name%></h3>
                </div>
                <div>
-                 <p class="author">@janedoe</p>
-                 <p class=""><b><%= Math.floor(Math.random()*100) + 5 %> Art</b></p>
+                 <p class="author">@<%=collection.seller %></p>
+                 <p class=""><b><%= collection.arts.length %> Art</b></p>
                </div>
             </div>
          </div>

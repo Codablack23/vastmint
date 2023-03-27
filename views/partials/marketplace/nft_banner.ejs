@@ -1,4 +1,4 @@
-<div class="collection-banner vastmint-min-h-25 vastmint-grid">
+<div class="collection-banner vastmint-card vastmint-min-h-25 vastmint-grid" style="margin-top: 1em;">
     <style>
         .collection-details .container{
             border-radius: 10px;
@@ -8,23 +8,98 @@
             border-radius: 10px;
             padding-inline: 2em;
         }
+        .collection-banner .collection-details .button.hide{
+            display: none;
+        }
     </style>
-    <div class="grid-col-5 grid-col-md-12">
-       <img src="/assets/nft-<%= nft_id %>.jpg" alt="">
+    <div class="grid-col-6 grid-col-md-12">
+       <img src="<%= response.nft.nft_img %>" alt="">
        <br>
     </div>
-    <div class="grid-col-7 grid-col-md-12 collection-details">
-      <div class="vastmint-white container">
-          <h3 class="title">NFT <%= nft_id %></h3>    
-          <a href="/sellers/<%= nft_id %>" class="vastmint-text-light-500" style="display:block;">@theCreator</a>
-          <a href="/collections/<%= nft_id %>" style="display:block;"><b>Collection XYZ</b></a>    
-          <br>
-          <p class="">Current Owner: @owner10</b></p>
-      </div>
-      <br>
-      <div class="vastmint-white container">
-          <p class="title">2.32ETH <small>$53,000</small></p><br>
-          <a class="button vastmint-dark vastmint-text-white add-to-cart">Add to Cart <i class="bi bi-cart"></i></a>
+    <div class="grid-col-6 grid-col-md-12 collection-details">
+      <div class="vastmint-dark container">
+          <h3 class="title"><%= response.nft.name%> #<%= nft_id.slice(0,4) %></h3>    
+          <a href="/sellers/<%=response.nft.seller %>" class="vastmint-text-light-500" style="display:block;">@<%= response.nft.seller%></a>
+          <a href="/collections/<%= nft_id %>" style="display:block;"><b><%= response.nft.collection?response.nft.collection:"N/A"%></b></a>    
+          <p class="">Current Owner:<%= response.nft.owner%></b></p>
+      </div><br>
+      <div class="vastmint-dark container">
+          <p class="title"><%= parseFloat(response.nft.current_price).toFixed(2) %>ETH <small>$53,000</small></p><br>
+          <a 
+          data-id="<%= response.nft.nft_id%>"
+          data-img="<%= response.nft.nft_img %>"
+          data-name="<%= response.nft.name%>"
+          data-seller="<%=response.nft.seller %>"
+          data-price="<%= parseFloat(response.nft.current_price) %>"
+          class="button vastmint-primary-400 vastmint-text-white add-to-cart" 
+          id="add-to-cart"
+          >Add to Cart <i class="bi bi-cart">
+          </i>
+        </a>
+        <a 
+        data-id="<%= response.nft.nft_id%>"
+        class="button hide vastmint-primary-400 vastmint-text-white add-to-cart" 
+        id="remove-from-cart"
+        >Remove From Cart <i class="bi bi-cart">
+        </i>
+        </a>
       </div>
     </div>
   </div>
+
+  <script>
+        
+        const addToCartBtn = document.querySelector('#add-to-cart')
+        const removeFromCartBtn = document.querySelector('#remove-from-cart')
+        const useCart = (init)=>{
+            let cart =init
+            const cartEl = document.querySelector("#cart-count")
+            console.log(init)
+            return [
+             ()=>cart,
+             (cartData)=>{
+                cart = cartData
+                const cartEl = document.querySelector("#cart-count")
+                cartEl.innerHTML = cart.length
+             }
+            ]
+         }
+        const cartData = localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")):[]
+        const [getCart,setCart] = useCart(cartData)        
+        
+        const render=(data,el1,el2,id)=>{
+            const cartItems = getCart()
+            if(cartItems.find(item=>item.id == id)){
+                el2.classList.remove("hide")
+                el1.classList.add("hide")
+            }
+        }
+        const addToCart = ({name,price,id,seller,img})=>(e)=>{
+            const cart = getCart()
+             setCart([...cart,{name,price,id,seller,img}])
+             localStorage.setItem('cart',JSON.stringify(getCart()))
+             addToCartBtn.classList.add("hide")
+             removeFromCartBtn.classList.remove("hide")
+        }
+        const removeFromCart = (id)=>(e)=>{
+            const cart = getCart()
+             setCart(cart.filter(item=>item.id !== id))
+             localStorage.setItem('cart',JSON.stringify(getCart()))
+             addToCartBtn.classList.remove("hide")
+             removeFromCartBtn.classList.add("hide")
+
+        }
+        addToCartBtn.addEventListener('click',addToCart({
+            name:addToCartBtn.dataset.name,
+            seller:addToCartBtn.dataset.seller,
+            id:addToCartBtn.dataset.id,
+            price:addToCartBtn.dataset.price,
+            img:addToCartBtn.dataset.img
+        }))  
+        removeFromCartBtn.addEventListener('click',removeFromCart(removeFromCartBtn.dataset.id))
+        window.addEventListener("load",()=>{
+            render(getCart(),addToCartBtn,removeFromCartBtn,addToCartBtn.dataset.id)
+        })
+  </script>
+
+  

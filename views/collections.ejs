@@ -2,14 +2,51 @@
 <html>
 <head>
 <%- include("./partials/head.ejs") %>
+<style>
+  .error-container{
+    max-width: 500px;
+    text-align:center;
+    margin-inline:auto;
+    padding:1em;
+}
+</style>
 </head>
 <body>
-    <%- include('./partials/marketplace/sidebar.ejs') %>
+    <%- include('./partials/home/nav.ejs') %>
     <main>
       <section class="vastmint-marketplace-page">
-        <%- include('./partials/marketplace/header.ejs') %>
+        <div class="tabbar-container">
+          <%- include('./partials/marketplace/sidebar.ejs') %>
+          <div class="filter-container">
+            <form class="search-bar vastmint-dark">
+                <input type="text" name="query" class="vastmint-dark vastmint-text-white" placeholder="Search <%= title %>">
+                <button><i class="bi bi-search vastmint-text-white"></i></button>
+            </form>
+        </div>
         <section class="marketplace-main">
-            <%- include('./partials/collections/all-collections.ejs') %>
+          <% if (response.status == "success") { %>
+            <% if (response.collections.length > 0) { %>
+              <%- include('./partials/collections/all-collections.ejs') %>
+            <% } else { %>
+              <br>
+              <div class="" style="text-align:center;max-width:500px;margin-inline:auto">
+                <img src="/assets/nodata.svg" alt="page-not-found" style="max-width:300px;margin-bottom:0.5em;object-fit:contain">
+                <h3 style="font-size: 30px;">Nothing Here</h3>
+                  <p>We don't have any collection yet we will get some soon</p><br>
+                  <a href="/" class="vastmint-primary-400 vastmint-text-white" style="padding:10px 16px;border-radius:30px">Return Home</a>
+              </div>
+            <% } %>
+          <% }else{ %>
+            <div class="error-container p-3 mx-auto" style="max-width: 500px;">
+              <img src="/assets/500.svg" alt="">
+              <p class="fw-semibold mb-0" style="font-size: 30px;">Server Error</p>
+              <p class="mb-0">Sorry could not get this content due some server error Please try again later while we sort this issue out</p><br>
+              <button 
+              onclick="window.location.reload()" 
+              class="mt-0 btn vastmint-primary-400 vastmint-text-white" 
+              style="padding:10px 16px;border-radius:30px;border:none;cursor:pointer;">Refresh</>
+          </div>
+          <% }%>
         </section>
       </section>
     </main>

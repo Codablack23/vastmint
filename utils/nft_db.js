@@ -1,0 +1,6 @@
+class NFTHandler {
+    constructor(props) {
+    
+    }
+    
+}

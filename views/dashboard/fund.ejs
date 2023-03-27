@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/w3css.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <%- include('../partials/dashboard/head.ejs') %>
+    <style>
+        .cart-container{
+            padding-top: 0.5em;
+            max-width: 500px;
+            margin: 1.5em auto;
+            border-radius: 10px;
+            min-height: 200px;
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1em;
+    
+        }
+        .header span{
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .cart-container .heading{
+          font-size: 22px;      
+        }
+        .footer{
+            padding: 1em;
+            border-top: 1px solid #eeee;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .footer h3{
+            font-size: 18px;
+        }
+        .footer p:first-child{
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .footer p{
+            font-size: 12px;
+            text-align: end;
+        }
+        .body{
+            height: 220px;
+            overflow-y: auto;
+        }
+        .cart-item{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-item img{
+            width: 80px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .body{
+            padding: 1em;
+        }
+        .checkout{
+            width: 100%;
+            font-size: 17px;
+            font-weight: 800;
+            border-radius: 10px;
+            padding:0.6em 1em;
+            border: none;
+            cursor: pointer;
+        }
+        .action{
+            display: flex;
+            align-items: center;
+            padding: 0.5em 1em;
+            justify-content: space-between;
+        }
+        .action button{
+            border: none;
+            background:none;
+            cursor: pointer;
+            outline: none;
+        }
+        .empty{
+            text-align: center;
+            display: flex;
+            height: 150px;
+            align-items: center;
+            justify-content: center;
+        }
+        .pay-modal{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 8;
+            display: flex;
+            /**align-items: center;**/
+            justify-content: center;
+        }
+        .pay-modal .dialog{
+            flex: 1;
+            max-width: 400px;
+            margin:2em auto;
+            border-radius: 10px;
+        }
+        .dialog .dialog-header{
+            border-bottom: 1px solid #eee;
+            padding: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .dialog-header button{
+            cursor: pointer;
+            border: 0;
+            background: none;
+            outline: none;
+        }
+        .dialog .dialog-body{
+           padding: 1em;
+        }
+        .dialog-body .total-amount{
+            font-size: 44px;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        .token-list{
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .token-list li{
+            padding: 1em;
+            display: flex;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .token-list li .drop{
+            margin-left: auto;
+            padding: 0;
+            width: 15px;
+            height: 15px;
+            border: 1px solid black;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .token-list li .drop.selected{
+            background: #0E0F13;
+        } 
+        .token-list li img{
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+        }
+        .create-order{
+            margin-top: 2em;
+            width: 100%;
+            font-size: 17px;
+            font-weight: 800;
+            border-radius: 10px;
+            padding:0.6em 1em;
+            border: none;
+            cursor: pointer;
+        }
+        .active-token{
+            padding: 1em;
+        }
+        .active-token .img-container{
+             text-align: center;
+             margin-bottom:1em ;
+        }
+        .active-token img{
+            border-radius: 10px;
+            width: 80%;
+            margin: auto;
+            height: 190px;
+            object-fit: contain;
+            
+        }
+        .fields{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-block:10px;
+            border-top: 1px solid #eee;
+        }
+        .fields .text-content{
+            width: 80%;
+        }
+        /**.fields .button-container{
+          
+        }**/
+        .fields button{
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .loader{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .loader img{
+            max-width: 150px;
+            margin: auto;  
+        }
+        .alert{
+            margin: 1em;
+            padding: 1em;
+            border-radius: 10px;
+        }
+        .alert.alert-failed{
+            background-color:#FFCDD2;
+            border:1px solid #EF9A9A;
+            color: #E53935;
+        } 
+        .alert.alert-success{
+            background-color:#C8E6C9;
+            border:1px solid #A5D6A7;
+            color: #43A047;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+    <%- include('../partials/dashboard/sidebar.ejs') %>
+    <section class="vastmint-dashboard-page">
+    <%- include('../partials/header2.ejs') %>
+    <%- include('../partials/dashboard/header.ejs') %>
+    <p class="fs-4 fw-semi-bold">Fund Account</p>
+    <div class="cart-container vastmint-dark"  id="app">
+        <div class="loader" v-show="loading">
+            <div class="content">
+                <img src="/assets/icons/spinner.jpg" alt="">
+                <p  class="vastmint-text-white">Creating Order</p>
+            </div>
+        </div>
+        <div v-if="response">
+           <div v-if="response.status === 'success'" class="alert alert-success">
+            <p>{{response.message}}</p>
+           </div>
+           <div v-else class="alert alert-failed">
+            <p>{{response.error}}</p>
+           </div>
+        </div>
+        <div class="pay-modal" v-show="isVisible">
+           <div class="dialog vastmint-white vastmint-text-dark">
+              <header class="dialog-header">
+                 <h3>Start Payment</h3>
+                 <button @click="setIsVisible"><i class="bi bi-x-lg"></i></button>
+              </header>
+              <div v-if="showSelect" class="dialog-body">
+                <h3 class="total-amount">{{amount}}ETH</h3>
+                <p class="">Choose Token</p>
+                <ul class="token-list">
+                    <li v-for="token in tokens">
+                        <img :src="token.icon" alt="">
+                        <p style="margin-left: 10px;">{{token.id}}</p>
+                        <button :class="{selected:selectedToken == token.id}" class="drop vastmint-white" @click="selectToken(token.id)"></button>
+                    </li> 
+                </ul>
+                <button v-if="selectedToken" @click="hideSelect" class="create-order vastmint-dark vastmint-text-white">Pay Now</button>
+              </div>
+              <div v-else class="active-token">
+                <button @click="hideSelect" style="border:none;background:none;cursor:pointer;outline:none;"><i class="bi bi-arrow-left"></i></button>
+                  <div class="img-container">
+                    <img :src="activeToken.img" :alt="activeToken.network"/>
+                    <p style="font-size: 14px;" class="vastmint-text-light-400">Please send only {{activeToken.id}} to this address</p>
+                  </div>
+                  <div class="fields">
+                   <div class="text-content">
+                    <p class="vastmint-text-light-500">Wallet Address</p>
+                    <p style="word-break: break-all;font-weight:700">{{activeToken.addr}}</p>
+                   </div>
+                   <div class="flex-container">
+                    <button><i class="bi bi-clipboard"></i></button>
+                   </div>
+                  </div>
+                  <div class="fields">
+                    <div class="text-content">
+                     <p class="vastmint-text-light-500">Network</p>
+                     <p style="word-break: break-all;font-weight:700">{{activeToken.network}}</p>
+                  </div>
+                    
+                   </div>
+                  <button @click="createOrder" class="create-order vastmint-primary-400 vastmint-text-white">I have made this transaction</button>  
+
+              </div>
+
+           </div>
+        </div>
+      <header class="header">
+        <h3 class="heading">Fund your Wallet</h3>
+      </header>
+      <form class="p-2 px-3" @submit="setIsVisible">
+        <div>
+            <p class="mb-1"><b>Amount</b></p>
+            <input 
+            type="text"
+            required
+            v-model="amount"
+            name="price"
+            pattern="\d+|(\d+[.]\d+)"
+            min="0.1"
+            placeholder="Set your floor price"
+            class="w3-border vastmint-dark vastmint-text-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
+        </div><br>
+        <div>
+            <button  v-if="amount > 0"  class="checkout vastmint-primary-400 vastmint-text-white">Create Order</button>
+          </div>
+      </form>
+     
+      </div>
+    </div>
+
+    </section>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+                amount:0,
+                totalUSD:0,
+                isVisible:false,
+                loading:false,
+                response:null,
+                tokens:[
+                 {
+                    id:"ETH",
+                    network:"Ethereum",
+                    icon:"/assets/icons/ether.png",
+                    img:"/assets/eth3.jpg",
+                    addr:"0x834DD6DABaCEa80BfB790ee6C9090518cF2c7741"
+                 },
+                 {
+                    id:"SOL",
+                    network:"Solana",
+                    icon:"/assets/icons/sol.png",
+                    img:"/assets/sol2.jpg",
+                    addr:"8ifYujTRzDHWifroXcvbJLFn9J4fVmrtk9CKzQqxrzmg"
+                 },
+                ],
+                selectedToken:null,
+                showSelect:true
+            }
+        },
+        computed:{
+            activeToken(){
+                    return this.selectToken?this.tokens.find(token=>token.id === this.selectedToken):{}
+            }
+        },
+        watch:{
+            cart(next,prev){
+                this.convert()
+            }
+        },
+        methods:{
+           selectToken(id){
+            this.selectedToken = id
+           },
+           hideSelect(){
+             this.showSelect = !this.showSelect
+           },
+           setIsVisible(e){
+            e.preventDefault()
+            console.log(e)
+            this.isVisible = !this.isVisible
+           },
+          
+           async createOrder(){
+            this.isVisible = !this.isVisible
+            const amount = this.cart.reduce((total,item)=>total + parseFloat(item.price),0)
+             try{
+                console.log(this.cart)
+                console.log(amount)
+                this.loading = true
+                const res = await fetch("/api/payment/create",{
+                    method:"POST",
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                    body:JSON.stringify({
+                       amount,
+                       status:"CREDIT",
+                       type:"Funding"
+                    })
+                })
+                const data = await res.json()
+                this.loading = false
+                console.log(data)
+                this.response = data
+                
+             }catch(e){
+                this.loading = false
+                console.log(e)
+             }
+           }
+        },
+        mounted(){
+            this.cart = localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")):[]
+        }
+    })
+    app.mount("#app")
+</script>
+</html>

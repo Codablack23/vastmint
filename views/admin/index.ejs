@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include("../partials/head.ejs") %>
+<style>
+ .header{
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .title{
+    font-size: 22px;
+ }
+ .data{
+    min-height: 100px;
+ }
+ .tables-list{
+    padding: 0;
+    list-style: none;
+ }
+ .tables-list li{
+    padding: 0.7em;
+ }
+ .vastmint-table-header{
+    max-width:700px ;
+ }
+ 
+ .alert.alert-failed{
+  background-color: #FFCDD2;
+  color: #F44336;
+  margin-bottom: 0.5em;
+ }
+ .alert.alert-success{
+  background-color: #C8E6C9;
+  color: #4CAF50;
+  margin-bottom: 0.5em;
+ }
+
+</style>
+</head>
+<body>
+    <main>
+       <div class="vastmint-dark-2 main-header">
+        <header class="el-container vastmint-text-white header">
+            <p class="title">Artisify Administration</p>
+            <a href="/admin/logout" class="logout">LOGOUT</a>
+        </header>
+       </div>
+       <% if (response) { %>
+          <% if (response.status == "success") { %>
+            <div class="alert alert-success">
+                <div class="el-container">
+                   <p><%= response.message %></p>
+                </div>
+              </div>
+          <% }else{ %>
+            <div class="alert alert-failed">
+                <div class="el-container">
+                   <p><%= response.error %></p>
+                </div>
+              </div>            
+          <% } %>
+       <% } %>
+        <section class="el-container">
+          <div class="vastmint-grid">
+            <div class="grid-col-8  grid-col-md-12">
+                <div class="vastmint-dark">
+                    <div class="data">
+                        <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                            <p>Authorization and Authentication</p>
+                        </header>
+                        <ul class="tables-list">
+                            <li><a href="/admin/users">Users</a></li>
+                        </ul>
+                    </div>
+                </div> 
+                <br>
+                <div class="vastmint-dark">
+                    <div class="data">
+                        <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                            <p>Site Data</p>
+                        </header>
+                        <ul class="tables-list">
+                            <li> <a href="/admin/orders">Orders</a></li>
+                            <li><a href="/admin/transactions">Transactions</a></li>
+                        </ul>
+                    </div>
+                </div>
+               </div>
+               <div class="vastmint-dark grid-col-4 grid-col-md-12">
+                <div class="data">
+                    <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                        <p>Update Mint Fee</p>
+                    </header>
+                    <div class="content" style="padding:1em;">
+                        <p>Current Mint Fee:<%= parseFloat(mint_fee) %>ETH</p><br>
+                        <form action="/admin/mint_fee/update" method="post">
+                            <div>
+                                <p>New Mint Fee</p>
+                                <input name="mint_fee" class="vastmint-dark-2 vastmint-text-white" type="text" style="width:95%;padding:0.5em;border:none;margin-top:2px" name="mint_fee">
+                            </div>
+                            <button class="vastmint-primary-400 vastmint-text-white" style="width:100%;padding:0.5em;border:none;margin-top:10px">Update</button>
+                        </form>
+                    </div>
+                   
+                </div>
+               </div>
+          </div>
+        </section>
+    </main>
+    
+</body>
+</html>

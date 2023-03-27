@@ -1,24 +1,24 @@
 <div class="vastmint-marketplace">
     <p class="title">Related NFTs</p>
     <div class="vastmint-grid">
-      <% for( let index = 0; index < 4; index++ ) { %>
-        <a href="/marketplace/<%= index+1 %>" class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
+       <% if (response.related.length > 0) { %>
+        <% for( nft of response.related ) { %>
+          <a href="/marketplace/<%= nft.nft_id%>" class="nft vastmint-dark-2 grid-col-4 grid-col-md-6 grid-col-xs-12">
             <div class="nft-img">
-               <img src="/assets/nft-<%= index+1 %>.jpg" alt="nft image">
+               <img src="<%= nft.nft_img %>" alt="nft image">
             </div>
             <div class="nft-desc">
                <div class="title-details">
-                   <h3>Golden Spiral</h3>
-                   <button><i class="bi bi-three-dots"></i></button>
+                   <h3><%= nft.name %></h3>
                </div>
-               <p class="author vastmint-text-light-600">@janedoe</p>
+               <p class="author vastmint-text-white">@<%= nft.seller %></p>
                <div class="price-details">
-                   <p class="vastmint-text-dark"><b><%= Math.floor(Math.random * 2) + 1 %> ETH</b></p>
+                   <p class="vastmint-text-white"><b><%= parseFloat(nft.current_price).toFixed(2) %> ETH</b></p>
                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
                </div>
             </div>
-          </a>
-          
-      <% } %>       
+          </a>            
+        <% } %>       
+       <% } %>
     </div>
 </div>

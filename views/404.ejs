@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include("./partials/head.ejs") %>
+<style>
+    .error-container{
+        max-width: 500px;
+        text-align:center;
+        margin-inline:auto;
+        padding:1em;
+    }
+</style>
+</head>
+<body>
+    <%- include('./partials/home/nav.ejs') %>
+    <main>
+        <div class="error-container">
+            <img src="/assets/404.svg" alt="page-not-found" style="max-width:380px;margin-bottom:0.5em">
+                <h3 style="font-size: 24px;margin-bottom:0.5em;">Page Not Found</h3>
+                <p>The page you are looking does not exist or has been deleted or moved</p><br>
+            <button 
+            onclick="window.history.back()" 
+            class="vastmint-primary-400 vastmint-text-white" 
+            style="padding:10px 16px;border-radius:30px;border:none;cursor:pointer;">
+            Go Back
+        </button>
+        </div>
+      </section>
+    </main>
+    
+</body>
+</html>

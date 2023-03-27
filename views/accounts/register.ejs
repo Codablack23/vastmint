@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+   <link rel="stylesheet" href="/css/w3css.css">
+   <link rel="stylesheet" href="/css/vastmint.css">
+   <link rel="stylesheet" href="/css/account.css">
+   <title>Vastmint | <%= title %></title>   
+</head>
+<body>
+   <div class="vastmint-login">
+     <div class="vastmint-dark">
+           <a href="/" class="brand">Vastmint</a>
+            <form action="/accounts/register" method="post" class="login-form">
+               <p class="fw-bold fs-5 w3-center">Register An Account</p>
+               <% if (response.status.toLowerCase() === "failed") { %>
+                  <div class="alert alert-danger p-3 w3-round my-2">
+                     <% if (response.error_type === "field_error") { %>
+                        <ul>
+                           <% for( let i = 0; i < response.errors.length; i++ ) { %>
+                              <li class="mb-0"><small class="text-danger"><%= response.errors[i].msg %></small></li>
+                            <% } %>
+                        </ul>
+                     <% }else{ %>
+                       <p><small class="text-success"><%= response.message %></small></p>
+                     <% } %>
+                  </div>
+                  <br>
+                <% } else{ %>
+                  <% if (response.status === "success") { %>
+                     <div class="alert alert-success text-center">
+                       <p><small class="text-success"><%= response.message %></small></p>
+                       <a href="/accounts/" class="btn btn-success"><small>Login</small></a>
+                     </div>
+                    <% } %>
+                  <% } %>
+                <br>
+               <div class="form-field mb-3">
+                   <label class="d-block fw-semibold" for="">Full Name <span class="text-danger fw-bold">*</span></label>
+                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                    <i class="bi bi-envelope w3-text-grey"></i>
+                    <input 
+                    name="name"
+                    value="<%= values.name?values.name:"" %>"
+                    type="text" 
+                    class="ms-2 vastmint-text-white vastmint-dark-2" 
+                    placeholder="Enter your Full name" 
+                    style="width:90%;border:none;outline:none"
+                    >
+                  </div>
+               </div>
+                <div class="form-field mb-3">
+                   <label class="d-block fw-semibold" for="">Username <span class="text-danger fw-bold">*</span></label>
+                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                    <i class="bi bi-envelope w3-text-grey"></i>
+                    <input 
+                    name="username"
+                    value="<%= values.username?values.username:"" %>"
+                    type="text" class="ms-2 vastmint-text-white vastmint-dark-2" 
+                    placeholder="Pick a username" 
+                    style="width:90%;border:none;outline:none"
+                    >
+                  </div>
+               </div>
+                <div class="form-field mb-3">
+                   <label class="d-block fw-semibold" for="">Email <span class="text-danger fw-bold">*</span></label>
+                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                    <i class="bi bi-envelope w3-text-grey"></i>
+                    <input 
+                    name="email"
+                    style="border:none;outline:none"
+                    value="<%= values.email?values.email:"" %>"
+                    type="text" class="vastmint-text-white ms-2 vastmint-dark-2" 
+                    placeholder="Enter your email" 
+                    style="width:90%;outline:none;"
+                    >
+                  </div>
+               </div>
+               <div class="form-field mb-3">
+                   <label for="" class="d-block fw-semibold">Password</label>
+                   <div class="d-flex align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                    <i class="bi bi-key w3-text-grey"></i>
+                       <input 
+                       name="password"
+                       type="password" 
+                       value="<%= values.password?values.password:"" %>"
+                       class="ms-2 vastmint-text-white vastmint-dark-2"
+                       placeholder="Pick a password" 
+                       style="width:90%;outline:none;border:none;"
+                       >
+                       <button class="btn p-0" type="button"><i class="bi bi-eye-slash"></i></button>
+                   </div>
+               </div> 
+               <div class="form-field mb-4">
+                   <label for="" class="d-block fw-semibold">Confirm Password</label>
+                   <div class="d-flex align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                    <i class="bi bi-key w3-text-grey"></i>
+                       <input 
+                       type="password" 
+                       value="<%= values.password?values.password:"" %>"
+                       class="ms-2 vastmint-text-white vastmint-dark-2" 
+                       placeholder="Confirm your password" 
+                       style="border:none;width:90%;outline:none;"
+                       >
+                       <button class="btn p-0" type="button"><i class="bi bi-eye-slash"></i></button>
+                   </div>
+               </div>
+               <button class="btn w-100 w3-round-xxlarge vastmint-primary-400 vastmint-text-white">Continue</button>
+               <p class="text-center my-3">Already Have an account? <a href="/accounts/"><b>Login</b></a></p>
+            </form>
+            <p class="my-5 w3-text-grey text-center"><small>© Copyright 2023 Vastmint All Rights Reserved.</small></p>
+     </div>
+     <div class="picture-section">
+
+     </div>
+   </div>    
+</body>
+</html>

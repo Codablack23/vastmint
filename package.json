@@ -2,7 +2,7 @@
   "name": "vastmint",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-sass": "npx gulp",
@@ -21,18 +21,28 @@
   },
   "homepage": "https://github.com/Codablack23/vastmint#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-session-sequelize": "^7.1.5",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
     "express-validator": "^6.15.0",
     "gulp": "^4.0.2",
     "gulp-sass": "^5.1.0",
+    "joi": "^17.8.4",
+    "jsonwebtoken": "^9.0.0",
+    "lazerpay-node-sdk": "^0.2.5",
+    "mysql2": "^3.2.0",
+    "nodemailer": "^6.9.1",
     "sequelize": "^6.29.0",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "dependency-cruiser": "^12.10.1",
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0",
     "webpack": "^5.75.0"

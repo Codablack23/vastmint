@@ -1,23 +1,31 @@
 <div class="collection-artworks">
     <h3 class="title">Artworks</h3>
+   <% if (response.seller.nfts.length > 0) { %>
     <div class="vastmint-grid">
-    <% for( let index = 1; index < 7; index++ ) { %>
-      
-            <a href="/marketplace/<%= index %>" class="nft vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-h-15">
-              <div class="nft-img">
-                 <img src="/assets/nft-<%= index + 1  %>.jpg" alt="nft image">
-              </div>
-              <div class="nft-desc">
-                 <div class="title-details">
-                     <h3>Golden Spiral</h3>
-                     <button><i class="bi bi-three-dots"></i></button>
-                 </div>
-                 <div class="price-details">
-                     <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                     <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                 </div>
-              </div>
-            </a>
-    <% } %>
-  </div>
+      <% for( nft of response.seller.nfts ) { %>
+        
+              <a href="/marketplace/<%= nft.nft_id %>" class="nft vastmint-dark-2 grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-h-15">
+                <div class="nft-img">
+                   <img src="<%= nft.nft_img  %>" alt="nft image">
+                </div><br>
+                <div class="nft-desc">
+                   <div class="title-details">
+                       <h3><%= nft.name  %></h3>
+                   </div>
+                   <div class="price-details">
+                       <small class="vastmint-text-white">Current Volume: <b><small><%= parseFloat(nft.current_price )%> ETH</small></b></small>
+                       <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
+                   </div>
+                </div>
+              </a>
+      <% } %>
+    </div>
+   <% }else{%>
+    <div class="" style="text-align:center">
+      <img src="/assets/nodata.svg" alt="page-not-found" style="max-width:380px;margin-bottom:0.5em;object-fit:contain">
+      <h3 style="font-size: 22px;">Nothing Here</h3>
+      <p>This seller does not have any minted NFT artwork yet</p><br>
+   </div>
+   <% }%>
+
 </div>

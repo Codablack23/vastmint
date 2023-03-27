@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include("./partials/head.ejs") %>
+<style>
+    .error-container{
+        max-width: 500px;
+        text-align:center;
+        margin-inline:auto;
+        padding:1em;
+    }
+</style>
+</head>
+<body>
+    <%- include('./partials/home/nav.ejs') %>
+    <main>
+        <div class="error-container">
+            <img src="/assets/500.svg" alt="">
+            <p class="fw-semibold mb-0" style="font-size: 30px;">Internal Server Error</p>
+            <p class="mb-0">Sorry could not get this content due some server error Please try again later while we sort this issue out</p><br>
+            <button 
+            onclick="window.location.reload()"
+            class="vastmint-primary-400 vastmint-text-white"  
+            style="padding:10px 16px;border-radius:30px;border:none;cursor:pointer;">
+             Refresh
+            </>
+        </div>
+    </main>
+    
+</body>
+</html>

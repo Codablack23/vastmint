@@ -1,18 +1,24 @@
 <div class="vastmint-artists">
     <div class="vastmint-grid">
-       <% for( let index = 0; index < 8; index++ ) { %>
-        <a href="/sellers/<%= index + 1 %>" class="artist vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-35">
-            <div class="artist-img">
-               <img src="/assets/nft-<%= index + 1 %>.jpg" alt="nft image">
-            </div>
+       <% for( let index = 0; index < response.sellers.length; index++ ) { %>
+        <a href="/sellers/<%= response.sellers[index].username %>" class="artist vastmint-dark-2 grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-35">
+           <div class="artist-banner vastmint-dark-gradient">
+            <% if (response.sellers[index].banner_img) { %>
+               <img src="<%= response.sellers[index].banner_img%>" alt="" class="banner-img">
+            <% } %>
+            <div class="artist-img" style="display:flex;justify-content:center;align-items:center;">
+                 <% if (response.sellers[index].img_profile) { %>
+                   <img src="<%= response.sellers[index].img_profile %>" alt="nft image">
+                 <% }else{ %>
+                 <i class="bi bi-person" style="font-size: 26px;"></i>
+                 <% }%>
+             </div>
+           </div>
             <div class="artist-desc">
-               <div class="title-details">
-                   <h3>Jane Doe</h3>
-               </div>
-               <p class="author vastmint-text-light-600">@janedoe</p>
+               <p class="author vastmint-text-white">@<%= response.sellers[index].username %></p>
                <div class="price-details">
-                   <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*30) + 1 %> Collections</b></p>
-                   <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*1000) %> Minted Art</b></p>
+                   <small class="vastmint-text-white"><b><%= response.sellers[index].collections.length %> Collections</b></small>
+                   <!-- <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*1000) %> Minted Art</b></p> -->
                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
                </div>
             </div>

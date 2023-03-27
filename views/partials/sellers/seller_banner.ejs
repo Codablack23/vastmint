@@ -1,18 +1,24 @@
-<section class="seller-banner-container vastmint-white">
+<section class="seller-banner-container vastmint-card vastmint-dark">
   <div class="seller-banner vastmint-min-h-15 vastmint-grid vastmint-white">
-    
+    <% if (response.seller.banner_img) { %>
+      <img src="<%= response.seller.banner_img %>" alt="">
+   <% } %>
   </div>
-    <div class="profile-img">
-       <img src="/assets/nft-<%= seller_id %>.jpg" alt="">
+    <div class="profile-img vastmint-card" style="display: flex;align-items:center;justify-content:center;">
+       <% if (response.seller.img_profile) { %>
+          <img src="<%= response.seller.img_profile %>" style="object-fit:cover" alt="">
+       <% } else { %>
+          <img src="https://random.imagecdn.app/500/150">
+       <% }%>
     </div>
     <div class="seller-desc">
       <div>
-          <h3 class="title">Jane Doe</h3>    
-          <p class="vastmint-text-light-500">@janedoe</p><br>
+          <h3 class="title"><%= response.seller.name %></h3>    
+          <p class="vastmint-text-white">@<%= response.seller.username %></p><br>
       </div>
       <div class="more-desc">
-         <p><b>5</b> Collections</p>
-         <p><b>40</b> Artworks</p>
+         <p><b><%= response.seller.collections.length %></b> Collections</p>
+         <p><b><%= response.seller.nfts.length %></b> Artworks</p>
       </div>
     </div>
   

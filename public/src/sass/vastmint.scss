@@ -33,6 +33,9 @@
 img{
     width: 100%
 }
+.vastmint-dark-gradient{
+    background:linear-gradient(45deg,#fff,#000);
+}
 @import "./colors";
 @import "./sizes";
 @import "./grid"

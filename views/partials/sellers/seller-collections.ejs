@@ -1,24 +1,30 @@
 <div class="vastmint-collections">
-    <h3>Collections (4)</h3>
+    <h3>Collections (<%= response.seller.collections.length %>)</h3>
     <br>
-    <div class="vastmint-grid">
-       <% for( let index = 0; index < 4; index++ ) { %>
-        <a href="/collections/<%= index +1 %>" class="collection vastmint-white grid-col-6 grid-col-md-6 grid-col-xs-12 vastmint-card">
-            <img src="/assets/nft-<%= index + 1 %>.jpg" alt="nft image">
-         <div class="collection-desc">
-           
-            <div class="price-details">
-              <div class="title-details">
-                  <h3>NFT collection <%= index+1 %></h3>
-               </div>
-               <div>
-                 <!-- <p class="author">@janedoe</p> -->
-                 <p class=""><b><%= Math.floor(Math.random()*100) + 5 %> Art</b></p>
-               </div>
-            </div>
+      <% if (response.seller.collections.length > 0) { %>
+         <div class="vastmint-grid">
+         <% for( collection of response.seller.collections ) { %>
+            <a href="/collections/<%= collection.collection_id %>" class="collection vastmint-white grid-col-6 grid-col-md-6 grid-col-xs-12 vastmint-card">
+                <img src="<%= collection.banner_img %>" alt="nft image">
+             <div class="collection-desc">
+               
+                <div class="price-details">
+                  <div class="title-details">
+                      <h3><%= collection.name %></h3>
+                   </div>
+                   <div>
+                     <!-- <p class="author">@janedoe</p> -->
+                   </div>
+                </div>
+             </div>
+           </a>
+           <% } %>
          </div>
-       </a>
-       <% } %>
-       
-    </div>
+      <% } else { %>
+         <div class="" style="text-align:center">
+            <img src="/assets/nodata.svg" alt="page-not-found" style="max-width:380px;margin-bottom:0.5em;object-fit:contain">
+            <h3 style="font-size: 22px;">Nothing Here</h3>
+            <p>This seller does not have any collection</p><br>
+         </div>
+      <% } %>
 </div>

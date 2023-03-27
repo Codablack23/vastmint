@@ -2,15 +2,49 @@
 <html>
 <head>
 <%- include("./partials/head.ejs") %>
+<style>
+  .error-container{
+    max-width: 500px;
+    text-align:center;
+    margin-inline:auto;
+    padding:1em;
+}
+</style>
 </head>
 <body>
-    <%- include('./partials/marketplace/sidebar.ejs') %>
+    <%- include('./partials/home/nav.ejs') %>
     <main>
       <section class="vastmint-marketplace-page">
-        <%- include('./partials/header2.ejs') %>
         <section class="marketplace-main">
+          <br>
+          <% if (response.status == "failed") { %>
+            <% if (response.status_code == "404") { %>
+             <div class="error-container">
+               <img src="/assets/404.svg" alt="page-not-found" style="max-width:380px;margin-bottom:0.5em">
+                   <h3 style="font-size: 24px;margin-bottom:0.5em;font-weight:600">Collection Not Found</h3>
+                   <p><%= response.error %></p><br>
+               <button 
+               onclick="window.history.back()" 
+               class="vastmint-primary-400 vastmint-text-white" 
+               style="padding:10px 16px;border-radius:30px;border:none;cursor:pointer;">
+               Go Back
+           </button>
+           </div>
+            <% }else{ %>
+             <div class="error-container p-3 mx-auto" style="max-width: 500px;">
+               <img src="/assets/500.svg" alt="">
+               <p class="fw-semibold mb-0" style="font-size: 30px;">Server Error</p>
+               <p class="mb-0">Sorry could not get this content due some server error Please try again later while we sort this issue out</p><br>
+               <button 
+               onclick="window.location.reload()" 
+               class="mt-0 btn vastmint-primary-400 vastmint-text-white" 
+               style="padding:10px 16px;border-radius:30px;border:none;cursor:pointer;">Refresh</>
+           </div>
+            <% } %>
+         <% }else{ %>
           <%- include('./partials/collections/collection_banner.ejs') %>
           <%- include('./partials/collections/nfts.ejs') %>
+         <% } %>
         </section>
       </section>
     </main>

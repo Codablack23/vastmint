@@ -1,143 +1,21 @@
-<section class="vastmint-marketplace main-container vastmint-min-vh-100">
-   <header class="header">
-     <h3>Our NFT Marketplace</h3>
-     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum quo iure itaque porro nesciunt esse id natus ipsa neque dignissimos laborum voluptatum, pariatur delectus molestiae minus veritatis perspiciatis maiores inventore.</p>
-   </header><br>
-   <!-- <ul class="tags">
-    <li>All</li>
-    <li>Art</li>
-    <li>Trading</li>
-    <li>All</li>
-   </ul> -->
+<section class="vastmint-home-marketplace main-container vastmint-min-vh-100">
+    <br>
+   <p class="title">Trending NFT</p>
+   <br>
    <div class="vastmint-grid">
-       <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-         <div class="nft-img">
-            <img src="/assets/nft-1.jpg" alt="nft image">
-         </div>
-         <div class="nft-desc">
-            <div class="title-details">
-                <h3>Golden Spiral</h3>
-                <button><i class="bi bi-three-dots"></i></button>
-            </div>
-            <p class="author vastmint-text-light-600">@janedoe</p>
-            <div class="price-details">
-                <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-            </div>
-         </div>
-       </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
+      <% for( let index = 0; index < 8; index++ ) { %>
+        <div class="nft grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card">
+          <p class="author vastmint-white vastmint-text-dark vastmint-card">
+            <small style="font-size: 12px;">Author Here</small>
+          </p>
             <div class="nft-img">
-              <img src="/assets/nft-2.jpg" alt="nft image">
+              <img src="/assets/nft-<%= index+1 %>.jpg" alt="nft image">
             </div>
             <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Rubiks Cube</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
+               <p><b>Some Title Here</b></p>
+               <p style="font-size: 12px;"><small>Current Price <b>1.5ETH</b></small></p>
+              </div>
         </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-              <img src="/assets/nft-3.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Marcs Temple</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-              <img src="/assets/nft-4.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Bad Boy</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-              <img src="/assets/nft-5.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Girl Ninja</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-              <img src="/assets/nft-6.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Astronaut in the Ocean</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div>
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-             <img src="/assets/nft-7.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Milky way</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div> 
-        <div class="nft vastmint-white grid-col-3 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-45">
-            <div class="nft-img">
-              <img src="/assets/nft-8.jpg" alt="nft image">
-            </div>
-            <div class="nft-desc">
-                <div class="title-details">
-                    <h3>Golden Vision</h3>
-                    <button><i class="bi bi-three-dots"></i></button>
-                </div>
-                <p class="author vastmint-text-light-600">@janedoe</p>
-                <div class="price-details">
-                    <p class="vastmint-text-dark"><b>2.3 ETH</b></p>
-                    <!-- <p class="vastmint-text-dark"><b>50 SOL</b></p> -->
-                </div>
-             </div>
-        </div>
+      <% } %>     
    </div>
-   <a href="/marketplace" class="see-all-btn vastmint-dark vastmint-text-white">See All</a>
 </section>
