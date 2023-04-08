@@ -17,6 +17,7 @@ const { Server } = require("socket.io")
 const adminRoute = require("./routes/admin")
 const bcrypt = require("bcrypt")
 const { MintFee } = require("./models/init")
+const { uploadToCloudinary } = require("./utils/upload")
 const app = express()
 
 const server = require("http").createServer(app)
@@ -53,6 +54,7 @@ connectDB(sequelize).then(async(data)=>{
 app.set("view engine","ejs")
 app.use(express.json())
 app.use(fileUpload({
+    useTempFiles: true,
     limits:{
         fileSize:FILE_LIMIT
     },
@@ -108,32 +110,21 @@ app.post("/upload/",async(req,res)=>{
        response.errr = "No files were uploaded."
     }
     else{
-        const uploadPath = uploadFolder + file.name
-        console.log(uploadPath)
-        const fileExists = fs.existsSync(`./public/uploads/${file.name}`)
-        if(fileExists){
-            response.err = ""
-            response.status = "success"
-            response.img_url = origin + "/uploads/" + file.name
-        }else{
-            const uploadRes = file.mv(uploadPath)
-            if(uploadRes){
-                response.err = ""
-                response.status = "success"
-                response.img_url = origin + "/uploads/" + file.name
-            }else{
-                response.status ="failed",
-                response.errr = "No files were uploaded."
-        }
-        }
+     const uploadRes = await uploadToCloudinary(file)
+     if(uploadRes.status == "success"){
+        response.img_url = uploadRes.url
+        response.err = ""
+        response.status = "success"
+     }else{
+         response.status ="failed"
+         response.errr = "Could not upload this file due to some server error please try again later."
+     }
     }
     res.json(response)
 })
 app.post("/upload/profile-img",async(req,res)=>{
     const {username} = req.session.user
-    const uploadFolder = __dirname + "/public/uploads/"
     const file = req.files.file
-    const origin = req.headers.origin
     const response = {
         status:"pending",
         message:"",
@@ -146,39 +137,23 @@ app.post("/upload/profile-img",async(req,res)=>{
     }
     else{
        try {
-        const uploadPath = uploadFolder + file.name
-        console.log(uploadPath)
-        const fileExists = fs.existsSync(`./public/uploads/${file.name}`)
-        if(fileExists){
-            await UserModel.update({
-                img_profile: origin + "/uploads/" + file.name
-            },{
-                where:{
-                    username
-                }
-            })
-            response.err = ""
-            response.status = "success"
-            response.message = "Profile picture updated successfully"
-        }else{
-            const uploadRes = file.mv(uploadPath)
-            await UserModel.update({
-                img_profile: origin + "/uploads/" + file.name
-            },{
-                where:{
-                    username
-                }
-            })
-            if(uploadRes){
-                response.err = ""
-                response.status = "success"
-                response.message = "Profile picture updated successfully"
-            }else{
-                response.status ="failed",
-                response.errr = "could not update profile picture"
+        const uploadRes = await uploadToCloudinary(file)
+        if(uploadRes.status == "success"){
+           response.img_url = uploadRes.url
+           response.err = ""
+           response.status = "success"
+           await UserModel.update({
+            img_profile: uploadRes.url
+        },{
+            where:{
+                username
             }
-
+        })
+        }else{
+            response.status ="failed"
+            response.errr = "Could not upload this file due to some server error please try again later."
         }
+
        } catch (error) {
          response.status ="failed",
          response.errr = "could not update profile image"
@@ -188,9 +163,7 @@ app.post("/upload/profile-img",async(req,res)=>{
 })
 app.post("/upload/banner-img",async(req,res)=>{
     const {username} = req.session.user
-    const uploadFolder = __dirname + "/public/uploads/"
     const file = req.files.file
-    const origin = req.headers.origin
     const response = {
         status:"pending",
         message:"",
@@ -203,39 +176,23 @@ app.post("/upload/banner-img",async(req,res)=>{
     }
     else{
        try {
-        const uploadPath = uploadFolder + file.name
-        console.log(uploadPath)
-        const fileExists = fs.existsSync(`./public/uploads/${file.name}`)
-        if(fileExists){
-            await UserModel.update({
-                banner_img: origin + "/uploads/" + file.name
-            },{
-                where:{
-                    username
-                }
-            })
-            response.err = ""
-            response.status = "success"
-            response.message = "Profile picture updated successfully"
-        }else{
-            const uploadRes = file.mv(uploadPath)
-            await UserModel.update({
-                banner_img: origin + "/uploads/" + file.name
-            },{
-                where:{
-                    username
-                }
-            })
-            if(uploadRes){
-                response.err = ""
-                response.status = "success"
-                response.message = "Profile picture updated successfully"
-            }else{
-                response.status ="failed",
-                response.errr = "could not update profile picture"
+        const uploadRes = await uploadToCloudinary(file)
+        if(uploadRes.status == "success"){
+           response.img_url = uploadRes.url
+           response.err = ""
+           response.status = "success"
+           await UserModel.update({
+            banner_img: uploadRes.url
+        },{
+            where:{
+                username
             }
-
+        })
+        }else{
+            response.status ="failed"
+            response.errr = "Could not upload this file due to some server error please try again later."
         }
+
        } catch (error) {
          response.status ="failed",
          response.errr = "could not update profile image"

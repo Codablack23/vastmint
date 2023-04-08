@@ -12,7 +12,7 @@ module.exports={
         const {amount,type,status} = req.body
         const {name} = req.session.user
         const origin = req.headers.origin
-        const {username} = req.session.user
+        const {username,email} = req.session.user
         let response = {
             status:"loading",
             message:"loading",
@@ -21,6 +21,7 @@ module.exports={
         }
         try {
             const payment_id = v4()
+            console.log(req.body)
             await Transaction.create({
                 payment_id,
                 state:"pending",
@@ -65,7 +66,8 @@ module.exports={
     },
     async completePayment(req,res){
         const {payment_id} = req.params
-        const {username,name} = req.session.user
+        const origin = req.headers.origin
+        const {username,name,email} = req.session.user
         let response = {
             status:"loading",
             message:"loading",
@@ -146,11 +148,11 @@ module.exports={
            }) 
            const nftResponse = await NFTModel.findOne({
             where:{
-                name
+                name:reciever
             }
            })
-           console.log(nftResponse)
-           if(!nftResponse){
+           console.log({nftResponse})
+           if(nftResponse == null){
             const nft_id = v4()
             await NFTModel.create({
               name,
@@ -320,13 +322,14 @@ module.exports={
         const balance = await getBalance(username)
         const mint_fee = await getMintFee()
     
-        console.log({mint_fee,balance})
+        console.log({mint_fee,balance,name})
         if(balance > mint_fee){
-            const nft = NFTModel.findOne({
+            const nft = await NFTModel.findOne({
                 where:{
                     name,
                 }
             })
+            console.log({nft})
             if(nft){
                 response.status="failed"
                 response.error="NFT name already exists please try a unique name"

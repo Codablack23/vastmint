@@ -334,6 +334,7 @@ mintBtn.addEventListener('click',async(e)=>{
           viewMint.href = `/dashboard/art/${resData.data.nft_id}`
         }
     } catch (error) {
+        toggleLoader(loader,true)
         showError(errEL,"Sorry could not connect to sever")
     }
 })

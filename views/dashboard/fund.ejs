@@ -298,12 +298,7 @@
                     <button><i class="bi bi-clipboard"></i></button>
                    </div>
                   </div>
-                  <div class="fields">
-                    <div class="text-content">
-                     <p class="vastmint-text-light-500">Network</p>
-                     <p style="word-break: break-all;font-weight:700">{{activeToken.network}}</p>
-                  </div>
-                    
+                  <div class="fields">                    
                    </div>
                   <button @click="createOrder" class="create-order vastmint-primary-400 vastmint-text-white">I have made this transaction</button>  
 
@@ -393,7 +388,7 @@
           
            async createOrder(){
             this.isVisible = !this.isVisible
-            const amount = this.cart.reduce((total,item)=>total + parseFloat(item.price),0)
+             amount = this.amount
              try{
                 console.log(this.cart)
                 console.log(amount)
@@ -414,10 +409,13 @@
                 this.loading = false
                 console.log(data)
                 this.response = data
+
+                if(data.status !== "failed"){
+                    setTimeout(()=>{window.location.assign("/dashboard/wallets")},3000)
+                }
                 
              }catch(e){
                 this.loading = false
-                console.log(e)
              }
            }
         },
