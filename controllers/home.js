@@ -3,10 +3,30 @@ const {Op} = require("sequelize")
 const { NFTModel, NFTCollection,NFTHistory } = require("../models/nfts")
 
 
-function getHomePage(req,res){
+async function getHomePage(req,res){
+    let response;
+    try {
+        const collections = await NFTCollection.findAll()
+        const nfts = await NFTModel.findAll()
+        response = {
+            collections,
+            nfts,
+            status:"success",
+            error:""
+        }
+    } catch (error) {
+       console.log(error)
+        response = {
+            collections:[],
+            nfts:[],
+            status:"failed",
+            error:"Could not fetch your collection"
+        }
+    }
     res.render("index.ejs",{
         title:"Home",
-        user:req.session.user
+        user:req.session.user,
+        response
     })
 }
 
@@ -33,7 +53,6 @@ async function getCollectionsPage(req,res){
             error:"Could not fetch your collection"
         }
     }
-    console.log(response)
     res.render("collections.ejs",{
         title:"Collections",
         page:"collections",

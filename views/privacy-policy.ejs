@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<%- include("./partials/head.ejs") %>
+<style>
+    .section{
+        margin-block: 1em;
+    }
+    .text-center{
+        text-align: center;
+    }
+    .section h3{
+        font-size: 20px;
+    }
+    .section p{
+        font-size: 16px;
+        color: lightgrey;
+    }
+</style>
+</head>
+<body>
+    <main>
+        <%- include("./partials/home/nav.ejs") %>
+        <section class="vastmint-dark el-container" style="padding:3em;margin:3em auto;">
+            <h3 style="text-align: center;font-size:24px">Privacy Policy</h3>
+            <p class="text-center" style="margin:1em auto;font-size:14px;color:lightgrey">
+                Our website is committed to protecting the privacy and security of our users’ personal information. This privacy policy (“Privacy Policy”) outlines the types of personal information we collect, how we use and protect that information, and your rights with respect to your personal information.
+            </p>
+            <div class="section">
+                <h3>Personal Information We Collect</h3>
+                <p>We may collect the following types of personal information from you:</p><br>
+                <p>- Account Information: When you register for an account on the Website, we collect your name, email address, and password.</p>
+                <p>- Payment Information: If you purchase an NFT on the Website, we collect your credit card or other payment information.</p>
+                <p>- Contact Information: If you contact us with a question or concern, we may collect your name and email address.</p>
+                <p>- Technical Information: We may collect technical information about your use of the Website, such as your IP address, browser type, and operating system.</p>
+            </div>  
+            <div class="section">
+                <h3>Use of Personal Information</h3>
+                <p>We use your personal information for the following purposes:</p>
+                <br>
+                <p>- To provide you with access to the Website and its features;</p>
+                <p>- To process and fulfill your orders for NFTs;</p>
+                <p>- To respond to your questions and concerns;</p>
+                <p>- To analyze and improve the Website and its content;</p>
+                <p>- To comply with legal requirements and defend our legal rights.</p>
+            </div>
+            <div class="section">
+                <h3> Sharing of Personal Information</h3>
+                <p>- We do not sell, rent, or share your personal information with third parties for their marketing purposes. However, we may share your personal information with the following third parties for the following purposes:</p>
+                <p>- Service Providers: We may share your personal information with service providers who help us operate the Website and provide our services.</p>
+                <p>- Legal Compliance: We may share your personal information to comply with legal requirements or to defend our legal rights.</p>
+                <p>- Merger or Acquisition: We may share your personal information in connection with a merger, acquisition, or other business combination.</p>
+            </div>
+            <div class="section">
+                <h3>Security of Personal Information</h3>
+                <p>We take reasonable measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
+            </div>
+           <div class="section">
+             <h3>Your Rights with Respect to Personal Information</h3>
+             <p>You have the following rights with respect to your personal information:</p><br>
+             <p>- Right to Access: You have the right to request access to the personal information we have about you.</p>
+             <p>- Right to Correction: You have the right to request correction of any inaccurate personal information we have about you.</p>
+             <p>- Right to Deletion: You have the right to request deletion of your personal information.</p>
+             <p>- Right to Object: You have the right to object to our processing of your personal information.</p>
+             <p>- Right to Data Portability: You have the right to receive a copy of your personal information in a structured, machine-readable format.</p>
+           </div>           
+           <!-- <div class="section text-center">
+            <h3>Contact Us</h3>
+            <p>
+            If you have any questions or concerns about this Privacy Policy or our use of your personal information, please contact us at [Contact Information].
+            </p>
+           </div> -->
+        </section>
+        <%- include("./partials/home/footer.ejs") %>
+    </main>
+    
+</body>
+</html>

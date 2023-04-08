@@ -16,8 +16,11 @@ const {
     getCollectionPage,
     getFundPage,
     fundAccount,
-    createTransaction
+    createTransaction,
+    getWithdrawPage,
+    processWithdraw
  } = require("../controllers/dashboard")
+const { checkWithDrawBalance } = require("../middlewares/checkBalance")
 
 
 const DashboardRoute = express.Router()
@@ -37,6 +40,8 @@ DashboardRoute.get("/notifications",getNotificationsPage)
 DashboardRoute.get("/wallets",getWalletPage)
 DashboardRoute.get("/change-password",getSettingsPage)
 DashboardRoute.get("/fund",getFundPage)
+DashboardRoute.get("/withdraw",getWithdrawPage)
+DashboardRoute.post("/withdraw",checkWithDrawBalance,processWithdraw)
 DashboardRoute.post("/fund",createTransaction)
 DashboardRoute.post("/change-password",changePassword)
 

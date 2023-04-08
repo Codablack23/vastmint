@@ -3,17 +3,17 @@
    <p class="title">Trending NFT</p>
    <br>
    <div class="vastmint-grid">
-      <% for( let index = 0; index < 8; index++ ) { %>
+      <% for( let nft of response.nfts ) { %>
         <div class="nft grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card">
           <p class="author vastmint-white vastmint-text-dark vastmint-card">
-            <small style="font-size: 12px;">Author Here</small>
+            <small style="font-size: 12px;">@<%= nft.seller %></small>
           </p>
             <div class="nft-img">
-              <img src="/assets/nft-<%= index+1 %>.jpg" alt="nft image">
+              <img src="<%= nft.nft_img %>" alt="nft image">
             </div>
             <div class="nft-desc">
-               <p><b>Some Title Here</b></p>
-               <p style="font-size: 12px;"><small>Current Price <b>1.5ETH</b></small></p>
+               <p><b><%= nft.name %></b></p>
+               <p style="font-size: 12px;"><small>Current Price <b><%= nft.current_price %>ETH</b></small></p>
               </div>
         </div>
       <% } %>     

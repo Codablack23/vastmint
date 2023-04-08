@@ -3,13 +3,13 @@
    <p class="title">Trending Collections</p>
    <br>
    <div class="vastmint-grid">
-      <% for( let index = 0; index < 8; index++ ) { %>
+      <% for( collection of response.collections ) { %>
         <div class="nft grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card">
           <p class="author vastmint-white vastmint-text-dark vastmint-card">
-            <small style="font-size: 12px;">Collection Here</small>
+            <small style="font-size: 12px;"><%= collection.name %></small>
           </p>
             <div class="nft-img">
-              <img src="/assets/nft-<%= index+1 %>.jpg" alt="nft image">
+              <img src="<%= collection.banner_img %>" alt="nft image">
             </div>
         </div>
       <% } %>     

@@ -3,7 +3,6 @@ const nodemailer = require("nodemailer")
 
 module.exports.sendMail=async({from,to,html,subject})=>{
     const testAccount = await nodemailer.createTestAccount()
-   console.log(testAccount)
    const response = {
     status:"pending",
     preview_url:null,
@@ -21,23 +20,25 @@ module.exports.sendMail=async({from,to,html,subject})=>{
     //       pass: "@vastmint_password", // generated ethereal password
     //     },
     // }
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    host: process.env.EMAIL_SERVER,
+    name:"artisfymint.com",
+    port:  465,
+    secure: true,// true for 465, false for other ports
     auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass, // generated ethereal password
+      user: process.env.EMAIL_USER, // generated ethereal user
+      pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   })
 
     const info = await transporter.sendMail({
-        from,
+        from:'"Artifymint" <support@artisfymint.com>',
         to,
         html,
         subject,
         text:null
      })
 
+    console.log(info)
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     response.error = null

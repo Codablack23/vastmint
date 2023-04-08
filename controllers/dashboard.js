@@ -3,6 +3,7 @@ const {UserModel,Notifications} = require("../models/accounts")
 const bcrypt = require("bcrypt")
 const { v4 } = require("uuid")
 const { calcBalance } = require("../utils/getBalance")
+
 module.exports = {
     async getDashboardHome(req,res){
      const {user} = req.session
@@ -260,6 +261,51 @@ module.exports = {
             title:"Mint NFT",
             page:"mint-nft"
          })
+    },  
+    getWithdrawPage(req,res){
+        res.render("dashboard/withdraw.ejs",{
+            title:"Withdraw",
+            page:"withdraw",
+            response:null
+         })
+    },  
+    async processWithdraw(req,res){
+        const {amount} = req.body
+        const{username} = req.session.user
+        let response ={
+            status:"failed",
+            message:"",
+            error:"pending process",
+            data:null 
+        };
+        try {
+            const payment_id = v4()
+            await Transaction.create({
+                payment_id,
+                state:"pending",
+                user:username,
+                amount,
+                type:"withdraw",
+                status:"DEBIT"
+            })
+            response = {
+                status:"success",
+                data:{
+                payment_id
+                },
+                error:"",
+                message:"Withdrawal has been started successfully and is now pending"
+            }
+        } catch (error) {
+            console.log(error)
+            response = {
+                status:"failed",
+                message:"",
+                error:"An error occured in the server please try again later",
+                data:null 
+            }
+        }
+        res.json(response)
     },   
     async getCreateCollectionPage(req,res){
         res.render("dashboard/create_collection.ejs",{

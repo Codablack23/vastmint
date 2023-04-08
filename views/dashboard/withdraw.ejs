@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/w3css.css">
+    <%- include('../partials/dashboard/head.ejs') %>
+    <style>
+        .dotted-border{
+            border: 1px dashed black;
+            width: 100%;
+            height: 180px;
+           }
+        .hide{
+            display: none;
+        } 
+        input:invalid.invalid{
+            border: 1px solid red;
+        }
+        .loader-modal{
+           align-items: center;
+           justify-content: center;
+           position: fixed;
+           top: 0;
+           z-index: 10;
+           right: 0;
+           width: 100%;
+           height: 100%;
+           background-color: rgba(0,0,0,0.5);
+        }
+        .loader-modal .dialog{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 250px;
+            min-height: 200px;
+        }
+        input{
+            color: #fff;
+            background:none;
+        }
+    </style>
+</head>
+<body>
+
+  <main>
+    
+    <%- include('../partials/dashboard/sidebar.ejs') %>
+    <section class="vastmint-dashboard-page">
+    <%- include('../partials/header2.ejs') %>
+    <%- include('../partials/dashboard/header.ejs') %>
+    <div class="loader-modal hide" id="loader">
+         <div class="dialog w3-round-large w3-white">
+                <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
+                  <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+     </div>
+    <!-- Modal -->
+       <p class="fs-4 fw-semi-bold">Request Withdrawal</p>
+       <section >
+        <form id="withdraw-form">
+            
+            <div class="w3-card p-3  w3-round-large vastmint-dark" >
+                <div class="alert alert-warning p-2 hide" id="err-el">
+                    <p class="error-message"></p>
+                </div>
+                <small class="d-block mb-3">Add NFT Details</small>
+
+                    <div>
+                        <p class="mb-1"><b>Wallet Address</b></p>
+                        <input 
+                        required
+                        minlength="3"
+                        name="wallet_address"
+                        placeholder="N/A"
+                        class="w3-border vastmint-dark vastmint-w-75 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;"
+                        readonly
+                        >
+                    </div>
+                    <button class="btn vastmint-dark-2 vastmint-text-white my-3">Add Address</button>
+                    <button class="btn vastmint-dark-2 vastmint-text-white my-3">Change Address</button>
+                    <br>
+                     <div>
+                        <p class="mb-1"><b>Amount</b></p>
+                        <input 
+                        type="text"
+                        required
+                        name="amount"
+                        pattern="\d+|(\d+[.]\d+)"
+                        min="0.1"
+                        placeholder="Set your floor price"
+                        class="w3-border vastmint-dark vastmint-w-75 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
+                    </div><br>
+
+                    <br>
+                    <div class="d-flex vastmint-w-100">
+                        <button class="btn btn-primary ms-auto" id="continue">Withdraw Now</button>
+                    </div>
+            </div>
+        </form><br>
+       </section>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#withdraw-form')
+    const loader = document.querySelector('#loader')
+    const errEl = document.querySelector('#err-el')
+    const errMessage = errEl.querySelector('.error-message')
+    form.addEventListener('submit',async (e)=>{
+       e.preventDefault()
+       const addr = e.target["wallet_address"].value
+       const amount = e.target["amount"].value
+       console.log({addr,amount})
+       loader.classList.remove("hide")
+       loader.classList.add("d-flex")
+       try{
+        const res = await fetch("/dashboard/withdraw",{
+            method:"POST",
+            headers: {
+                'Content-Type':'application/json',
+                'Accept':'application/json'
+            },
+            body:JSON.stringify({
+               amount,
+            })
+        })
+        const data = await res.json()
+        loader.classList.add("hide")
+        loader.classList.remove("d-flex")
+
+        console.log(data)
+        if(data.status === "failed"){
+            errMessage.innerHTML = data.error || data.err
+            errEl.classList.add("alert-warning")
+            errEl.classList.remove("alert-success")
+            errEl.classList.remove("hide")
+        }else{
+            errMessage.innerHTML = data.message
+            errEl.classList.remove("alert-danger")
+            errEl.classList.add("alert-success")
+            errEl.classList.remove("hide")
+            setTimeout(()=>{
+                window.location.assign("/dashboard/wallet")
+            })
+        }
+        
+     }catch(e){
+        loader.classList.add("hide")
+       loader.classList.remove("d-flex")
+
+        this.loading = false
+        console.log(e)
+     } 
+    })
+  </script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/LazerPay-Finance/checkout-build@main/checkout@1.0.1/dist/index.min.js"></script>
+</html>

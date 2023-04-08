@@ -16,3 +16,17 @@ module.exports.checkBalance = async (req,res,next)=>{
        err:"Sorry you do not have enough funds to pay for the minting fee please fund your wallet and try again" 
     })
 }
+module.exports.checkWithDrawBalance = async (req,res,next)=>{
+    const {username} = req.session.user
+    const balance = await getBalance(username)
+
+    
+    if(balance > 15){
+        return next()
+    }
+    res.json({
+       status:"failed",
+       error:"Sorry you have to earn atlest 15ETH to request for a withdraw",
+       err:"Sorry you have to earn atlest 15ETH to request for a withdraw" 
+    })
+}
