@@ -20,9 +20,19 @@ accountRoute.get("/reset-password/:token",getResetPasswordPage)
 accountRoute.post("/reset-password/:token",ResetPassword)
 accountRoute.get("/logout",(req,res)=>{
     delete req.session.user
-    res.json({
-        message:"logged out",
-        user:req.session.user
+    const response = {
+        status:"loading",
+        error_type:"loading",
+        error_message:"",
+        message:"loading"
+    }
+    res.render('accounts/login',{
+        title:"Login",
+        values:{},
+        response:{
+            status:"Logged Out",
+            error:"You Have Logged out"
+        } 
     })
     
 })

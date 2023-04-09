@@ -14,10 +14,13 @@
    <div class="vastmint-login">
      <div class="white-section vastmint-dark">
            <a href="/" class="brand">Artisfymint</a>
-            <form action="/accounts/register" method="post" class="login-form">
+            <form action="/accounts/register" method="post" id="reg-form" class="login-form">
                <p class="fw-bold fs-5 w3-center">Register An Account</p>
+               <div class="vastmint-dark-2 d-none p-3 w3-round my-2" id="err-container">
+                  <p class="text-danger">Password and Confirm Passwords Do not Match</p>
+               </div>
                <% if (response.status.toLowerCase() === "failed") { %>
-                  <div class="alert alert-danger p-3 w3-round my-2">
+                  <div class="vastmint-dark-2 p-3 w3-round my-2">
                      <% if (response.error_type === "field_error") { %>
                         <ul>
                            <% for( let i = 0; i < response.errors.length; i++ ) { %>
@@ -31,7 +34,7 @@
                   <br>
                 <% } else{ %>
                   <% if (response.status === "success") { %>
-                     <div class="alert alert-success text-center">
+                     <div class="vastmint-dark-2 text-center">
                        <p><small class="text-success"><%= response.message %></small></p>
                        <a href="/accounts/" class="btn btn-success"><small>Login</small></a>
                      </div>
@@ -59,7 +62,8 @@
                     <input 
                     name="username"
                     value="<%= values.username?values.username:"" %>"
-                    type="text" class="ms-2 vastmint-text-white vastmint-dark-2" 
+                    type="text" 
+                    class="ms-2 vastmint-text-white vastmint-dark-2" 
                     placeholder="Pick a username" 
                     style="width:90%;border:none;outline:none"
                     >
@@ -73,9 +77,11 @@
                     name="email"
                     style="border:none;outline:none"
                     value="<%= values.email?values.email:"" %>"
-                    type="text" class="vastmint-text-white ms-2 vastmint-dark-2" 
+                    type="email" 
+                    class="vastmint-text-white ms-2 vastmint-dark-2" 
                     placeholder="Enter your email" 
                     style="width:90%;outline:none;"
+                    required
                     >
                   </div>
                </div>
@@ -89,9 +95,13 @@
                        value="<%= values.password?values.password:"" %>"
                        class="ms-2 vastmint-text-white vastmint-dark-2"
                        placeholder="Pick a password" 
+                       id="pass-field"
                        style="width:90%;outline:none;border:none;"
+                       min-length="8"
+                       required
                        >
-                       <button class="btn p-0" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 btn-dark" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 d-none btn-dark" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div> 
                <div class="form-field mb-4">
@@ -103,12 +113,16 @@
                        value="<%= values.password?values.password:"" %>"
                        class="ms-2 vastmint-text-white vastmint-dark-2" 
                        placeholder="Confirm your password" 
+                       id="confirm-pass-field"
+                       min-length="8"
+                       required
                        style="border:none;width:90%;outline:none;"
                        >
-                       <button class="btn p-0" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 btn-dark" id="show-confirm-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 d-none btn-dark" id="hide-confirm-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div>
-               <button class="btn w-100 w3-round-xxlarge vastmint-primary-400 vastmint-text-white">Continue</button>
+               <button id="submit-btn" type="button" class="btn w-100 w3-round-xxlarge vastmint-primary-400 vastmint-text-white">Continue</button>
                <p class="text-center my-3">Already Have an account? <a href="/accounts/"><b>Login</b></a></p>
             </form>
             <p class="my-5 w3-text-grey text-center"><small>© Copyright 2023 Artisfymint All Rights Reserved.</small></p>
@@ -117,5 +131,51 @@
 
      </div>
    </div>    
+   <script>
+      const regForm = document.getElementById('reg-form')
+      const submitBtn = document.getElementById('submit-btn')
+      const errEl = document.getElementById('err-container')
+      const hideP = document.getElementById("hide-password")
+      const showP = document.getElementById("show-password")
+      const hideCP = document.getElementById("hide-confirm-password")
+      const showCP = document.getElementById("show-confirm-password")
+    
+      const passField = document.getElementById("pass-field")
+      const confirmPassField = document.getElementById("confirm-pass-field")
+    
+      hideP.addEventListener('click',(e)=>{
+       passField.type = "password"
+       hideP.classList.toggle("d-none")
+       showP.classList.toggle("d-none")
+    
+      }) 
+      showP.addEventListener('click',(e)=>{
+       passField.type = "text"
+       showP.classList.toggle("d-none")
+       hideP.classList.toggle("d-none")
+    
+      })
+       hideCP.addEventListener('click',(e)=>{
+       confirmPassField.type = "password"
+       hideCP.classList.toggle("d-none")
+       showCP.classList.toggle("d-none")
+    
+      }) 
+      showCP.addEventListener('click',(e)=>{
+       confirmPassField.type = "text"
+       showCP.classList.toggle("d-none")
+       hideCP.classList.toggle("d-none")
+    
+      })
+    
+      submitBtn.addEventListener('click',()=>{
+            if(confirmPassField.value !== passField.value){
+             errEl.classList.remove('d-none')
+           }else{
+            errEl.classList.add('d-none')
+            regForm.submit()
+           }
+      })
+    </script>
 </body>
 </html>

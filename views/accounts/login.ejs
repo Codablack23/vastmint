@@ -14,7 +14,7 @@
    <main class="vastmint-login vastmint-text-white">
      <div class="white-section vastmint-dark">
            <a href="/" class="brand">Artisfymint</a>
-            <form action="" method="post" class="login-form">
+            <form action="/accounts/" method="post" class="login-form">
                <p class="fw-bold fs-5 w3-center">Login To Account</p><br>
                <% if (response.status.toLowerCase() === "failed") { %>
                   <div class="alert alert-danger p-3 w3-round my-2">
@@ -33,7 +33,7 @@
                   <% if (response.status === "success") { %>
                      <div class="alert alert-success text-center">
                        <p><small class="text-success"><%= response.message %></small></p>
-                       <a href="/accounts/" class="btn btn-success"><small>Login</small></a>
+                       <a href="/dashboard" class="btn btn-success"><small>Dashboard</small></a>
                      </div>
                     <% } %>
                   <% } %>
@@ -59,13 +59,15 @@
                        <input 
                        name="password"
                        type="password" 
+                       id="pass-field"
                        style="border:none;outline:none"
                        value="<%= values.password?values.email:"" %>"
                        class="ms-2 w3-border-none vastmint-dark-2 vastmint-text-white vastmint-w-85" 
                        placeholder="Enter your password" 
                        style="width:90%;outline:none;"
                        >
-                       <button class="btn p-0 vastmint-text-white" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 vastmint-text-white" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 vastmint-text-white d-none" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div>
                 <p class="text-end mb-4"><a href="/accounts/forgot-password" class="forgot-password"><small class="fw-semibold">Forgot Password?</small></a></p>
@@ -80,4 +82,24 @@
      </div>
    </div>    
 </body>
+<script>
+  const hideP = document.getElementById("hide-password")
+  const showP = document.getElementById("show-password")
+
+  const passField = document.getElementById("pass-field")
+
+  hideP.addEventListener('click',(e)=>{
+   passField.type = "password"
+   hideP.classList.toggle("d-none")
+   showP.classList.toggle("d-none")
+
+  }) 
+  showP.addEventListener('click',(e)=>{
+   passField.type = "text"
+   showP.classList.toggle("d-none")
+   hideP.classList.toggle("d-none")
+
+  })
+  
+</script>
 </html>

@@ -142,23 +142,14 @@
                             placeholder="Your description...."
                             class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
                         </div><br>
-                        <div>
-                            <button type="button" class="mb-1 btn btn-primary"><b>Add to a collection</b></button>
-                            <div class="hide">
-                                Choose Collection
-                                <select class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
-                                    <option value="">Select value</option>
-                                </select>
-                            </div>
-                        </div><br>
                          <div>
                             <p class="mb-1"><b>Floor Price</b></p>
                             <input 
                             type="text"
                             required
+                            value="0.05"
+                            readonly
                             name="price"
-                            pattern="\d+|(\d+[.]\d+)"
-                            min="0.1"
                             placeholder="Set your floor price"
                             class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
                         </div><br>

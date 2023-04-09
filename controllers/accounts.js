@@ -44,7 +44,10 @@ module.exports = {
                 name:user.name,
                 user_id:user.user_id,
             }
-            res.redirect("/dashboard")
+            response.status = "success"
+            response.error_type = ""
+            response.message = "Continue To Dashboard"
+            response.error_message = ""
            }
            else{
             response.status = "failed"
