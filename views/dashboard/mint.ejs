@@ -42,59 +42,6 @@
     </style>
 </head>
 <body>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-       
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Attribute</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger p-2 hide" id="add-attr-err">
-                    <p class="error-message"></p>
-                </div>
-                <form action="" id="add-attr-form">
-                    <div>
-                        <p class="mb-1"><b>Attribute</b></p>
-                        <input 
-                        required
-                        minlength="3"
-                        name="attribute"
-                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-                        placeholder="Choose attribute name"
-                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
-                    </div><br>
-                    <div>
-                        <p class="mb-1"><b>Feature</b></p>
-                        <input 
-                        required
-                        name="feature"
-                        minlength="3"
-                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-                        placeholder="What feature do your attribute have"
-                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
-                    </div><br> 
-                    <div>
-                        <p class="mb-1"><b>Description</b></p>
-                        <input 
-                        required
-                        name="description"
-                        minlength="10"
-                        pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-                        placeholder="briefly describe this feature"
-                        class="w3-border vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
-                    </div><br>
-                    <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger" id="add-attr-cancel-btn" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary ms-2" >Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
-  </div>
   <main>
     
     <%- include('../partials/dashboard/sidebar.ejs') %>
@@ -147,29 +94,14 @@
                             <input 
                             type="text"
                             required
-                            value="0.05"
+                            value="0.005"
                             readonly
                             name="price"
                             placeholder="Set your floor price"
                             class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
-                        </div><br>
-                        <div>
-                            <header class="d-flex justify-content-between">
-                                <p class="mb-1"><b>Add Attributes</b></p>
-                                <button 
-                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    type="button"
-                                    style="height:30px;width:30px" 
-                                    class="d-flex justify-content-center align-items-center btn vastmint-text-white w3-circle">
-                                    <i class="bi bi-plus-lg"></i>
-                               </button>
-                            </header>
-                            <div class="nft-att" id="nft-att">
-                             <div >
-                                <small class="vastmint-text-light-500">Please Add atleast one attribute</small>
-                             </div>
-                            </div>
                         </div>
+                        <p><small class="w3-text-grey">All New NFT begin at a price of O.005ETH</small></p>
+                        <br>
                         <br>
                         <div class="d-flex vastmint-w-100">
                             <button class="btn btn-primary ms-auto" id="continue">Continue</button>

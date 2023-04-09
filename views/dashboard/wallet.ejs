@@ -5,7 +5,10 @@
     <link rel="stylesheet" href="/css/w3css.css">
     <%- include('../partials/dashboard/head.ejs') %>
     <style>
-     
+     .scroll{
+      height: 250px;
+      overflow-y: auto;
+     }
     </style>
 </head>
 <body>
@@ -27,9 +30,9 @@
                <div class="d-flex align-items-center justify-content-between mt-3">
                   <div>
                       <p class="fs-5 fw-bold m-0">My Balance</p>
-                      <p class="fw-bold fs-3 vastmint-text-light-600"><%= response.data.earnings %>ETH</p>
+                      <p class="fw-bold fs-3 vastmint-text-light-600"><%= parseFloat(response.data.earnings).toFixed(3) %>ETH</p>
                   </div>
-                 <a href="/dashboard/withdraw" name="" class="border-0 p-2 w3-light-grey w3-round-large" id="">
+                 <a href="/dashboard/withdraw" name="" class="border-0 p-2 btn btn-dark w3-round-large" id="">
                     Withdraw
                  </a>
                </div>
@@ -37,7 +40,7 @@
          </div>
       </div>
       <p class="mt-4 fs-3">Transaction History</p>
-      <div class="mt-1 w3-responsive">
+      <div class="mt-1 w3-responsive scroll">
         <% if (response.data.transactions.length > 0) { %>
          <table class="w3-table vastmint-dark   w3-card w3-round-large">
             <tr>

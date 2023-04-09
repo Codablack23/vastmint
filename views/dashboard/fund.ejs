@@ -114,6 +114,8 @@
             flex: 1;
             max-width: 400px;
             margin:2em auto;
+            height:90vh;
+            overflow-y: auto;
             border-radius: 10px;
         }
         .dialog .dialog-header{
@@ -177,6 +179,9 @@
         }
         .active-token{
             padding: 1em;
+            overflow-y: auto;
+            height: 80vh;
+
         }
         .active-token .img-container{
              text-align: center;
@@ -295,13 +300,13 @@
                     <p style="word-break: break-all;font-weight:700">{{activeToken.addr}}</p>
                    </div>
                    <div class="flex-container">
-                    <button><i class="bi bi-clipboard"></i></button>
+                    <button @click="copyText(activeToken.addr)"><i class="bi bi-clipboard"></i></button>
                    </div>
                   </div>
-                  <div class="fields">                    
+                  <div class="d-flex justify-flex-end d-none isCopied" >
+                    <button class="btn w3-pale-green"><small>Address Copied !!</small></button>
                    </div>
                   <button @click="createOrder" class="create-order vastmint-primary-400 vastmint-text-white">I have made this transaction</button>  
-
               </div>
 
            </div>
@@ -343,6 +348,7 @@
                 isVisible:false,
                 loading:false,
                 response:null,
+                isCopied:false,
                 tokens:[
                  {
                     id:"ETH",
@@ -350,13 +356,6 @@
                     icon:"/assets/icons/ether.png",
                     img:"/assets/eth3.jpg",
                     addr:"0x834DD6DABaCEa80BfB790ee6C9090518cF2c7741"
-                 },
-                 {
-                    id:"SOL",
-                    network:"Solana",
-                    icon:"/assets/icons/sol.png",
-                    img:"/assets/sol2.jpg",
-                    addr:"8ifYujTRzDHWifroXcvbJLFn9J4fVmrtk9CKzQqxrzmg"
                  },
                 ],
                 selectedToken:null,
@@ -374,6 +373,14 @@
             }
         },
         methods:{
+           copyText(text){
+            const el = document.querySelector('.isCopied')
+            navigator.clipboard.writeText(text)
+            el.classList.toggle('d-none')
+            setTimeout(()=>{
+                el.classList.toggle('d-none')
+            },5000)
+           },
            selectToken(id){
             this.selectedToken = id
            },

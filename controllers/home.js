@@ -222,7 +222,9 @@ async function getSellersPage(req,res){
                 seller:seller.username
             })
             const nfts = await NFTModel.findAll({
-                seller:seller.username
+                where:{
+                    seller:seller.username
+                }
             })
             response = {
                 seller:seller?{

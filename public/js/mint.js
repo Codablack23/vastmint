@@ -158,7 +158,6 @@ step1.addEventListener("submit",async (e)=>{
     const price = e.target['price'].value
     const description =e.target['description'].value
     const attributes = getAtt()
-    if(attributes.length > 0){
         const nft_img = getImgUrl()
         hideError(errorEl)
         setRequestData({
@@ -199,35 +198,9 @@ step1.addEventListener("submit",async (e)=>{
             console.log(error)
             showError(errorEl,"Sorry could not connect to servers")
         }
-        toggleLoader(loader,true)
+        toggleLoader(loader,true)    
+})
 
-    }else{
-        showError(errorEl,"Please add atleast one nft attribute")
-    }
-    
-})
-addAttrForm.addEventListener("submit",(e)=>{
-    e.preventDefault()
-    const errorEl = document.querySelector("#add-attr-err")
-    const attribute = e.target['attribute'].value
-    const feature = e.target['feature'].value
-    const description =e.target['description'].value
-    const prevData = getAtt()
-    const existingAtt = prevData.find((d)=>d.attribute === attribute)
-    if(existingAtt){
-        showError(errorEl,"attribute already exist")
-    }else{
-        hideError(errorEl)
-        closeModalButton.click()
-        e.target.reset()
-        setAtt([...prevData,{
-            attribute,
-            feature,
-            description,
-            id:prevData.length > 0 ?prevData.length + 1:1
-        }])
-    }
-})
 
 function toggleLoader(loaderEl,hidden=false){
    if(hidden){
