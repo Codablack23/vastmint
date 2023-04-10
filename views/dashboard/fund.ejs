@@ -324,9 +324,11 @@
             name="price"
             pattern="\d+|(\d+[.]\d+)"
             min="0.1"
-            placeholder="Set your floor price"
+            placeholder="add your amount you want fund in ETH"
             class="w3-border vastmint-dark vastmint-text-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
-        </div><br>
+        </div>
+        <p><small class="text-gray fw-bold">Please add amount in ETH</small></p>
+        <br>
         <div>
             <button  v-if="amount > 0"  class="checkout vastmint-primary-400 vastmint-text-white">Create Order</button>
           </div>

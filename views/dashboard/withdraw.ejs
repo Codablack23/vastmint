@@ -71,15 +71,15 @@
                         <p class="mb-1"><b>Wallet Address</b></p>
                         <input 
                         required
-                        minlength="3"
+                        value=""
+                        minlength="10"
                         name="wallet_address"
                         placeholder="N/A"
                         class="w3-border vastmint-dark vastmint-w-75 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;"
-                        readonly
                         >
                     </div>
+                    <p class="mb-0"><small class="w3-text-grey fw-bold">We automatically use your wallet address on your profile if not available you can add from here</small></p>
                     <button class="btn vastmint-dark-2 vastmint-text-white my-3">Add Address</button>
-                    <button class="btn vastmint-dark-2 vastmint-text-white my-3">Change Address</button>
                     <br>
                      <div>
                         <p class="mb-1"><b>Amount</b></p>
@@ -89,7 +89,7 @@
                         name="amount"
                         pattern="\d+|(\d+[.]\d+)"
                         min="0.1"
-                        placeholder="Set your floor price"
+                        placeholder="Set your Withdraw Amount"
                         class="w3-border vastmint-dark vastmint-w-75 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
                     </div><br>
 
