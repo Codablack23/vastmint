@@ -1,8 +1,20 @@
 <div class="dashboard-header d-flex justify-content-between align-items-center mb-2">
-    <p class="title">Welcome User</p>
+    <p class="title">Welcome <span id="user-name">User</span></p>
     <div class="d-flex align-items-center">
         <a href="/dashboard/profile" class=" profile d-flex align-items-center">
            <img src="/assets/nft-1.jpg" alt="">
         </a>
     </div>
 </div>
+
+<script>
+    fetch("/api/user/details")
+    .then(data=>data.json())
+    .then(data=>{
+        const name = document.querySelector('#user-name')
+        name.innerHTML = data.name
+    })
+    .catch(err=>{
+
+    })
+</script>

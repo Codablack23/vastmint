@@ -318,9 +318,17 @@ module.exports = {
         res.json(response)
     },   
     async getCreateCollectionPage(req,res){
+        let mint_fee = process.env.MINT_FEE
+        try {
+            const mintFee = await MintFee.findAll()
+            mint_fee = mintFee[0].mint_fee
+        } catch (error) {
+            console.log(mint_fee)
+        }
         res.render("dashboard/create_collection.ejs",{
             title:"Create Collection",
-            page:"collections"
+            page:"collections",
+            mint_fee:mint_fee * 4,
          })
     },  
     async getFundPage(req,res){
@@ -371,16 +379,19 @@ module.exports = {
     },  
     async createCollection(req,res){
        const {name,banner_img} = req.body
-       const {username} = req.session.user
+       const {username,name:user,email} = req.session.user
+       const origin = req.headers.origin
+
        let response = {
             data:null,
             status:"failed",
             status_code:500,
             error:"Could not fetch NFTS due to some server error"
         }
-        console.log(req.body)
+  
         try {
             let collection_id = v4()
+            const mintfee = (await MintFee.findAll())[0].mint_fee
             await NFTCollection.create({
                 seller:username,
                 banner_img,
@@ -394,6 +405,28 @@ module.exports = {
             response.data = {
                 collection_id
             }
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount:mintfee,
+                type:"mint",
+                status:"DEBIT"
+            })
+            await Notifications.create({
+                title:"Collection Created successful",
+                type:"mint",
+                message:"You have Successfully minted a nft",
+                reciever:username,
+                user:user,
+                message_id:v4()
+            })
+            await sendMail({
+                from:"Artisfy",
+                to:email,
+                subject:"Mint Successful",
+                html:getMintEmailHtml(origin,nft_id,user)
+            })
         } catch (error) {
             console.log(error)
         }

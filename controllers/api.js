@@ -311,7 +311,6 @@ module.exports={
 
     },
     async confirmBalance(req,res){
-        const {name} = req.body
         const response = {
             status:"failed",
             error:"Sorry you do not have enough funds to pay for the minting fee please fund your wallet and try again",
@@ -322,7 +321,31 @@ module.exports={
         const balance = await getBalance(username)
         const mint_fee = await getMintFee()
     
-        console.log({mint_fee,balance,name})
+        if(balance > mint_fee * 4){
+            response.status = "success"
+            response.err = ""
+            response.error = ""
+        }
+       } catch (error) {
+        console.log(error)
+        response.status="failed"
+        response.error="An error occured in the server please try again later"
+        response.err=response.error
+       }
+       res.json(response)
+    },
+    async confirmColBalance(req,res){
+        const {name} = req.body
+        const response = {
+            status:"failed",
+            error:"Sorry you cannot upload because you do not have enough funds for minting please fund your wallet and try again", 
+            err:"Sorry you cannot upload because you do not have enough funds for minting please fund your wallet and try again", 
+        }
+       try {
+        const {username} = req.session.user
+        const balance = await getBalance(username)
+        const mint_fee = await getMintFee()
+    
         if(balance > mint_fee){
             const nft = await NFTModel.findOne({
                 where:{
@@ -348,5 +371,7 @@ module.exports={
        }
        res.json(response)
     }
-    
+    ,async getUserData(req,res){
+        res.json(req.session.user)
+    }
 }

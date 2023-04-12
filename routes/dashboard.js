@@ -21,7 +21,7 @@ const {
     processWithdraw,
     updateNFT
  } = require("../controllers/dashboard")
-const { checkWithDrawBalance } = require("../middlewares/checkBalance")
+const { checkWithDrawBalance,checkCollectionBalance} = require("../middlewares/checkBalance")
 
 
 const DashboardRoute = express.Router()
@@ -29,7 +29,7 @@ const DashboardRoute = express.Router()
 DashboardRoute.get("/",getDashboardHome)
 DashboardRoute.get("/collections",getCollectionsPage)
 DashboardRoute.get("/collections/create",getCreateCollectionPage)
-DashboardRoute.post("/collections/create",createCollection)
+DashboardRoute.post("/collections/create",checkCollectionBalance,createCollection)
 DashboardRoute.get("/collections/:id",getCollectionPage)
 DashboardRoute.post("/collection/add-nft/:id",updateNFT)
 DashboardRoute.get("/art",getArtPage)

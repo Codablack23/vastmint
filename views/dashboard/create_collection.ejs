@@ -84,6 +84,7 @@
      <div class="p-4 vastmint-dark w3-card w3-round-large">
         <header class="header d-flex align-items-center justify-content-between">
             <p class="title fs-4 fw-semibold">Create Collection</p>
+            <p class="title fs-4 fw-semibold">Mint Fee <%= mint_fee %>ETH</p>
         </header>
         <div class="alert alert-danger hide" id="file-err">
             <p class="error-message"></p>
@@ -195,7 +196,13 @@
         reqData.append("file",file)
         reqData.append("user","data")
         try {
-            loader.classList.remove("d-none")
+          loader.classList.remove("d-none")
+          const balRes = await fetch("/api/wallet/check-balance/collection/",{
+              method:"POST",
+              body:reqData
+          })
+          const balData = await balRes.json()
+          if(balData.status == "success"){
             const response = await fetch("/upload/",{
                 method:"POST",
                 body:reqData
@@ -212,6 +219,13 @@
                 const errText = errEL.querySelector(".error-message")
                 errText.innerHTML = data.err || data.error
             }
+          }else{
+              loader.classList.add("d-none")
+              errEL.classList.remove("hide")
+              const errText = errEL.querySelector(".error-message")
+              errText.innerHTML = balData.err || balData.error
+          }
+           
         } catch (error) {
             console.log(error)
             loader.classList.add("d-none")
