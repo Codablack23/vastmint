@@ -21,12 +21,12 @@ module.exports.checkWithDrawBalance = async (req,res,next)=>{
     const balance = await getBalance(username)
 
     
-    if(balance > 15){
+    if(balance > 7){
         return next()
     }
     res.json({
        status:"failed",
-       error:"Sorry you have to earn atlest 15ETH to request for a withdraw",
-       err:"Sorry you have to earn atlest 15ETH to request for a withdraw" 
+       error:"Sorry you have to earn atleast $12,000(approx 7ETH) which  to request for a withdraw",
+       err:"Sorry you have to earn atleast $12,000(approx 7ETH) which  to request for a withdraw",
     })
 }

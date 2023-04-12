@@ -53,12 +53,24 @@
             justify-content: center;
             z-index: 6;
           }
+          .ul{
+            list-style: none;
+            padding: 0;
+          }
+          .ul li{
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+          } 
+          .ul li img{
+            height: 60px;
+            width: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+          }
     </style>
 </head>
 <body>
-  <main>
-    <%- include('../partials/dashboard/sidebar.ejs') %>
-    <section class="vastmint-dashboard-page">
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -123,7 +135,7 @@
                             <label for="banner_img" class="label" >
                                 <div class="w3-center">
                                     <i class="bi bi-image"></i>
-                                    <p>Click to upload your collection image</p>
+                                    <p>Click to upload your NFT image</p>
                                 </div>
                             </label>
                         </div>
@@ -139,7 +151,53 @@
             </div>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="nft_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="position:relative">
+            <div class="modal-header">
+                <p class="modal-title fs-2" id="staticBackdropLabel"><p>Add Existing NFT to Collection</p></p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="p-2">
+                <div class="alert alert-danger hide" id="add-to-collection-err">
+                    <p class="error-message"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="loader-container d-none" style="border-radius: 0px;" id="add-to-collection">
+                  <div class="p-2">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <ul class="ul">
+                    <% for( available of response.data.collection.available ) { %>
+                      <li>
+                        <div><img src="<%= available.nft_img %>" alt=""></div>
+                        <div class="ms-2">
+                            <p class="mb-0"><%= available.name %></p>
+                            <div class="d-flex">
+                                <button 
+                                onclick="addToCollection('<%= available.nft_id%>','<%= response.data.collection.collection_id %>')"
+                                class="btn btn-dark"><small>Add to Collection</small></button>
+                            </div>
+                        </div>
+                      </li>
+                    <% } %>
+                </ul>
+            </div>         
         </div>
+    </div>
+    </div>
+  <main>
+    <%- include('../partials/dashboard/sidebar.ejs') %>
+    <section class="vastmint-dashboard-page">
+    
+        
     <%- include('../partials/header2.ejs') %>
     <%- include('../partials/dashboard/header.ejs') %>
     <% if (response.status === "failed") { %>
@@ -204,7 +262,10 @@
                 <div class="p-3 w3-center">
                     <p><small class="fw-bold">Add an NFT to collection</small></p>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-plus-lg"></i>
+                        Create and Add
+                    </button> 
+                    <button class="btn btn-dark mt-1" data-bs-toggle="modal" data-bs-target="#nft_list">
+                        Add Existing NFT
                     </button>
                 </div>
             </div> 
@@ -353,5 +414,42 @@
             }
         }
     })
+    async function addToCollection(nft_id,c_id){
+        const loader= document.querySelector("#add-to-collection")
+        const errEL= document.querySelector("#add-to-collection-err")
+
+        console.log(nft_id,c_id)
+    
+       
+        try {
+            loader.classList.remove("d-none")
+            const response = await fetch(`/dashboard/collection/add-nft/${c_id}`,{
+                method:"POST",
+                body:JSON.stringify({
+                    nft_id
+                }),
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accept':'application/json'
+                },
+            })
+            const data = await response.json()
+            loader.classList.add("d-none")
+
+            if(data.status == "failed"){
+              errEL.classList.remove("hide")
+              const errText = errEL.querySelector(".error-message")
+              errText.innerHTML = data.error || data.err
+            }else{
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error)
+            loader.classList.add("d-none")
+            errEL.classList.remove("hide")
+            const errText = errEL.querySelector(".error-message")
+            errText.innerHTML = "could not upload due to some server issues please try again later"
+        }
+    }
 </script>
 </html>

@@ -18,7 +18,8 @@ const {
     fundAccount,
     createTransaction,
     getWithdrawPage,
-    processWithdraw
+    processWithdraw,
+    updateNFT
  } = require("../controllers/dashboard")
 const { checkWithDrawBalance } = require("../middlewares/checkBalance")
 
@@ -30,6 +31,7 @@ DashboardRoute.get("/collections",getCollectionsPage)
 DashboardRoute.get("/collections/create",getCreateCollectionPage)
 DashboardRoute.post("/collections/create",createCollection)
 DashboardRoute.get("/collections/:id",getCollectionPage)
+DashboardRoute.post("/collection/add-nft/:id",updateNFT)
 DashboardRoute.get("/art",getArtPage)
 DashboardRoute.get("/art/:id",getSingleArtPage)
 DashboardRoute.get("/profile",getProfilePage)

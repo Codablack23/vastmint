@@ -3,6 +3,7 @@ const {UserModel,Notifications} = require("../models/accounts")
 const bcrypt = require("bcrypt")
 const { v4 } = require("uuid")
 const { calcBalance } = require("../utils/getBalance")
+const { MintFee } = require("../models/init")
 
 module.exports = {
     async getDashboardHome(req,res){
@@ -119,17 +120,18 @@ module.exports = {
            if(collectionRes){
             const artRes = await NFTModel.findAll({
                 where:{
-                  collection_id:collectionRes.collection_id,
                   seller:user.username
                 }
             })   
-           
+            const arts=artRes.filter(art=>art.collection_id===collectionRes.collection_id)
+            const available=artRes.filter(art=>!art.collection_id)
             response = {
                 data:{
                     collection:{
                         ...collectionRes.dataValues,
-                        arts:artRes,
-                        total_price:parseFloat(artRes.reduce((a,b)=>a+parseFloat(b.current_price),0)).toFixed(3)
+                        arts,
+                        available,
+                        total_price:parseFloat(arts.reduce((a,b)=>a+parseFloat(b.current_price),0)).toFixed(3)
                     }
                 },
                 status:"success",
@@ -256,10 +258,18 @@ module.exports = {
             response
          })
     }, 
-    getMintPage(req,res){
+    async getMintPage(req,res){
+        let mint_fee = process.env.MINT_FEE
+        try {
+            const mintFee = await MintFee.findAll()
+            mint_fee = mintFee[0].mint_fee
+        } catch (error) {
+            console.log(mint_fee)
+        }
         res.render("dashboard/mint.ejs",{
             title:"Mint NFT",
-            page:"mint-nft"
+            page:"mint-nft",
+            mint_fee
          })
     },  
     getWithdrawPage(req,res){
@@ -294,7 +304,7 @@ module.exports = {
                 payment_id
                 },
                 error:"",
-                message:"Withdrawal has been started successfully and is now pending"
+                message:"Your Withdraw request was successful please stand by while we process your info you can contact support for more info"
             }
         } catch (error) {
             console.log(error)
@@ -495,6 +505,55 @@ module.exports = {
             response:null,
             user
          })
+    },
+    async updateNFT(req,res){
+        let response;
+        console.log(req)
+        const {username} = req.session.user
+        const {id} = req.params
+        const {nft_id} = req.body
+        console.log({
+            nft_id,
+            id
+        })
+        try{
+            const collection = await NFTCollection.findOne({
+                where:{
+                    collection_id:id ,
+                }
+            })
+           if(collection){
+            await NFTModel.update({
+                collection_id:id,
+                collection:collection.name
+              },{
+                  where:{
+                   nft_id,
+                   seller:username
+                  }
+              })
+              response = {
+                status:"success",
+                error:""
+            }
+           }else{
+            response = {
+                data:null,
+                status:"failed",
+                status_code:"500",
+                error:"Collection does not exist"
+               }
+           }
+        }catch(err){
+           console.log(err)
+           response = {
+            data:null,
+            status:"failed",
+            status_code:"500",
+            error:"Could not add nft to collection due to some server error"
+           }
+        }
+        res.json(response)
     },
     async changePassword(req,res){
       let user;
