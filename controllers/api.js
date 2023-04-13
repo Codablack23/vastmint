@@ -67,7 +67,7 @@ module.exports={
     async completePayment(req,res){
         const {payment_id} = req.params
         const origin = req.headers.origin
-        const {username,name,email} = req.session.user
+        // const {username,name,email} = req.session.user
         let response = {
             status:"loading",
             message:"loading",
@@ -78,29 +78,33 @@ module.exports={
            const payment = Transaction.findOne({
             where:{
                 payment_id,
-                user:username
             }
            })
            if(payment){
+            const user = await UserModel.findOne({
+               where:{
+                username:payment.user
+               }
+            })
             await Transaction.update({ state:"completed"},{
                 where:{
                     payment_id,
-                    user:username
                 }
             })
+            
             await Notifications.create({
                 title:"Transaction Confirmed",
                 type:"Transaction",
                 message:"Your transaction have been confirmed and your wallet have been funded",
-                reciever:username,
-                user:name,
+                reciever:user.username,
+                user:user.name,
                 message_id:v4()
             })
             await sendMail({
                 from:"Artisfy",
-                to:email,
+                to:user.email,
                 subject:"Transaction Confirmed",
-                html:getTransactionCompleteHtml(origin,payment_id,name)
+                html:getTransactionCompleteHtml(origin,payment_id,user.name)
             })
             response = {
                status:"success",
