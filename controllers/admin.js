@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const { MintFee } = require("../models/init")
 const { NFTCollection, Transaction, NFTModel } = require("../models/nfts")
 const { sendMail } = require("../utils/sendMail")
-const { getOrderHtml } = require("../utils/email_template")
+const { getOrderHtml, getPurcahseHtml } = require("../utils/email_template")
 const {v4} = require("uuid")
 
 module.exports = {
@@ -225,9 +225,26 @@ module.exports = {
                 payment_id:id
             }
         })
-        // await Transaction.bulkCreate(items.map(item=>{
-
-        // }),{validate:true})
+        await Transaction.bulkCreate(items.map(item=>{
+          return {
+            payment_id:v4(),
+            state:"completed",
+            user:item.seller,
+            amount:item.price,
+            type:"funding",
+            status:"credit"
+        }
+        }),{validate:true})
+        await Notifications.bulkCreate(items.map(item=>{
+          return {
+            title:"NFT Purchase",
+            message:`Someone just purchased your nft: ${item.name} and ${item.price}ETH have been credited to your Account`,
+            user:item.seller,
+            reciever:item.seller,
+            type:"NFT_Purchase",
+            message_id:v4()
+        }
+        }),{validate:true})
         await Notifications.create({
           title:"Order Approved",
           message:`your order ${id} have been approved`,
@@ -237,6 +254,19 @@ module.exports = {
           message_id:v4()
         })
         console.log(user)
+        items.forEach(async(item)=>{
+            const user = await UserModel.findOne({
+                where:{
+                    username:item.seller
+                }
+            })
+            await sendMail({
+                from:"Artisfymint",
+                to:user.email,
+                subject:"NFT Purchase",
+                html:getPurcahseHtml(origin,item.name,user.name,item.price)
+            })
+        })
         await sendMail({
             from:"Artisfymint",
             to:user.email,

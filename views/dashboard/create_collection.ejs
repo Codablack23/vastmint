@@ -263,7 +263,8 @@
             errEL.classList.add("alert-success")
             errEL.classList.remove("alert-danger")
             const errText = errEL.querySelector(".error-message")
-            errText.innerHTML = payload.message            
+            errText.innerHTML = payload.message
+            window.location.assign("/dashboard/collections")            
 
         }else{
             errEL.classList.remove("hide")

@@ -24,7 +24,7 @@
           <p class="">Current Owner:<%= response.nft.owner%></b></p>
       </div><br>
       <div class="vastmint-dark container">
-          <p class="title"><%= parseFloat(response.nft.current_price).toFixed(2) %>ETH <small>$53,000</small></p><br>
+          <p class="title"><%= parseFloat(response.nft.current_price).toFixed(2) %>ETH</p><br>
           <% if (response.nft.owner === response.nft.seller) { %>
             <a 
             data-id="<%= response.nft.nft_id%>"

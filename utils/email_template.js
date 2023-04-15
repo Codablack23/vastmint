@@ -170,6 +170,30 @@ module.exports.getOrderHtml=(origin,token,name)=>`
   </body>
 </html>
 `
+module.exports.getPurcahseHtml=(origin,nft_name,username,amount)=>`
+<html>
+  <head>
+     <style>
+     ${style}
+     </style>
+  </head>
+  <body>
+    <div class="reset-container">
+        <a href="${origin}/">Artisfymint</a>
+        <h3 class="title">NFT Purchased</h3>
+        <p class="text">Hi ${username}!</p>
+        <p class="text">Congratulatons some one just purchased your NFT ${nft_name} and ${amount}ETH have been credited to your account</p>
+         <div class="center">
+            <a class="reset-link" href="${origin}/orders/">View Orders</a>
+         </div>
+         <p class="text">Thanks</p>
+         <p class="text">The Artisfy team</p>
+        </div>
+
+    </div>
+  </body>
+</html>
+`
 module.exports.getTransactionCompleteHtml=(origin,token,name)=>`
 <html>
   <head>
