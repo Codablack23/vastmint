@@ -1,9 +1,27 @@
+<style>
+  .relative{
+    position: relative;
+  }
+  .sold-tag{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0.5em 3em;
+  }
+</style>
+
 <div class="vastmint-marketplace">
     <p class="title"></p>
     <div class="vastmint-grid">
       <% for( nft of response.nfts ) { %>
         <a href="/marketplace/<%= nft.nft_id%>" class="nft vastmint-dark-2 grid-col-4 grid-col-md-6 grid-col-xs-12">
-            <div class="nft-img">
+            <div class="nft-img relative">
+               <%if(nft.seller !== nft.owner) { %>
+                 <div class="vastmint-white vastmint-text-dark sold-tag">SOLD</div>
+               <% } %>
                <img src="<%= nft.nft_img %>" alt="nft image">
             </div>
             <div class="nft-desc">

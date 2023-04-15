@@ -75,17 +75,19 @@ module.exports={
             data:null
         }
         try {
-           const payment = Transaction.findOne({
+           const payment = await Transaction.findOne({
             where:{
                 payment_id,
             }
            })
+           console.log({payment})
            if(payment){
             const user = await UserModel.findOne({
                where:{
                 username:payment.user
                }
             })
+            console.log({user})
             await Transaction.update({ state:"completed"},{
                 where:{
                     payment_id,

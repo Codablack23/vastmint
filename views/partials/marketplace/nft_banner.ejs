@@ -25,24 +25,26 @@
       </div><br>
       <div class="vastmint-dark container">
           <p class="title"><%= parseFloat(response.nft.current_price).toFixed(2) %>ETH <small>$53,000</small></p><br>
+          <% if (response.nft.owner === response.nft.seller) { %>
+            <a 
+            data-id="<%= response.nft.nft_id%>"
+            data-img="<%= response.nft.nft_img %>"
+            data-name="<%= response.nft.name%>"
+            data-seller="<%=response.nft.seller %>"
+            data-price="<%= parseFloat(response.nft.current_price) %>"
+            class="button vastmint-primary-400 vastmint-text-white add-to-cart" 
+            id="add-to-cart"
+            >Add to Cart <i class="bi bi-cart">
+            </i>
+          </a>
           <a 
           data-id="<%= response.nft.nft_id%>"
-          data-img="<%= response.nft.nft_img %>"
-          data-name="<%= response.nft.name%>"
-          data-seller="<%=response.nft.seller %>"
-          data-price="<%= parseFloat(response.nft.current_price) %>"
-          class="button vastmint-primary-400 vastmint-text-white add-to-cart" 
-          id="add-to-cart"
-          >Add to Cart <i class="bi bi-cart">
+          class="button hide vastmint-primary-400 vastmint-text-white add-to-cart" 
+          id="remove-from-cart"
+          >Remove From Cart <i class="bi bi-cart">
           </i>
-        </a>
-        <a 
-        data-id="<%= response.nft.nft_id%>"
-        class="button hide vastmint-primary-400 vastmint-text-white add-to-cart" 
-        id="remove-from-cart"
-        >Remove From Cart <i class="bi bi-cart">
-        </i>
-        </a>
+          </a>
+          <% } %>
       </div>
     </div>
   </div>

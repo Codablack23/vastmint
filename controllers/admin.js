@@ -225,6 +225,9 @@ module.exports = {
                 payment_id:id
             }
         })
+        // await Transaction.bulkCreate(items.map(item=>{
+
+        // }),{validate:true})
         await Notifications.create({
           title:"Order Approved",
           message:`your order ${id} have been approved`,
