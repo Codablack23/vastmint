@@ -1,4 +1,4 @@
-const { getBalance } = require("../utils/getBalance")
+const { getBalance, getEarnings } = require("../utils/getBalance")
 const { getMintFee } = require("../utils/getMintFee")
 
 module.exports.checkBalance = async (req,res,next)=>{
@@ -33,7 +33,7 @@ module.exports.checkCollectionBalance = async (req,res,next)=>{
 }
 module.exports.checkWithDrawBalance = async (req,res,next)=>{
     const {username} = req.session.user
-    const balance = await getBalance(username)
+    const balance = await getEarnings(username)
 
     
     if(balance > 7){

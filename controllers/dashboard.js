@@ -2,7 +2,7 @@ const {NFTModel, NFTCollection,Transaction, NFTHistory} = require("../models/nft
 const {UserModel,Notifications} = require("../models/accounts")
 const bcrypt = require("bcrypt")
 const { v4 } = require("uuid")
-const { calcBalance } = require("../utils/getBalance")
+const { calcBalance,calcEarnings } = require("../utils/getBalance")
 const { MintFee } = require("../models/init")
 
 module.exports = {
@@ -32,7 +32,8 @@ module.exports = {
                     ...coll.dataValues,
                     arts:artRes.filter(a=>a.collection_id === coll.collection_id)
                 })),
-                balance:calcBalance(transactions)
+                balance:calcBalance(transactions),
+                earnings:calcEarnings(transactions)
             },
             status:"success",
             error:""
@@ -237,7 +238,8 @@ module.exports = {
            response = {
                data:{
                    transactions,
-                   earnings:calcBalance(transactions)
+                   balance:calcBalance(transactions),
+                   earnings:calcEarnings(transactions)
                },
                status:"success",
                error:""

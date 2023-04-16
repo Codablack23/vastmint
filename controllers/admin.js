@@ -231,7 +231,7 @@ module.exports = {
             state:"completed",
             user:item.seller,
             amount:item.price,
-            type:"funding",
+            type:"sale",
             status:"credit"
         }
         }),{validate:true})

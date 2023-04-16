@@ -30,6 +30,8 @@
                <div class="d-flex align-items-center justify-content-between mt-3">
                   <div>
                       <p class="fs-5 fw-bold m-0">My Balance</p>
+                      <p class="fw-bold fs-3 vastmint-text-light-600"><%= parseFloat(response.data.balance).toFixed(3) %>ETH</p>
+                       <p class="fs-5 fw-bold m-0">My Earnings</p>
                       <p class="fw-bold fs-3 vastmint-text-light-600"><%= parseFloat(response.data.earnings).toFixed(3) %>ETH</p>
                   </div>
                  <a href="/dashboard/withdraw" name="" class="border-0 p-2 btn btn-dark w3-round-large" id="">
