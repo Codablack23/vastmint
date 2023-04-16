@@ -7,7 +7,7 @@ module.exports.checkBalance = async (req,res,next)=>{
     const mint_fee = await getMintFee()
 
     console.log({mint_fee,balance})
-    if(balance > mint_fee){
+    if(balance >= mint_fee){
         return next()
     }
     res.json({
@@ -22,7 +22,7 @@ module.exports.checkCollectionBalance = async (req,res,next)=>{
     const mint_fee = await getMintFee()
 
     
-    if(balance > mint_fee * 4){
+    if(balance >= mint_fee * 4){
         return next()
     }
     res.json({
@@ -36,7 +36,7 @@ module.exports.checkWithDrawBalance = async (req,res,next)=>{
     const balance = await getEarnings(username)
 
     
-    if(balance > 7){
+    if(balance >= 7){
         return next()
     }
     res.json({

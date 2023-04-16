@@ -327,7 +327,7 @@ module.exports={
         const balance = await getBalance(username)
         const mint_fee = await getMintFee()
     
-        if(balance > mint_fee * 4){
+        if(balance >= mint_fee * 4){
             response.status = "success"
             response.err = ""
             response.error = ""
@@ -352,7 +352,7 @@ module.exports={
         const balance = await getBalance(username)
         const mint_fee = await getMintFee()
     
-        if(balance > mint_fee){
+        if(balance >= mint_fee){
             const nft = await NFTModel.findOne({
                 where:{
                     name,
