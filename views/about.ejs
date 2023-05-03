@@ -3,8 +3,31 @@
 <head>
 
 <%- include("./partials/head.ejs") %>
+ <style>
+    .whatsapp-container{
+        border-radius: 50%;
+        position: fixed;
+        bottom: 20px;
+        right: 80px;
+    display:flex;
+    width: 50px;
+    height: 50px;
+    background-color: #25d366;
+    color: #fff;
+   z-index: 10;
+   } 
+   .whatsapp-container button{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #25d366;
+    color: #fff;
+   }
+ </style>
 </head>
 <body>
+    <%- include('./partials/whatsappChat.ejs') %>
     <main>
         <%- include("./partials/home/nav.ejs") %>
          <div class="vastmint-dark el-container" style="padding:3em;margin:3em auto;">

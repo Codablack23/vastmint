@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer")
 
 
 module.exports.sendMail=async({from,to,html,subject})=>{
-    const testAccount = await nodemailer.createTestAccount()
+    // const testAccount = await nodemailer.createTestAccount()
    const response = {
     status:"pending",
     preview_url:null,
@@ -20,7 +20,7 @@ module.exports.sendMail=async({from,to,html,subject})=>{
     //       pass: "@vastmint_password", // generated ethereal password
     //     },
     // }
-    host: process.env.EMAIL_SERVER,
+    host: "mail.artisfymint.com",
     name:"artisfymint.com",
     port:  465,
     secure: true,// true for 465, false for other ports
@@ -29,7 +29,7 @@ module.exports.sendMail=async({from,to,html,subject})=>{
       pass: process.env.EMAIL_PASSWORD, // generated ethereal password
     },
   })
-
+    console.log(process.env.EMAIL_USER,process.env.EMAIL_PASSWORD)
     const info = await transporter.sendMail({
         from:'"Artifymint" <support@artisfymint.com>',
         to,
