@@ -145,7 +145,6 @@ module.exports={
             data:null
         }
         const {name,price,description,attributes,nft_img,collection,collection_id} = req.body
-        console.log(req.body)
         try {
            const user = await UserModel.findOne({
              where:{
@@ -154,10 +153,11 @@ module.exports={
            }) 
            const nftResponse = await NFTModel.findOne({
             where:{
-                name:reciever
+                name,
             }
            })
            console.log({nftResponse})
+
            if(nftResponse == null){
             const nft_id = v4()
             await NFTModel.create({
@@ -361,7 +361,7 @@ module.exports={
             console.log({nft})
             if(nft){
                 response.status="failed"
-                response.error="NFT name already exists please try a unique name"
+                response.error="Nft name already exists please choose a unique name"
                 response.err=response.error
             }else{
                 response.status = "success"

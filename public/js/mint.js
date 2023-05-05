@@ -246,7 +246,7 @@ uploadBtn.addEventListener("click",async(e)=>{
     const file = getImg()
     const reqData = new FormData()
     reqData.append("file",file)
-    reqData.append("user","data")
+    // reqData.append("user","data")
     try {
         toggleLoader(loader,false)
         const response = await fetch("/upload/",{
