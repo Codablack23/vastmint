@@ -13,7 +13,7 @@ const calcEarnings = (transactions)=>{
     return parseFloat(mainTransactions.reduce((total,t)=>total + parseFloat(t.amount),0))
         
 }
-module.exports.getEarnings=async()=>{
+module.exports.getEarnings=async(username)=>{
     try {
         const transactions = await Transaction.findAll({
             where:{

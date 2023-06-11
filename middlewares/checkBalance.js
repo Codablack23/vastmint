@@ -2,6 +2,7 @@ const { getBalance, getEarnings } = require("../utils/getBalance")
 const { getMintFee } = require("../utils/getMintFee")
 
 module.exports.checkBalance = async (req,res,next)=>{
+    // console.log(req.session)
     const {username} = req.session.user
     const balance = await getBalance(username)
     const mint_fee = await getMintFee()
@@ -32,10 +33,12 @@ module.exports.checkCollectionBalance = async (req,res,next)=>{
     })
 }
 module.exports.checkWithDrawBalance = async (req,res,next)=>{
+    // console.log(req.session)
     const {username} = req.session.user
     const balance = await getEarnings(username)
+    console.log(balance)
 
-    
+    console.log(balance)
     if(balance >= 7){
         return next()
     }
