@@ -63,7 +63,7 @@
           
             <form id="step-1" data-step="1">
             
-                <div class="w3-card p-3  w3-round-large vastmint-dark" >
+                <div class="w3-card p-3  w3-round-large vastmint-white" >
                     <div class="alert alert-danger p-2 hide" id="add-nft-err">
                         <p class="error-message"></p>
                     </div>
@@ -72,7 +72,7 @@
                         <p class="fw-semibold">Mint Fee:<%= parseFloat(mint_fee) %>ETH</p>
                        </div>
                        <p class="text-center"><i class="w3-text-grey">We Charge a specific mint fee for creating NFT</i></p>
-                        <div>
+                        <div style="width: 100%;">
                             <p class="mb-1"><b>NFT Name</b></p>
                             <input 
                             required
@@ -80,7 +80,7 @@
                             name="name"
                             pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
                             placeholder="Choose Name of art"
-                            class="w3-border vastmint-dark vastmint-w-1 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                            class="w3-border vastmint-text-light-900 vastmint-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
                         </div><br>
                         <div>
                             <p class="mb-1"><b>NFT Description</b></p>
@@ -90,21 +90,20 @@
                             minlength="10"
                             pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
                             placeholder="Your description...."
-                            class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
+                            class="w3-border vastmint-text-light-900 vastmint-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" type="text" style="outline:none;">
                         </div><br>
                          <div>
-                            <p class="mb-1"><b>Floor Price</b></p>
+                            <p class="mb-1"><b>NFT Market Price</b></p>
                             <input 
                             type="text"
                             max="1"
                             required
-                            value="0.005"
-                            min="0.005"
+                            min="0.008"
                             name="price"
                             placeholder="Set your floor price"
-                            class="w3-border vastmint-dark vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
+                            class="w3-border vastmint-text-light-900 vastmint-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
                         </div>
-                        <p><small class="w3-text-grey">All New NFT begin at a price of O.005ETH</small></p>
+                        <p><small class="w3-text-grey">All New NFT begin at a price of 0.008ETH</small></p>
                         <br>
                         <br>
                         <div class="d-flex vastmint-w-100">
@@ -114,11 +113,11 @@
             </form><br>
             <br>
             <div class="hide" id="step-2">
-                <button class="btn btn-dark mb-3 back-btn">
+                <button class="btn btn-white mb-3 back-btn">
                     <i class="bi bi-arrow-left"></i>
                     <small>Back</small>
                 </button>
-                <div class="w3-card p-3  w3-round-large vastmint-dark" >
+                <div class="w3-card p-3  w3-round-large vastmint-white" >
                     <small class="d-block mb-3">Add NFT Details > Pay Mint Fee > Upload Art</small>
                     <div class="alert alert-danger p-2 hide" id="file-err">
                         <p class="error-message"></p>

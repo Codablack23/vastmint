@@ -17,26 +17,32 @@ a{
     text-decoration: none;
 }
 .vastmint-login{
+    background-color:rgba($color: #fff, $alpha:0.6);
+    backdrop-filter: blur(8px);
+    min-height: 100vh;
     .brand{
         font-weight: 800;
         font-size: 20px;
         margin-bottom: 2em;
         display: block;
     }
-    color:#fff;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    // color:#fff;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
     .white-section{
         padding: 1em;
     }
     .login-form{
-        width: 65%;
+        width: 37%;
         margin:auto; 
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 1em;
     }
-    .picture-section{
-    min-height: 100vh;
-    color:#fff;
-    }
+    // .picture-section{
+    // min-height: 100vh;
+    // color:#fff;
+    // }
     @include md{
         display: block;
         .picture-section {
@@ -44,6 +50,7 @@ a{
         }
         .login-form{
             min-height: 60vh;
+            width: 65%;
         }
     }
     @include sm{

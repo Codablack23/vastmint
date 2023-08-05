@@ -1,7 +1,7 @@
 <div class="vastmint-artists">
     <div class="vastmint-grid">
        <% for( let index = 0; index < response.sellers.length; index++ ) { %>
-        <a href="/sellers/<%= response.sellers[index].username %>" class="artist vastmint-dark-2 grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-35">
+        <a href="/sellers/<%= response.sellers[index].username %>" class="artist vastmint-white grid-col-4 grid-col-md-6 grid-col-xs-12 vastmint-card vastmint-min-vh-35">
            <div class="artist-banner vastmint-dark-gradient">
             <% if (response.sellers[index].banner_img) { %>
                <img src="<%= response.sellers[index].banner_img%>" alt="" class="banner-img">
@@ -15,7 +15,7 @@
              </div>
            </div>
             <div class="artist-desc">
-               <p class="author vastmint-text-white">@<%= response.sellers[index].username %></p>
+               <p class="author">@<%= response.sellers[index].username %></p>
                <div class="price-details">
                    <small class="vastmint-text-white"><b><%= response.sellers[index].collections.length %> Collections</b></small>
                    <!-- <p class="vastmint-text-dark"><b><%= Math.floor(Math.random()*1000) %> Minted Art</b></p> -->

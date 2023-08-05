@@ -28,7 +28,6 @@
     </style>
 </head>
 <body>
-    <%- include('../partials/whatsappChat.ejs') %>
  <main>
     <%- include('../partials/dashboard/sidebar.ejs') %>
     <section class="vastmint-dashboard-page">
@@ -36,7 +35,7 @@
     <%- include('../partials/dashboard/header.ejs') %>
     <section class="rated">
       <% if (response.status === "success") { %>
-        <div class="p-3 vastmint-dark w3-round-large">
+        <div class="p-3 vastmint-white w3-round-large">
             <header class="d-flex align-items-center justify-content-end">
                <div>
                <a href="/dashboard/fund" class="w3-button w3-round-large py-1 px-2 w3-text-white vastmint-primary-400">Fund Account</i></a>
@@ -83,7 +82,7 @@
               <% } %>
         </header>
         <% if (response.data.listing.length > 0) { %>
-            <div class="w3-round-large p-3 vastmint-dark overflow-x-auto" style="max-height:300px">
+            <div class="w3-round-large p-3 vastmint-white overflow-x-auto" style="max-height:300px">
                 <% for( nft of response.data.listing ){ %>
                     <a href="/dashboard/art/<%= nft.nft_id%>">
                         <div class="d-flex align-items-center mb-3">
@@ -105,7 +104,7 @@
                 <% } %>
             </div>
         <% }else{ %>
-            <div class="w3-center w3-round-large vastmint-dark px-1 pb-5 pt-5">
+            <div class="w3-center w3-round-large vastmint-white px-1 pb-5 pt-5">
                 <p>Dont Have any Listing Yet</p>
                 <a href="/dashboard/mint" class="btn vastmint-primary-400 vastmint-hover-primary-400 w3-text-white">Mint Now</a>
             </div>
@@ -119,7 +118,7 @@
             <% } %>
         </header>
         <% if (response.data.collections.length > 0) { %>
-            <div class="w3-round-large p-3 vastmint-dark overflow-x-auto" style="max-height:300px">
+            <div class="w3-round-large p-3 vastmint-white overflow-x-auto" style="max-height:300px">
                 <% for( collection of response.data.collections ) { %>
                     <div class="d-flex align-items-center mb-3">
                         <div class="d-flex align-items-center flex flex-grow-1">

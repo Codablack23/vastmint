@@ -1,4 +1,4 @@
-<section class="seller-banner-container vastmint-card vastmint-dark">
+<section class="seller-banner-container vastmint-card vastmint-white">
   <div class="seller-banner vastmint-min-h-15 vastmint-grid vastmint-white">
     <% if (response.seller.banner_img) { %>
       <img src="<%= response.seller.banner_img %>" alt="">
@@ -14,7 +14,7 @@
     <div class="seller-desc">
       <div>
           <h3 class="title"><%= response.seller.name %></h3>    
-          <p class="vastmint-text-white">@<%= response.seller.username %></p><br>
+          <p>@<%= response.seller.username %></p><br>
       </div>
       <div class="more-desc">
          <p><b><%= response.seller.collections.length %></b> Collections</p>

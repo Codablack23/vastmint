@@ -8,12 +8,12 @@
    <link rel="stylesheet" href="/css/w3css.css">
    <link rel="stylesheet" href="/css/vastmint.css">
    <link rel="stylesheet" href="/css/account.css">
-   <title>Artisfymint | <%= title %></title>   
+   <title>Artsea | <%= title %></title>   
 </head>
 <body>
    <div class="vastmint-login">
-     <div class="white-section vastmint-dark">
-           <a href="/" class="brand">Artisfymint</a>
+     <div class="white-section">
+           <a href="/" class="brand">Artsea</a>
             <form action="/accounts/register" method="post" id="reg-form" class="login-form">
                <p class="fw-bold fs-5 w3-center">Register An Account</p>
                <div class="vastmint-dark-2 d-none p-3 w3-round my-2" id="err-container">
@@ -43,86 +43,85 @@
                 <br>
                <div class="form-field mb-3">
                    <label class="d-block fw-semibold" for="">Full Name <span class="text-danger fw-bold">*</span></label>
-                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <div class="d-flex vastmint-light-300 vastmint-text-dark-2 px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
                     <i class="bi bi-envelope w3-text-grey"></i>
                     <input 
                     name="name"
                     value="<%= values.name?values.name:"" %>"
                     type="text" 
-                    class="ms-2 vastmint-text-white vastmint-dark-2" 
+                    class="ms-2" 
                     placeholder="Enter your Full name" 
-                    style="width:90%;border:none;outline:none"
+                    style="border:none;width:90%;outline:none;background:none;"
                     >
                   </div>
                </div>
                 <div class="form-field mb-3">
                    <label class="d-block fw-semibold" for="">Username <span class="text-danger fw-bold">*</span></label>
-                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <div class="d-flex px-2 py-1 vastmint-light-300 vastmint-text-dark-2 w3-round-xxlarge">
                     <i class="bi bi-envelope w3-text-grey"></i>
                     <input 
                     name="username"
                     value="<%= values.username?values.username:"" %>"
                     type="text" 
-                    class="ms-2 vastmint-text-white vastmint-dark-2" 
+                    class="ms-2" 
                     placeholder="Pick a username" 
-                    style="width:90%;border:none;outline:none"
+                    style="border:none;width:90%;outline:none;background:none;"
                     >
                   </div>
                </div>
                 <div class="form-field mb-3">
                    <label class="d-block fw-semibold" for="">Email <span class="text-danger fw-bold">*</span></label>
-                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <div class="d-flex px-2 py-1 vastmint-light-300 vastmint-text-dark-2 w3-round-xxlarge">
                     <i class="bi bi-envelope w3-text-grey"></i>
                     <input 
                     name="email"
-                    style="border:none;outline:none"
                     value="<%= values.email?values.email:"" %>"
                     type="email" 
-                    class="vastmint-text-white ms-2 vastmint-dark-2" 
+                    class="ms-2" 
                     placeholder="Enter your email" 
-                    style="width:90%;outline:none;"
+                    style="border:none;width:90%;outline:none;background:none;"
                     required
                     >
                   </div>
                </div>
                <div class="form-field mb-3">
                    <label for="" class="d-block fw-semibold">Password</label>
-                   <div class="d-flex align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <div class="d-flex align-items-center px-2 py-1 vastmint-light-300 vastmint-text-dark-2 w3-round-xxlarge">
                     <i class="bi bi-key w3-text-grey"></i>
                        <input 
                        name="password"
                        type="password" 
                        value="<%= values.password?values.password:"" %>"
-                       class="ms-2 vastmint-text-white vastmint-dark-2"
+                       class="ms-2"
                        placeholder="Pick a password" 
                        id="pass-field"
-                       style="width:90%;outline:none;border:none;"
+                       style="border:none;width:90%;outline:none;background:none;"
                        min-length="8"
                        required
                        >
-                       <button class="btn p-0 btn-dark" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
-                       <button class="btn p-0 d-none btn-dark" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
+                       <button class="btn p-0 btn-none" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 d-none btn-none" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div> 
                <div class="form-field mb-4">
                    <label for="" class="d-block fw-semibold">Confirm Password</label>
-                   <div class="d-flex align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <div class="d-flex align-items-center px-2 py-1 vastmint-light-300 vastmint-text-dark-2 w3-round-xxlarge">
                     <i class="bi bi-key w3-text-grey"></i>
                        <input 
                        type="password" 
                        value="<%= values.password?values.password:"" %>"
-                       class="ms-2 vastmint-text-white vastmint-dark-2" 
+                       class="ms-2" 
                        placeholder="Confirm your password" 
                        id="confirm-pass-field"
                        min-length="8"
                        required
-                       style="border:none;width:90%;outline:none;"
+                       style="border:none;width:90%;outline:none;background:none;"
                        >
-                       <button class="btn p-0 btn-dark" id="show-confirm-password" type="button"><i class="bi bi-eye-slash"></i></button>
-                       <button class="btn p-0 d-none btn-dark" id="hide-confirm-password" type="button"><i class="bi bi-eye"></i></button>
+                       <button class="btn p-0 btn-none" id="show-confirm-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 d-none btn-none" id="hide-confirm-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div>
-               <button id="submit-btn" type="button" class="btn w-100 w3-round-xxlarge vastmint-primary-400 vastmint-text-white">Continue</button>
+               <button id="submit-btn" type="button" class="btn btn-dark w-100 w3-round-xxlarge vastmint-dark-2 vastmint-text-white">Continue</button>
                <p class="text-center my-3">Already Have an account? <a href="/accounts/"><b>Login</b></a></p>
             </form>
             <p class="my-5 w3-text-grey text-center"><small>© Copyright 2023 Artisfymint All Rights Reserved.</small></p>

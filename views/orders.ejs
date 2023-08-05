@@ -55,9 +55,9 @@
             </div>
         <% }else{%>
             <h3 class="vastmint-text-primary-500" style="font-size: 25px;text-align:center;">Your Orders</h3>
-            <p class="vastmint-text-light-400" style="font-size: 15px;text-align:center;">Pending orders will be pending until approved you will recieve a mail please wait patiently</p>
+            <p style="font-size: 15px;text-align:center;">Pending orders will be pending until approved you will recieve a mail please wait patiently</p>
             <% if (response.orders.length > 0) { %>
-                <section class="item-activity vastmint-dark vastmint-card">
+                <section class="item-activity vastmint-white vastmint-card">
                     <p class="title">Order History</p>
                     <br>
                     <div class="table">
@@ -79,6 +79,21 @@
                       </table>
                     </div>
                   </section>
+                 <% if (response.pages > 1) { %>
+                  <div class="pagination">
+                    <% if (response.prev) { %>
+                      <a href="/sellers?page=<%=response.prev %>"  class=""><i class="bi bi-chevron-left"></i></a>
+                    <% } %>
+                    <% const current_page = parseFloat(response.page) !== 1?parseFloat(response.page) - 1:1%>
+                    <% const pagesShown = parseFloat(response.page) + 3 < response.pages? parseFloat(response.page) + 3:response.pages + 1 %>
+                    <% for( let index = current_page; index < pagesShown; index++ ) { %>
+                      <a href="/sellers?page=<%= index %>"  class="<%= response.page == index?"vastmint-dark-2 active vastmint-text-white":"" %>>"><%= index %></a>
+                    <% } %>
+                    <% if (response.next <= response.pages) { %>
+                    <a href="/sellers?page=<%=response.next %>"  class=""><i class="bi bi-chevron-right"></i></a>
+                    <% } %>
+                  </div>
+                 <% } %>
             <% }else{ %>
                 <br><br>
                 <div class="" style="max-width: 500px;margin:1em auto;text-align:center">

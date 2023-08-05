@@ -15,9 +15,9 @@ a {
 }
 
 .vastmint-login {
-  color: #fff;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  min-height: 100vh;
 }
 .vastmint-login .brand {
   font-weight: 800;
@@ -29,12 +29,11 @@ a {
   padding: 1em;
 }
 .vastmint-login .login-form {
-  width: 65%;
+  width: 37%;
   margin: auto;
-}
-.vastmint-login .picture-section {
-  min-height: 100vh;
-  color: #fff;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1em;
 }
 @media screen and (max-width: 990px) {
   .vastmint-login {
@@ -45,6 +44,7 @@ a {
   }
   .vastmint-login .login-form {
     min-height: 60vh;
+    width: 65%;
   }
 }
 @media screen and (max-width: 600px) {

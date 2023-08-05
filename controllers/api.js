@@ -39,7 +39,7 @@ module.exports={
                 message_id:v4()
             })
             await sendMail({
-                from:"Artisfy",
+                from:"ArtSea",
                 to:email,
                 subject:"Transaction Created",
                 html:getPaymentEmailHtml(origin,name)
@@ -103,7 +103,7 @@ module.exports={
                 message_id:v4()
             })
             await sendMail({
-                from:"Artisfy",
+                from:"ArtSea",
                 to:user.email,
                 subject:"Transaction Confirmed",
                 html:getTransactionCompleteHtml(origin,payment_id,user.name)
@@ -182,7 +182,7 @@ module.exports={
                 nft_id,
                 type:"mint",
                 user:username,
-                from:"vastmint",
+                from:"Artsea",
                 to:reciever,
                 amount:4,
                 status:"credit"
@@ -205,7 +205,106 @@ module.exports={
                 message_id:v4()
             })
             await sendMail({
-                from:"Artisfy",
+                from:"ArtSea",
+                to:user.email,
+                subject:"Mint Successful",
+                html:getMintEmailHtml(origin,nft_id,user.name)
+            })
+            response.status = "success"
+            response.message = "you have successfully created your NFT"
+            response.err = ""
+            response.data = {
+                nft_id
+            }
+           }else{
+            response.status="failed"
+            response.message=""
+            response.error="Nft name already exists please choose a unique name"
+            response.err="Nft name already exists please choose a unique name"
+            response.data=null 
+           }
+
+        } catch (error) {
+            console.log(error)
+            response.status="failed"
+            response.message=""
+            response.error="An error occured in the server please try again later"
+            response.data=null 
+            
+        }
+        res.json(response)
+    },   
+    async mintNftCollection(req,res){
+        const origin = req.headers.origin
+        const {username,name:reciever} = req.session.user
+        const response = {
+            status:"pending",
+            message:"",
+            err:"pending",
+            data:null
+        }
+        const {name,price,description,attributes,nft_img,collection,collection_id} = req.body
+        try {
+           const user = await UserModel.findOne({
+             where:{
+                username
+             }
+           }) 
+           const nftResponse = await NFTModel.findOne({
+            where:{
+                name,
+            }
+           })
+           console.log({nftResponse})
+
+           if(nftResponse == null){
+            const nft_id = v4()
+            await NFTModel.create({
+              name,
+              floor_price:price,
+              current_price:price,
+              description,
+              nft_img,
+              collection,collection_id,
+              attributes:JSON.stringify(attributes),
+              nft_id,
+              owner:username,
+              seller:username,
+              meta_data:JSON.stringify({
+                contract_address:`0x8${nft_id}`,
+                contract_address_link:"",
+                token_id:nft_id.slice(0,4),
+                token_name:`${name} #${nft_id.slice(0,4)}`
+             })
+            })
+            await NFTHistory.create({
+                nft_id,
+                type:"mint",
+                user:username,
+                from:"Artsea",
+                to:reciever,
+                amount:4,
+                status:"credit"
+            }) 
+            const mintfee = await getMintFee()
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount:0,
+                type:"mint",
+                status:"DEBIT"
+            })
+            await Notifications.create({
+                title:"Mint successful",
+                type:"mint",
+                message:"You have Successfully minted a nft",
+                reciever:user.username,
+                user:user.name,
+                message_id:v4()
+            })
+            await sendMail({
+                from:"ArtSea",
                 to:user.email,
                 subject:"Mint Successful",
                 html:getMintEmailHtml(origin,nft_id,user.name)
@@ -295,7 +394,7 @@ module.exports={
         })
         const origin = req.headers.origin
         await sendMail({
-            from:"Artisfy",
+            from:"ArtSea",
             to:email,
             subject:"NFT Order Created",
             html:getOrderEmailHtml(origin,order_id,name)

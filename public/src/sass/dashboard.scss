@@ -16,9 +16,9 @@ main,
 .main{
     width: 100%;
     min-height: 100vh;
-    background: rgba($color: #0E0F13, $alpha: 0.4);
+    background: rgba($color: #fff, $alpha: 0.6);
     backdrop-filter: blur(20px) !important;
-    color:#fff;
+
 }
 .main-container{
     max-width: 1440px;

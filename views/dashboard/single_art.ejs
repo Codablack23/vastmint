@@ -46,7 +46,7 @@
                 <img src="<%= response.nft.nft_img %>" alt="" class="img-fluid w3-round-large">
             </div>
             <div class="grid-col-6 grid-col-md-12">
-                <div class="vastmint-dark w3-card p-2 w3-round-large align-items-start d-flex justify-content-between">
+                <div class="vastmint-white w3-card p-2 w3-round-large align-items-start d-flex justify-content-between">
                    <div>
                     <small class="fw-semibold w3-text-grey"><%= response.nft.collection?response.nft.collection:"N/A" %></small>
                     <p class="fs-5"><%= response.nft.name  %> #<%= response.nft.nft_id.slice(0,4) %></p>
@@ -55,13 +55,13 @@
                    </div>
                    <button class="btn"><i class="bi bi-share-fill"></i></button>
                 </div> 
-                <div class="vastmint-dark w3-card p-2 w3-round-large mt-2">
+                <div class="vastmint-white w3-card p-2 w3-round-large mt-2">
                   <p class="fs-5 fw-semibold">Description</p>
                   <p class="w3-text-grey"><%= response.nft.description %></p>
                 </div>
             </div>
          </div>
-         <!-- <div class="mt-2 p-2 px-3 w3-card vastmint-dark w3-round-large">
+         <!-- <div class="mt-2 p-2 px-3 w3-card vastmint-white w3-round-large">
             <p class="fs-4 fw-bold">NFT Attributes <small>(<%= JSON.parse(response.nft.attributes).length %>)</small></p>
             <% if (JSON.parse(response.nft.attributes).length > 0) { %>
                <div class="vastmint-grid">
@@ -75,7 +75,7 @@
               </div>
             <% } %>
          </div> -->
-          <div class="mt-3 p-2 px-3 w3-card vastmint-dark w3-round-large">
+          <div class="mt-3 p-2 px-3 w3-card vastmint-white w3-round-large">
             <p class="fs-4 fw-bold">Meta Data</p>
             <div class="">
                 <div class="">
@@ -87,14 +87,14 @@
                    <p><%= meta_data.token_id %></p>
                    <p class="fs-6 fw-bold mb-0">Token Name</p>
                    <p><%= meta_data.token_name %></p>
-                   <a href="<%= response.nft.nft_img %>" class="btn btn-dark">See Original Image</a>
+                   <a href="<%= response.nft.nft_img %>" class="btn btn-white">See Original Image</a>
                 </div> 
             </div>
          </div> 
-         <!-- <div class="mt-3 px-3 w3-card vastmint-dark w3-round-large">
+         <!-- <div class="mt-3 px-3 w3-card vastmint-white w3-round-large">
             <p class="fs-4 fw-bold p-2">NFT History</p>
             <div class="mt-1 mb-2 w3-responsive p-2">
-                <table class="w3-table vastmint-dark  w3-card w3-round-large">
+                <table class="w3-table vastmint-white  w3-card w3-round-large">
                     <tr>
                       <th style="min-width: 150px;">Status</th>
                       <th style="min-width: 100px;">Price</th>
@@ -117,7 +117,7 @@
          <!-- <div class="mt-2 p-2 px-3 w3-card w3-white w3-round-large">
               <p class="fs-4 fw-bold"> Transfer Ownership</p>
               <p>Change the User who can have ownership of this NFT</p>
-              <button class="btn btn-dark">Transfer Now</button>
+              <button class="btn btn-white">Transfer Now</button>
           </div> -->
       <% }%>
     </section>

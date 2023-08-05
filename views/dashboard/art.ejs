@@ -23,7 +23,7 @@
             <% if (response.data.listing.length > 0) { %>
                 <% for( nft of response.data.listing ) { %>
                     <a href="/dashboard/art/<%= nft.nft_id%>">
-                    <div class="d-md-flex align-items-center p-2 mb-3 vastmint-dark w3-round-large">
+                    <div class="d-md-flex align-items-center p-2 mb-3 vastmint-white w3-round-large">
                         <div class="d-flex mb-2 align-items-center flex-grow-1">
                             <div style="width:80px;height:80px">
                             <img src="<%= nft.nft_img%>" class="w3-round-large object-fit-cover" style="width:80px;height:80px" alt="">
@@ -33,7 +33,7 @@
                                 <b class="d-block">Collection:<%= nft.collection?nft.collection:"N/A"%></b>
                             </div>
                         </div>
-                        <hr class="d-md-none bg-dark" style="height:0.75px">
+                        <hr class="d-md-none bg-white" style="height:0.75px">
                         <div class="d-flex justify-content-between flex-grow-1">
                             <div class="flex-grow-1">
                                 <div class="">

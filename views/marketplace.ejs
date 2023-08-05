@@ -19,8 +19,8 @@
            <div class="tabbar-container">
             <%- include('./partials/marketplace/sidebar.ejs') %>
             <div class="filter-container">
-              <form class="search-bar vastmint-text-white vastmint-dark">
-                  <input type="text" name="query" style="background: none;" placeholder="Search <%= title %>">
+              <form class="search-bar vastmint-white vastmint-card">
+                  <input type="text" name="query" class="vastmint-text-dark-2" style="background: none;" placeholder="Search <%= title %>">
                   <button><i class="bi bi-search vastmint-text-white"></i></button>
               </form>
           </div>
@@ -28,6 +28,21 @@
             <% if (response.status == "success") { %>
               <% if (response.nfts.length > 0) { %>
                 <%- include('./partials/marketplace/nfts.ejs') %>
+                <% if (response.pages > 1) { %>
+                  <div class="pagination">
+                    <% if (response.prev) { %>
+                      <a href="/marketplace?page=<%=response.prev %>"  class=""><i class="bi bi-chevron-left"></i></a>
+                    <% } %>
+                    <% const current_page = parseFloat(response.page) !== 1?parseFloat(response.page) - 1:1%>
+                    <% const pagesShown = parseFloat(response.page) + 3 <= response.pages? parseFloat(response.page) + 3:response.pages + 1 %>
+                    <% for( let index = current_page; index < pagesShown; index++ ) { %>
+                      <a href="/marketplace?page=<%= index %>"  class="<%= response.page == index?"vastmint-dark-2 active vastmint-text-white":"" %>>"><%= index %></a>
+                    <% } %>
+                    <% if (response.next <= response.pages) { %>
+                    <a href="/marketplace?page=<%=response.next %>"  class=""><i class="bi bi-chevron-right"></i></a>
+                    <% } %>
+                  </div>
+                <% } %>
               <% } else { %>
                 <br>
                 <div class="" style="text-align:center;max-width:500px;margin-inline:auto">

@@ -32,18 +32,25 @@ async function getHomePage(req,res){
 
 async function getCollectionsPage(req,res){
     let response;
-    const {query} = req.query
+    const {query,page} = req.query
     try {
         const collections = await NFTCollection.findAll()
         const nfts = await NFTModel.findAll()
+        const start = page?(0 + ((page-1) * 8)):0
+        const end = page?(8 +  ((page-1) * 8)):8
+        const allPages = Math.floor(collections.length / 8)
         response = {
             collections:collections.filter(coll=>coll.name.toLowerCase().includes(query?query.toLowerCase():""))
             .map(collection=>({
                 ...collection.dataValues,
                 arts:nfts.filter(a=>a.collection_id === collection.collection_id)
-            })),
+            })).slice(start,end),
             status:"success",
-            error:""
+            error:"",
+            page:page?page:1,
+            next:page?parseInt(page) + 1:2,
+            prev:page?page-1:null,
+            pages:parseInt(collections.length) % 8 === 0 ?allPages :allPages + 1
         }
     } catch (error) {
        console.log(error)
@@ -64,6 +71,7 @@ async function getCollectionsPage(req,res){
 async function getCollectionPage(req,res){
     let response;
     const {id} = req.params
+   
     try {
         const collectionRes = await NFTCollection.findOne({
            where:{
@@ -115,13 +123,22 @@ async function getCollectionPage(req,res){
 
 async function getMarketplacePage(req,res){
     let response;
-    const {query} = req.query
+    const {query,page} = req.query
     try {
         const nfts = await NFTModel.findAll()
+        const start = page?(0 + ((page-1) * 12)):0
+        const end = page?(12 +  ((page-1) * 12)):12
+        const allPages = Math.floor(nfts.length/12) 
         response = {
-            nfts:nfts.filter((nft)=>nft.name.toLowerCase().includes(query?query.toLowerCase():"")),
+            nfts:nfts
+            .filter((nft)=>nft.name.toLowerCase().includes(query?query.toLowerCase():""))
+            .slice(start,end),
             status:"success",
-            error:""
+            error:"",
+            page:page?page:1,
+            next:page?parseFloat(page) + 1:2,
+            prev:page?parseFloat(page) - 1:null,
+            pages:nfts.length % 12 === 0 ? allPages: allPages + 1
         }
     } catch (error) {
        console.log(error)
@@ -263,7 +280,8 @@ async function getSellersPage(req,res){
 
 async function getSellerPage(req,res){
     let response;
-    const {query} = req.query
+    const {query,page} = req.query
+  
     try {
         const sellersRes = await UserModel.findAll({
             attributes:{exclude:["password"]},
@@ -273,10 +291,19 @@ async function getSellerPage(req,res){
             ...seller.dataValues,
             collections:collectionRes.filter(coll=>coll.seller==seller.username)
         }))
+        const start = page?(0 + ((page-1) * 12)):0
+        const end = page?(12 +  ((page-1) * 12)):12
+        const allPages = Math.floor(sellers.length/12)
         response = {
-            sellers:sellers.filter(seller=>seller.name.toLowerCase().includes(query?query.toLowerCase():"") || seller.username.toLowerCase().includes(query?query.toLowerCase():"")),
+            sellers:sellers
+            .filter(seller=>seller.name.toLowerCase().includes(query?query.toLowerCase():"") || seller.username.toLowerCase().includes(query?query.toLowerCase():""))
+            .slice(start,end),
             status:"success",
-            error:""
+            error:"",
+            page:page?page:1,
+            next:page?parseInt(page) + 1:2,
+            prev:page?parseInt(page) - 1:null,
+            pages:sellers.length % 12 === 0 ? allPages: allPages + 1
         }
     } catch (error) {
        console.log(error)
@@ -307,16 +334,25 @@ async function getCartPage(req,res){
 async function getOrdersPage(req,res){
     let response;
     const {username} = req.session.user
+    const {page} = req.query
     try {
+        const start = page?(0 + ((page-1) * 10)):0
+        const end = page?(10 +  ((page-1) * 10)):10
+
         const orders = await Orders.findAll({
             where:{
                 username
             }
         })
+        const allPages = Math.floor(orders.length/10)
         response = {
-            orders,
+            orders:orders.slice(start,end),
             status:"success",
-            error:""
+            error:""  ,
+            page:page?page:1,
+            next:page?page + 1:2,
+            prev:page?page-1:null,
+            pages:orders.length % 10 === 0 ? allPages: allPages + 1
         }
     } catch (error) {
        console.log(error)

@@ -13,9 +13,8 @@ main,
 .main {
   width: 100%;
   min-height: 100vh;
-  background: rgba(14, 15, 19, 0.4);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(20px) !important;
-  color: #fff;
 }
 
 .main-container {

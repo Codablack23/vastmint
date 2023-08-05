@@ -267,7 +267,7 @@ uploadBtn.addEventListener("click",async(e)=>{
           preview.classList.add("hide")
           success.classList.remove("hide")
         }else{
-            showError(errEL,data.err)
+            showError(errEL,"could not upload due to some server issues please try again later")
         }
     } catch (error) {
         toggleLoader(loader,true)

@@ -8,14 +8,14 @@
    <link rel="stylesheet" href="/css/w3css.css">
    <link rel="stylesheet" href="/css/vastmint.css">
    <link rel="stylesheet" href="/css/account.css">
-   <title>Artisfymint | <%= title %></title>
+   <title>Artsea | <%= title %></title>
 </head>
 <body>
-   <main class="vastmint-login vastmint-text-white">
-     <div class="white-section vastmint-dark">
-           <a href="/" class="brand">Artisfymint</a>
+   <main class="vastmint-login vastmint-text-dark-2">
+     <div class="white-section">
+           <a href="/" class="brand vastmint-text-dark-2">Artsea</a>
             <form action="/accounts/" method="post" class="login-form">
-               <p class="fw-bold fs-5 w3-center">Login To Account</p><br>
+               <p class="fw-bold fs-5 w3-center vastmint-text-dark-2">Login To Account</p><br>
                <% if (response.status.toLowerCase() === "failed") { %>
                   <div class="alert alert-danger p-3 w3-round my-2">
                      <% if (response.error_type === "field_error") { %>
@@ -39,22 +39,22 @@
                   <% } %>
                 <br>
                <div class="form-field mb-4">
-                   <label class="d-block fw-semibold" for="">Email <span class="text-danger fw-bold">*</span></label>
-                   <div class="d-flex px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <label class="d-block fw-semibold vastmint-text-dark-2" for="">Email <span class="text-danger fw-bold">*</span></label>
+                   <div class=" vastmint-light-300 vastmint-text-dark-2 d-flex px-2 py-1 w3-round-xxlarge">
                     <i class="bi bi-envelope w3-text-grey"></i>
                     <input 
                     name="email"
-                    style="border:none;outline:none"
+                    style="border:none;outline:none;background:none"
                     value="<%= values.email?values.email:"" %>"
-                    type="text" class="vastmint-dark-2 ms-2 vastmint-text-white vastmint-w-100" 
+                    type="text" class="ms-2 vastmint-w-100" 
                     placeholder="Enter your email" 
                     style="width:90%;outline:none;"
                     >
                   </div>
                </div>
                <div class="form-field">
-                   <label for="" class="d-block fw-semibold">Password <span class="text-danger fw-bold">*</span></label>
-                   <div class="d-flex align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
+                   <label for="" class="d-block vastmint-text-dark-2 fw-semibold">Password <span class="text-danger fw-bold">*</span></label>
+                   <div class="d-flex vastmint-light-300 vastmint-text-dark-2 align-items-center px-2 py-1 vastmint-dark-2 w3-round-xxlarge">
                     <i class="bi bi-key w3-text-grey"></i>
                        <input 
                        name="password"
@@ -62,20 +62,20 @@
                        id="pass-field"
                        style="border:none;outline:none"
                        value="<%= values.password?values.email:"" %>"
-                       class="ms-2 w3-border-none vastmint-dark-2 vastmint-text-white vastmint-w-85" 
+                       class="ms-2 w3-border-none vastmint-light-300 vastmint-text-dark-2 vastmint-w-85" 
                        placeholder="Enter your password" 
                        style="width:90%;outline:none;"
                        >
-                       <button class="btn p-0 vastmint-text-white" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
-                       <button class="btn p-0 vastmint-text-white d-none" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
+                       <button class="btn p-0 vastmint-text-dark-2" id="show-password" type="button"><i class="bi bi-eye-slash"></i></button>
+                       <button class="btn p-0 vastmint-text-dark-2 d-none" id="hide-password" type="button"><i class="bi bi-eye"></i></button>
                    </div>
                </div>
-                <p class="text-end mb-4"><a href="/accounts/forgot-password" class="forgot-password"><small class="fw-semibold">Forgot Password?</small></a></p>
-               <button class="btn w-100 w3-round-xxlarge vastmint-primary-400 vastmint-text-white">Login</button>
-               <p class="text-center my-3">Don't Have an account? <a href="/accounts/register"><b>Sign up</b></a></p>
+                <p class="text-end mb-4 vastmint-text-dark-2"><a href="/accounts/forgot-password" class="forgot-password"><small class="fw-semibold">Forgot Password?</small></a></p>
+               <button class="btn btn-dark w-100 w3-round-xxlarge vastmint-dark-2 vastmint-text-white">Login</button>
+               <p class="text-center my-3 vastmint-text-dark-2">Don't Have an account? <a href="/accounts/register"><b>Sign up</b></a></p>
             </form>
             <br><br>
-            <p class="my-5 text-secondary text-center"><small>© Copyright 2023 Artisfymint All Rights Reserved.</small></p>
+            <p class="my-5 text-secondary text-center"><small>© Copyright <%= (new Date()).getFullYear()%> Artisfymint All Rights Reserved.</small></p>
      </div>
      <div class="picture-section">
 

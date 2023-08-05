@@ -19,7 +19,7 @@
     <%- include('../partials/dashboard/header.ejs') %>
         <header class="d-flex align-items-center justify-content-between">
             <p class="fs-4 fw-semi-bold">Your Collections</p>
-            <a href="/dashboard/collections/create" class="btn btn-dark">
+            <a href="/dashboard/collections/create" class="btn btn-white">
                 <i class="bi bi-plus-lg"></i>
                 <span class="d-none d-md-inline-block">New Collection</span>
             </a>
@@ -28,7 +28,7 @@
             <div class="notifications-container">
             <% if (response.data.collections.length > 0) { %>
                 <% for( collection of response.data.collections ) { %>
-                    <div class="d-md-flex align-items-center p-2 mb-3 vastmint-dark w3-round-large">
+                    <div class="d-md-flex align-items-center p-2 mb-3 vastmint-white w3-round-large">
                         <div class="d-flex mb-2 align-items-center flex-grow-1">
                             <div style="width:80px;height:80px">
                             <img src="<%= collection.banner_img %>" class="w3-round-large object-fit-cover" style="width:80px;height:80px" alt="">

@@ -81,7 +81,7 @@
            </div>
           </div>
     </div>
-     <div class="p-4 vastmint-dark w3-card w3-round-large">
+     <div class="p-4 vastmint-white w3-card w3-round-large">
         <header class="header d-flex align-items-center justify-content-between">
             <p class="title fs-4 fw-semibold">Create Collection</p>
             <p class="title fs-4 fw-semibold">Mint Fee <%= parseFloat(mint_fee) %>ETH</p>
@@ -123,7 +123,7 @@
                 <label for="" class="fw-semibold">Collection Name*</label>
                 <input 
                 name="name" 
-                class="vastmint-dark-2 vastmint-w-100 w3-round" 
+                class="vastmint-white-2 vastmint-w-100 w3-round" 
                 type="text" 
                 required
                 >
@@ -217,7 +217,7 @@
             }else{
                 errEL.classList.remove("hide")
                 const errText = errEL.querySelector(".error-message")
-                errText.innerHTML = data.err || data.error
+                errText.innerHTML = "could not upload due to some server issues please try again later"
             }
           }else{
               loader.classList.add("d-none")

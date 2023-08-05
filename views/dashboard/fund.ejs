@@ -255,7 +255,7 @@
     <%- include('../partials/header2.ejs') %>
     <%- include('../partials/dashboard/header.ejs') %>
     <p class="fs-4 fw-semi-bold">Fund Account</p>
-    <div class="cart-container vastmint-dark"  id="app">
+    <div class="cart-container vastmint-white"  id="app">
         <div class="loader" v-show="loading">
             <div class="content">
                 <img src="/assets/icons/spinner.jpg" alt="">
@@ -271,7 +271,7 @@
            </div>
         </div>
         <div class="pay-modal" v-show="isVisible">
-           <div class="dialog vastmint-white vastmint-text-dark">
+           <div class="dialog vastmint-white vastmint-text-white">
               <header class="dialog-header">
                  <h3>Start Payment</h3>
                  <button @click="setIsVisible"><i class="bi bi-x-lg"></i></button>
@@ -286,7 +286,7 @@
                         <button :class="{selected:selectedToken == token.id}" class="drop vastmint-white" @click="selectToken(token.id)"></button>
                     </li> 
                 </ul>
-                <button v-if="selectedToken" @click="hideSelect" class="create-order vastmint-dark vastmint-text-white">Pay Now</button>
+                <button v-if="selectedToken" @click="hideSelect" class="create-order vastmint-white vastmint-text-white">Pay Now</button>
               </div>
               <div v-else class="active-token">
                 <button @click="hideSelect" style="border:none;background:none;cursor:pointer;outline:none;"><i class="bi bi-arrow-left"></i></button>
@@ -325,7 +325,7 @@
             pattern="\d+|(\d+[.]\d+)"
             min="0.1"
             placeholder="add your amount you want fund in ETH"
-            class="w3-border vastmint-dark vastmint-text-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
+            class="w3-border vastmint-white vastmint-text-white vastmint-w-100 px-2 p-1 w3-border-light-grey w3-round" style="outline:none;">
         </div>
         <p><small class="text-gray fw-bold">Please add amount in ETH</small></p>
         <br>

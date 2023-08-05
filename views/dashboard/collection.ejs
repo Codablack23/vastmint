@@ -183,7 +183,7 @@
                             <div class="d-flex">
                                 <button 
                                 onclick="addToCollection('<%= available.nft_id%>','<%= response.data.collection.collection_id %>')"
-                                class="btn btn-dark"><small>Add to Collection</small></button>
+                                class="btn btn-white"><small>Add to Collection</small></button>
                             </div>
                         </div>
                       </li>
@@ -227,7 +227,7 @@
                 <img src="<%= response.data.collection.banner_img %>" alt="" class="img-fluid w3-round-large">
             </div>
             <div class="grid-col-6 grid-col-md-12">
-                <div class="vastmint-dark w3-card p-2 w3-round-large align-items-start d-flex justify-content-between">
+                <div class="vastmint-white w3-card p-2 w3-round-large align-items-start d-flex justify-content-between">
                    <div>
                     <p class="mb-0">
                         <small class="fw-bold">Collection Name</small>
@@ -247,7 +247,7 @@
          </div>
          <div class="vastmint-grid mt-5">
             <% for(art of response.data.collection.arts) { %>
-                <div class="grid-col-4 grid-col-md-6 grid-col-sm-12 vastmint-dark w3-round-large">
+                <div class="grid-col-4 grid-col-md-6 grid-col-sm-12 vastmint-white w3-round-large">
                     <div class="img-container">
                        <img class="w3-round-large" src="<%= art.nft_img %>" style="height:150px;object-fit:cover;width:100%" alt="">
                     </div>
@@ -258,13 +258,13 @@
                 </div> 
                <% } %>  
            <% for( let index = response.data.collection.arts.length; index < 5; index++ ) { %>
-            <div class="grid-col-4 grid-col-md-6 d-flex align-items-center justify-content-center grid-col-sm-12 vastmint-dark w3-round-large">
+            <div class="grid-col-4 grid-col-md-6 d-flex align-items-center justify-content-center grid-col-sm-12 vastmint-white w3-round-large">
                 <div class="p-3 w3-center">
                     <p><small class="fw-bold">Add an NFT to collection</small></p>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Create and Add
                     </button> 
-                    <button class="btn btn-dark mt-1" data-bs-toggle="modal" data-bs-target="#nft_list">
+                    <button class="btn btn-white mt-1" data-bs-toggle="modal" data-bs-target="#nft_list">
                         Add Existing NFT
                     </button>
                 </div>
@@ -350,7 +350,7 @@
             }else{
                 errEL.classList.remove("hide")
                 const errText = errEL.querySelector(".error-message")
-                errText.innerHTML = data.err || data.error
+                errText.innerHTML = "could not upload due to some server issues please try again later"
             }
         } catch (error) {
             console.log(error)
@@ -378,7 +378,7 @@
                const loader= document.querySelector("#loader")
                const errEL= document.querySelector("#file-err")
                 loader.classList.remove("d-none")
-                const res = await fetch(`/api/nft/mint`,{
+                const res = await fetch(`/api/collection/nft/mint`,{
                     method:"POST",
                     headers: {
                         'Content-Type':'application/json',

@@ -53,7 +53,7 @@ module.exports.getResetEmailHtml = (origin,token,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">Reset Password</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">We have recieved a request to reset your password.</p>
@@ -62,7 +62,7 @@ module.exports.getResetEmailHtml = (origin,token,name)=>`
             <a class="reset-link" href="${origin}/accounts/reset-password/${token}">Reset password</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -79,7 +79,7 @@ module.exports.getMintEmailHtml = (origin,token,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">Mint Successful</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">You have successfully minted and listed your nft</p>
@@ -88,7 +88,7 @@ module.exports.getMintEmailHtml = (origin,token,name)=>`
             <a class="reset-link" href="${origin}/marketplace/${token}">View NFT listing</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -104,7 +104,7 @@ module.exports.getOrderEmailHtml=(origin,token,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">NFT Order Creation</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">You have successfully created an order for purchasing some nfts</p>
@@ -113,7 +113,7 @@ module.exports.getOrderEmailHtml=(origin,token,name)=>`
             <a class="reset-link" href="${origin}/orders/${token}">View Order</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -129,7 +129,7 @@ module.exports.getPaymentEmailHtml=(origin,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">Transaction Creation</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">You have successfully created a transaction for wallet funding</p>
@@ -138,7 +138,7 @@ module.exports.getPaymentEmailHtml=(origin,name)=>`
             <a class="reset-link" href="${origin}/dashboard/wallet">View Transaction</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -155,7 +155,7 @@ module.exports.getOrderHtml=(origin,token,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">NFT Order Approved</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">Your order ${token} has been approved and you now have ownership of the nfts you purchased </p>
@@ -163,7 +163,7 @@ module.exports.getOrderHtml=(origin,token,name)=>`
             <a class="reset-link" href="${origin}/orders/">View Orders</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -179,7 +179,7 @@ module.exports.getPurcahseHtml=(origin,nft_name,username,amount)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">NFT Purchased</h3>
         <p class="text">Hi ${username}!</p>
         <p class="text">Congratulatons some one just purchased your NFT ${nft_name} and ${amount}ETH have been credited to your account</p>
@@ -187,7 +187,7 @@ module.exports.getPurcahseHtml=(origin,nft_name,username,amount)=>`
             <a class="reset-link" href="${origin}/orders/">View Orders</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>
@@ -203,7 +203,7 @@ module.exports.getTransactionCompleteHtml=(origin,token,name)=>`
   </head>
   <body>
     <div class="reset-container">
-        <a href="${origin}/">Artisfymint</a>
+        <a href="${origin}/">ArtSea</a>
         <h3 class="title">Transaction Approved</h3>
         <p class="text">Hi ${name}!</p>
         <p class="text">Your transaction ${token} has been approved and you account has been successfully funded</p>
@@ -211,7 +211,7 @@ module.exports.getTransactionCompleteHtml=(origin,token,name)=>`
             <a class="reset-link" href="${origin}/dashboard/wallet">View Transactions</a>
          </div>
          <p class="text">Thanks</p>
-         <p class="text">The Artisfy team</p>
+         <p class="text">The Artsea team</p>
         </div>
 
     </div>

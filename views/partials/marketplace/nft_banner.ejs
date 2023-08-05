@@ -17,13 +17,13 @@
        <br>
     </div>
     <div class="grid-col-6 grid-col-md-12 collection-details">
-      <div class="vastmint-dark container">
+      <div class="vastmint-white container">
           <h3 class="title"><%= response.nft.name%> #<%= nft_id.slice(0,4) %></h3>    
-          <a href="/sellers/<%=response.nft.seller %>" class="vastmint-text-light-500" style="display:block;">@<%= response.nft.seller%></a>
+          <a href="/sellers/<%=response.nft.seller %>" class="vastmint-text-light-700" style="display:block;">@<%= response.nft.seller%></a>
           <a href="/collections/<%= nft_id %>" style="display:block;"><b><%= response.nft.collection?response.nft.collection:"N/A"%></b></a>    
           <p class="">Current Owner:<%= response.nft.owner%></b></p>
       </div><br>
-      <div class="vastmint-dark container">
+      <div class="vastmint-white container">
           <p class="title"><%= parseFloat(response.nft.current_price).toFixed(2) %>ETH</p><br>
           <% if (response.nft.owner === response.nft.seller) { %>
             <a 

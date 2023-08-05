@@ -36,7 +36,7 @@ module.exports.checkWithDrawBalance = async (req,res,next)=>{
     // console.log(req.session)
     const {username} = req.session.user
     const balance = await getEarnings(username)
-    console.log(balance)
+    // console.log(balance)
 
     console.log(balance)
     if(balance >= 7){
