@@ -27,6 +27,21 @@
         <% if (response.status=== "success") { %>
             <div class="notifications-container">
             <% if (response.data.collections.length > 0) { %>
+                <% if (response.pages > 1) { %>
+                    <div class="pagination">
+                      <% if (response.prev) { %>
+                        <a href="/dashboard/collections?page=<%=response.prev %>"  class=""><i class="bi bi-chevron-left"></i></a>
+                      <% } %>
+                      <% const current_page = parseFloat(response.page) !== 1?parseFloat(response.page) - 1:1%>
+                      <% const pagesShown = parseFloat(response.page) + 3 <= response.pages? parseFloat(response.page) + 3:response.pages + 1 %>
+                      <% for( let index = current_page; index < pagesShown; index++ ) { %>
+                        <a href="/dashboard/collections?page=<%= index %>"  class="<%= response.page == index?"vastmint-dark-2 active vastmint-text-white":"" %>>"><%= index %></a>
+                      <% } %>
+                      <% if (response.next <= response.pages) { %>
+                      <a href="/dashboard/collections?page=<%=response.next %>"  class=""><i class="bi bi-chevron-right"></i></a>
+                      <% } %>
+                    </div>
+                  <% } %>
                 <% for( collection of response.data.collections ) { %>
                     <div class="d-md-flex align-items-center p-2 mb-3 vastmint-white w3-round-large">
                         <div class="d-flex mb-2 align-items-center flex-grow-1">

@@ -18,18 +18,33 @@
     <%- include('../partials/header2.ejs') %>
     <%- include('../partials/dashboard/header.ejs') %>
        <p class="fs-4 fw-semi-bold">Your Notifications</p>
+       <% if (response.pages > 1) { %>
+        <div class="pagination">
+          <% if (response.prev) { %>
+            <a href="/dashboard/notifications?page=<%=response.prev %>"  class=""><i class="bi bi-chevron-left"></i></a>
+          <% } %>
+          <% const current_page = parseFloat(response.page) !== 1?parseFloat(response.page) - 1:1%>
+          <% const pagesShown = parseFloat(response.page) + 3 <= response.pages? parseFloat(response.page) + 3:response.pages + 1 %>
+          <% for( let index = current_page; index < pagesShown; index++ ) { %>
+            <a href="/dashboard/notifications?page=<%= index %>"  class="<%= response.page == index?"vastmint-dark-2 active vastmint-text-white":"" %>>"><%= index %></a>
+          <% } %>
+          <% if (response.next <= response.pages) { %>
+          <a href="/dashboard/notifications?page=<%=response.next %>"  class=""><i class="bi bi-chevron-right"></i></a>
+          <% } %>
+        </div>
+      <% } %>
        <% if (response.status == "success") { %>
         <div class="notifications-container">
            <% if (response.notifications.length > 0) { %>
             <% for(notification of response.notifications) { %>
                 <div class="vastmint-white mb-4 w3-card grid-col-6 grid-col-md-6 grid-col-sm-12 w3-round-large me-2 " style="min-height:80px;cursor:pointer">
-                    <div class="d-md-flex justify-content-between">
-                        <div class="p-2">
+                    <div class="justify-content-between p-2">
+                        <div class="">
                             <b class="mb-0"><%= notification.title %></b>
                             <p><%= notification.message %> </p>
                          </div>
-                         <div class="p-2">
-                            <p class="vastmint-text-light-700 m-0"><small><%= new Date(notification.createdAt).toISOString() %></small></p>
+                         <div class="">
+                            <p class="vastmint-text-light-700 m-0"><small><%= new Date(notification.createdAt).toString() %></small></p>
                          </div>
                     </div>
                   </div>

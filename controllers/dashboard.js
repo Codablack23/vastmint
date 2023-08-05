@@ -56,6 +56,7 @@ module.exports = {
     },
     async getCollectionsPage(req,res){
         const {user} = req.session
+        const {page} = req.query
         let response;
         try {
            
@@ -67,8 +68,14 @@ module.exports = {
            const collectionRes = await NFTCollection.findAll({
                where:{
                  seller:user.username
-               }
+               },
+               order:[
+                ["createdAt","DESC"]
+               ]
            })
+           const start = page?(0 + ((page-1) * 8)):0
+           const end = page?(8 +  ((page-1) * 8)):8
+           const allPages = Math.floor(collectionRes.length / 8)
            response = {
                data:{
                    collections:collectionRes.map(coll=>({
@@ -80,7 +87,7 @@ module.exports = {
                          console.log(b.current_price)
                          return a+parseFloat(b.current_price)
                         },0)).toFixed(3)
-                   }))
+                   })).slice(start,end)
                },
                _status: "success",
                get status() {
@@ -89,7 +96,11 @@ module.exports = {
                set status(value) {
                    this._status = value
                },
-               error:""
+               error:"",
+               page:page?page:1,
+               next:page?parseInt(page) + 1:2,
+               prev:page?page-1:null,
+               pages:parseInt(collectionRes.length) % 8 === 0 ?allPages :allPages + 1
            }
         } catch (error) {
            console.log(error)
@@ -164,20 +175,31 @@ module.exports = {
     },
     async getArtPage(req,res){
         const {user} = req.session
+        const {page} = req.query
         let response;
         try {
            
            const artRes = await NFTModel.findAll({
                where:{
                  seller:user.username
-               }
-           })   
+               },
+               order:[
+                ["createdAt","DESC"]
+               ]
+           })  
+           const start = page?(0 + ((page-1) * 8)):0
+           const end = page?(8 +  ((page-1) * 8)):8
+           const allPages = Math.floor(artRes.length / 8) 
            response = {
                data:{
-                   listing:artRes,
+                   listing:artRes.slice(start,end),
                },
                status:"success",
-               error:""
+               error:"",
+               page:page?page:1,
+               next:page?parseInt(page) + 1:2,
+               prev:page?page-1:null,
+               pages:parseInt(artRes.length) % 8 === 0 ?allPages :allPages + 1
            }
         } catch (error) {
            console.log(error)
@@ -197,18 +219,29 @@ module.exports = {
     },  
     async getNotificationsPage(req,res){
         const {user} = req.session
+        const {page} = req.query
         let response;
         try {
-           
+          
            const notifications = await Notifications.findAll({
                where:{
                  reciever:user.username
-               }
+               },
+               order:[
+                ['createdAt', 'DESC']
+               ]
            })   
+           const start = page?(0 + ((page-1) * 15)):0
+           const end = page?(8 +  ((page-1) * 15)):8
+           const allPages = Math.floor(notifications.length / 15)
            response = {
-               notifications,
+               notifications:notifications.slice(start,end),
                status:"success",
-               error:""
+               error:"",
+               page:page?page:1,
+               next:page?parseInt(page) + 1:2,
+               prev:page?page-1:null,
+               pages:parseInt(notifications.length) % 15 === 0 ?allPages :allPages + 1
            }
         } catch (error) {
            console.log(error)
