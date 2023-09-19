@@ -20,8 +20,8 @@ module.exports.sendMail=async({from,to,html,subject})=>{
     //       pass: "@vastmint_password", // generated ethereal password
     //     },
     // }
-    host: "mail.artisfymint.com",
-    name:"artisfymint.com",
+    host: process.env.EMAIL_SERVER || "mail.artisfymint.com",
+    name:"artsealtd.com",
     port:  465,
     secure: true,// true for 465, false for other ports
     auth: {
@@ -31,7 +31,7 @@ module.exports.sendMail=async({from,to,html,subject})=>{
   })
     console.log(process.env.EMAIL_USER,process.env.EMAIL_PASSWORD)
     const info = await transporter.sendMail({
-        from:'"Artifymint" <support@artisfymint.com>',
+        from:`"Support" <${process.env.EMAIL_USER || "support@artisfymint.com"}>`,
         to,
         html,
         subject,

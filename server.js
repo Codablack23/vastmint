@@ -86,19 +86,9 @@ app.use("/dashboard",authenticateUsers,DashboardRoute)
 app.use("/accounts",accountRoute)
 app.use("/api",apiRoute)
 app.use("/admin",adminRoute)
-// app.get("/send-mail",async(req,res)=>{
-//    const response = await sendMail({
-//     from:"ArtisfyMint",
-//     to:"goodluckedih@gmail.com",
-//     subject:"",
-//     html:"<b>Some Text Over here<b>"
-//    })
-//    res.json(response)
-// })
+
 app.post("/upload/",async(req,res)=>{
-    const uploadFolder = __dirname + "/public/uploads/"
     const file = req.files.file
-    const origin = req.headers.origin
     const response = {
         status:"pending",
         message:"",

@@ -17,10 +17,12 @@
         margin-right: 0.5em;
     }
     .cart-link{
-        background: none;
+        background: #fafafa;
+        height: 35px;
+        width: 35px;
         border: none;
         border-radius: 50%;
-        display: block;
+        display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
@@ -38,6 +40,7 @@
         display: block;
         width: 15px;
         border-radius: 50%;
+        border: 1px solid #cacaca;
     }
 </style>
 
@@ -59,22 +62,23 @@
                     <a href="/sellers">Sellers</a>
                     <a href="#how-it-works">Mint</a>
                     <a href="/orders">Orders</a>
+                    <a href="/accounts/" class="">Login</a>
+                    
                 </div>
                 <div class="action-links">
                     <% if (!user) { %>
-                        <a href="/accounts/" class="login vastmint-dark vastmint-text-white">Login</a>
-                        <a href="/accounts/register" class="register vastmint-primary-400 vastmint-text-white">Register</a>
-                    <% }else{ %>
                      <a href="/dashboard/">
                         <div class="vastmint-card vastmint-dark-2 vastmint-text-white logged-in">
                             <p><%= user.username %></p>
                             <button class="vastmint-primary-400 vastmint-text-white"><i class="bi bi-box-arrow-right"></i></button>
                        </div>
                      </a>
+                    <% }else{%>
+                        <a href="/accounts/register" class="login vastmint-dark vastmint-text-white">Register</a>
                     <% }%>
                     <button onclick="window.location.assign('/cart/')" class="cart-link ">
                         <i class="bi bi-cart3 vastmint-text-black-2"></i>
-                        <small id="cart-count" class="vastmint-white vastmint-text-dark">0</small>
+                        <small id="cart-count" class="vastmint-dark vastmint-text-white">0</small>
                     </button>
                 </div>
             </div>
