@@ -421,10 +421,13 @@ module.exports = {
             data:null,
             status:"failed",
             status_code:500,
-            error:"Could not fetch NFTS due to some server error"
+            error:"An error occurred due to some server error please check your fields and try again"
         }
   
-        try {
+        if(!banner_img){
+          response.error="Your collecton does not have a banner image please add an image to your collection"
+        }else{
+           try {
             let collection_id = v4()
             const mintfee = (await MintFee.findAll())[0].mint_fee
             await NFTCollection.create({
@@ -444,7 +447,7 @@ module.exports = {
                 payment_id:v4(),
                 state:"completed",
                 user:username,
-                amount:mintfee,
+                amount:mintfee * 4 ,
                 type:"mint",
                 status:"DEBIT"
             })
@@ -462,8 +465,9 @@ module.exports = {
                 subject:"Mint Successful",
                 html:getMintEmailHtml(origin,nft_id,user)
             })
-        } catch (error) {
-            console.log(error)
+            } catch (error) {
+                console.log(error)
+            }
         }
         res.json(response)
         
