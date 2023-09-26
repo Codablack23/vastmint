@@ -65,7 +65,7 @@
         <section class="el-container">
           <div class="vastmint-grid">
             <div class="grid-col-8  grid-col-md-12">
-                <div class="vastmint-dark">
+                <div class="vastmint-white">
                     <div class="data">
                         <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
                             <p>Authorization and Authentication</p>
@@ -76,7 +76,7 @@
                     </div>
                 </div> 
                 <br>
-                <div class="vastmint-dark">
+                <div class="vastmint-white">
                     <div class="data">
                         <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
                             <p>Site Data</p>
@@ -88,17 +88,17 @@
                     </div>
                 </div>
                </div>
-               <div class="vastmint-dark grid-col-4 grid-col-md-12">
+               <div class="grid-col-4 grid-col-md-12">
                 <div class="data">
                     <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
                         <p>Update Mint Fee</p>
                     </header>
-                    <div class="content" style="padding:1em;">
+                    <div class="content vastmint-white" style="padding:1em;">
                         <p>Current Mint Fee:<%= parseFloat(mint_fee) %>ETH</p><br>
                         <form action="/admin/mint_fee/update" method="post">
                             <div>
                                 <p>New Mint Fee</p>
-                                <input name="mint_fee" class="vastmint-dark-2 vastmint-text-white" type="text" style="width:95%;padding:0.5em;border:none;margin-top:2px" name="mint_fee">
+                                <input placeholder="Enter New Mint Fee" name="mint_fee" class="vastmint-light-100 vastmint-text-dark-2" type="text" style="width:95%;padding:0.5em;border:none;margin-block:8px" name="mint_fee">
                             </div>
                             <button class="vastmint-primary-400 vastmint-text-white" style="width:100%;padding:0.5em;border:none;margin-top:10px">Update</button>
                         </form>
