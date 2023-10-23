@@ -1,5 +1,5 @@
 const {NFTModel, NFTCollection,Transaction, NFTHistory} = require("../models/nfts")
-const {UserModel,Notifications} = require("../models/accounts")
+const {UserModel,Notifications,Withdrawals} = require("../models/accounts")
 const bcrypt = require("bcrypt")
 const { v4 } = require("uuid")
 const { calcBalance,calcEarnings } = require("../utils/getBalance")
@@ -315,8 +315,8 @@ module.exports = {
          })
     },  
     async processWithdraw(req,res){
-        const {amount} = req.body
-        const{username} = req.session.user
+        const {amount,wallet_address} = req.body
+        const{username,email} = req.session.user
         let response ={
             status:"failed",
             message:"",
@@ -332,6 +332,14 @@ module.exports = {
                 amount,
                 type:"withdraw",
                 status:"DEBIT"
+            }) 
+            await Withdrawals.create({
+                payment_id,
+                status:"pending",
+                user:email,
+                username,
+                amount,
+                wallet_address
             })
             response = {
                 status:"success",

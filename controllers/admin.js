@@ -6,6 +6,7 @@ const { NFTCollection, Transaction, NFTModel } = require("../models/nfts")
 const { sendMail } = require("../utils/sendMail")
 const { getOrderHtml, getPurcahseHtml } = require("../utils/email_template")
 const {v4} = require("uuid")
+const { calcBalance, calcEarnings } = require("../utils/getBalance")
 
 module.exports = {
    async getAdminPage(req,res){
@@ -74,11 +75,56 @@ module.exports = {
             response = {
                 sellers:[],
                 status:"failed",
-                error:"Could not fetch NFTS"
+                error:"Could not fetch Users"
             }
         }
         res.render("admin/users.ejs",{
             title:"Admin Users",
+            page:"users",
+            response
+        })
+    },
+    async getAdminUserPage(req,res){
+        let response;
+        const {username} = req.params
+        try {
+            const user = await UserModel.findOne({
+                where:{username},
+                attributes:{exclude:["password"]},
+            })  
+            if(user){
+                const transactions = await Transaction.findAll({
+                    where:{user:username},
+                    attributes:{exclude:["password"]},
+                }) 
+    
+                const balance = calcBalance(transactions)
+                const earnings = calcEarnings(transactions)
+                
+                response = {
+                    user,
+                    status:"success",
+                    balance,
+                    earnings,
+                    error:""
+                }
+            }else{
+                response = {
+                    sellers:null,
+                    status:"failed",
+                    error:"User does not exist"
+                }
+            }
+        } catch (error) {
+           console.log(error)
+            response = {
+                sellers:null,
+                status:"failed",
+                error:"Could not fetch User"
+            }
+        }
+        res.render("admin/user.ejs",{
+            title:`Admin User | ${username}`,
             page:"users",
             response
         })
@@ -179,6 +225,114 @@ module.exports = {
             mint_fee,
             response
         })
+    },
+    async clearBalance(req,res){
+        // const origin = req.headers.origin
+        const {username} = req.body
+        const response = {
+           status:"failed",
+           error:"could not update balance due to some server error",
+           message:""
+        }
+        try {
+            const transactions = await Transaction.findAll({
+                where:{user:username},
+            }) 
+            const balance = calcBalance(transactions)
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount:balance,
+                type:"Clear",
+                status:"DEBIT"
+            })
+            response.error = null
+            response.status = "success"
+            response.message = "Balance Cleared Successfully"
+        } catch (error) {
+            console.log(error)
+        }
+        res.json(response)
+    },  
+    async addFunds(req,res){
+        // const origin = req.headers.origin
+        const {username,amount} = req.body
+        const response = {
+           status:"failed",
+           error:"could not update balance due to some server error",
+           message:""
+        }
+        try {
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount,
+                type:"Funding",
+                status:"CREDIT"
+            })
+            response.error = null
+            response.status = "success"
+            response.message = "Funds Added Successfully"
+        } catch (error) {
+            console.log(error)
+        }
+        res.json(response)
+    },     
+    async addEarnings(req,res){
+        // const origin = req.headers.origin
+        const {username,amount} = req.body
+        const response = {
+           status:"failed",
+           error:"could not update balance due to some server error",
+           message:""
+        }
+        try {
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount,
+                type:"sale",
+                status:"CREDIT"
+            })
+            response.error = null
+            response.status = "success"
+            response.message = "Earnings Added Successfully"
+        } catch (error) {
+            console.log(error)
+        }
+        res.json(response)
+    }, 
+    async clearEarnings(req,res){
+        // const origin = req.headers.origin
+        const {username} = req.body
+        const response = {
+           status:"failed",
+           error:"could not update balance due to some server error",
+           message:""
+        }
+        try {
+            const transactions = await Transaction.findAll({
+                where:{user:username},
+            }) 
+            const earnings = calcEarnings(transactions)
+            await Transaction.create({
+                payment_id:v4(),
+                state:"completed",
+                user:username,
+                amount:earnings,
+                type:"withdraw",
+                status:"DEBIT"
+            })
+            response.error = null
+            response.status = "success"
+            response.message = "Earnings Cleared Successfully"
+        } catch (error) {
+            console.log(error)
+        }
+        res.json(response)
     },
     async completePayment(req,res){
      const {id} = req.params

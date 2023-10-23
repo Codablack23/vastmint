@@ -122,6 +122,7 @@
             },
             body:JSON.stringify({
                amount,
+               wallet_address:addr
             })
         })
         const data = await res.json()

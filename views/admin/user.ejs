@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include("../partials/head.ejs") %>
+<style>
+ .header{
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+ .title{
+    font-size: 22px;
+ }
+ .data{
+    min-height: 100px;
+ }
+ .tables-list{
+    padding: 0;
+    list-style: none;
+ }
+ .tables-list li{
+    padding: 0.7em;
+ }
+ .vastmint-table-header{
+    max-width:700px ;
+ }
+ 
+ .alert.alert-failed{
+  background-color: #FFCDD2;
+  color: #F44336;
+  margin-bottom: 0.5em;
+ }
+ .alert.alert-success{
+  background-color: #C8E6C9;
+  color: #4CAF50;
+  margin-bottom: 0.5em;
+ }
+.loading-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0,0,0.5);
+    color: #fff;
+}
+.hidden{
+    display: none;
+}
+</style>
+</head>
+<body>
+    <div class="loading-modal hidden">
+      <div style="font-size: 26px;">Loading ....</div>
+    </div>
+    <main>
+       <div class="vastmint-dark-2 main-header">
+        <header class="el-container vastmint-text-white header">
+            <p class="title">Artisify Administration</p>
+            <a href="/admin/logout" class="logout">LOGOUT</a>
+        </header>
+       </div>
+       <!-- <% if (response) { %>
+          <% if (response.status == "success") { %>
+            <div class="alert alert-success">
+                <div class="el-container">
+                   <p><%= response.message %></p>
+                </div>
+              </div>
+          <% }else{ %>
+            <div class="alert alert-failed">
+                <div class="el-container">
+                   <p><%= response.error %></p>
+                </div>
+              </div>            
+          <% } %>
+       <% } %> -->
+        <section class="el-container">
+            <header>
+                <p>Site Data > Users > <%= response.user.username %> </p>
+            </header><br><br>
+          <div class="vastmint-grid">
+            <div class="grid-col-8  grid-col-md-12">
+                <div class="vastmint-white">
+                    <div class="data">
+                        <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                            <p>User > <%= response.user.username %></p>
+                        </header>
+                        <ul class="tables-list">
+                            <li>
+                                <p style="font-size: 24px;"><%= response.user.name %></p>
+                                <p><%= response.user.email %></p>
+                            </li>
+                        </ul>
+                        <header style="padding:10px">
+                            <div style="flex:1">
+                                <% if (response.balance) { %>
+                                    <p style="font-size: 28px;">Current Funds:<%= parseFloat(response.balance).toFixed(3) %>ETH</p><br>
+                                <% }else{ %>
+                                    <p style="font-size: 28px;">Current Funds:<%= 0.0 %>ETH</p><br>
+                                <% } %>  
+                            </div>
+                            <button onclick="clearBalance('<%= response.user.username %>')" class="vastmint-dark-2 vastmint-text-white" style="padding:0.5em 2em;border:none;flex:1">Clear Funds</button>
+                        </header>  
+                        <header style="padding:10px">
+                            <div style="flex:1">
+                                <% if (response.earnings) { %>
+                                    <p style="font-size: 28px;">Current Earnings:<%= parseFloat(response.earnings).toFixed(3) %>ETH</p><br>
+                                <% }else{ %>
+                                    <p style="font-size: 28px;">Current Earnings:<%= 0.0 %>ETH</p><br>
+                                <% } %>  
+                            </div>
+                            <button  onclick="clearEarnings('<%= response.user.username %>')" class="vastmint-dark-2 vastmint-text-white" style="padding:0.5em 2em;border:none;flex:1">Clear Earnings</button>
+                          </header>
+                    </div>
+                  
+                </div> 
+                <br>
+             
+               </div>
+               <div class="grid-col-4 grid-col-md-12">
+                <div class="data">
+                    <header class="vastmint-dark-2 vastmint-text-white" style="padding:10px">
+                        <p>Update Balance</p>
+                    </header>
+                    <div class="content vastmint-white" style="padding:1em;">                      
+                        <form class="add-funds-form" method="post">
+                            <div>
+                                <p>Fund Account</p>
+                                <input  min="1"  placeholder="Enter Amount" name="amount" class="vastmint-light-100 vastmint-text-dark-2" type="text" required style="width:95%;padding:0.5em;border:none;margin-block:8px" name="mint_fee">
+                            </div>
+                            <button class="vastmint-primary-400 vastmint-text-white" style="width:100%;padding:0.5em;border:none;margin-top:10px">Fund</button>
+                        </form>
+                    </div> 
+                    <div class="content vastmint-white" style="padding:1em;">
+                        <form class="add-earnings-form" method="post">
+                            <div>
+                                <p>Add Earnings</p>
+                                <input min="0.1" required placeholder="Enter Amount" name="amount" class="vastmint-light-100 vastmint-text-dark-2" type="text" style="width:95%;padding:0.5em;border:none;margin-block:8px" name="mint_fee">
+                            </div>
+                            <button class="vastmint-primary-400 vastmint-text-white" style="width:100%;padding:0.5em;border:none;margin-top:10px">Add</button>
+                        </form>
+                    </div>
+                   
+                </div>
+               </div>
+          </div>
+        </section>
+    </main>
+    
+    <script>
+        const loader = document.querySelector(".loading-modal")
+        const addEarningsForm = document.querySelector(".add-earnings-form")
+        const addFundsForm = document.querySelector(".add-funds-form")
+        const clearBalance = async (username)=>{
+            try{
+                loader.classList.toggle("hidden")
+                const res = await fetch(`/admin/clear-balance`,{
+                    method:"POST",
+                    body:JSON.stringify({
+                      username,
+                    }),
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                })
+                const data = await res.json()
+                loader.classList.toggle("hidden")
+                if(data.status === "success"){
+                    alert(data.message)
+                    window.location.reload()
+                }else{
+                    alert(data.error)
+                }
+                
+            }catch{
+             alert("could not connect to server please try again later")
+            }
+        } 
+        const clearEarnings = async (username)=>{
+            try{
+                loader.classList.toggle("hidden")
+                const res = await fetch(`/admin/clear-earnings`,{
+                    method:"POST",
+                    body:JSON.stringify({
+                      username,
+                    }),
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                })
+                const data = await res.json()
+                loader.classList.toggle("hidden")
+                if(data.status === "success"){
+                    alert(data.message)
+                    window.location.reload()
+                }else{
+                    alert(data.error)
+                }
+                
+            }catch{
+             alert("could not connect to server please try again later")
+            }
+        }        
+        const addEarnings = async (username)=>{
+            const amount = addEarningsForm["amount"].value
+            try{
+                loader.classList.toggle("hidden")
+                const res = await fetch(`/admin/add-earnings`,{
+                    method:"POST",
+                    body:JSON.stringify({
+                      username,
+                      amount
+                    }),
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                })
+                const data = await res.json()
+                loader.classList.toggle("hidden")
+                if(data.status === "success"){
+                    alert(data.message)
+                    window.location.reload()
+                }else{
+                    alert(data.error)
+                }
+                
+            }catch{
+             alert("could not connect to server please try again later")
+            }
+        }
+        const addFunds = async (username)=>{
+            const amount = addFundsForm["amount"].value
+            try{
+                loader.classList.toggle("hidden")
+                const res = await fetch(`/admin/add-funds`,{
+                    method:"POST",
+                    body:JSON.stringify({
+                      username,
+                      amount
+                    }),
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Accept':'application/json'
+                    },
+                })
+                const data = await res.json()
+                loader.classList.toggle("hidden")
+                if(data.status === "success"){
+                    alert(data.message)
+                    window.location.reload()
+                }else{
+                    alert(data.error)
+                }
+                
+            }catch{
+             alert("could not connect to server please try again later")
+            }
+        }
+        const handleSubmit = async(e) =>{
+           e.preventDefault()
+           addEarnings("<%= response.user.username %>")
+        }        
+        const handleSubmit2 = async(e) =>{
+           e.preventDefault()
+           addFunds("<%= response.user.username %>")
+        }
+        addEarningsForm.addEventListener("submit",handleSubmit)
+        addFundsForm.addEventListener("submit",handleSubmit2)
+    </script>
+</body>
+</html>

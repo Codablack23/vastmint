@@ -5,6 +5,7 @@ class UserModel extends Model{}
 class Notifications extends Model{}
 class Orders extends Model{}
 class Admin extends Model{}
+class Withdrawals extends Model{}
 
 Admin.init({
     id:{
@@ -50,6 +51,39 @@ Orders.init({
         allowNull:false,
     },
 },{sequelize,tableName:"orders"})
+
+Withdrawals.init({
+    id:{
+        type:DataTypes.BIGINT,
+        autoIncrement:true,
+        primaryKey:true
+    },
+    withdrawal_id:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+    },
+    amount:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+    }, 
+    wallet_address:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+    },
+    status:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+        defaultValue:"pending"
+    },
+    user:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+    },
+    username:{
+        type:DataTypes.TEXT,
+        allowNull:false,
+    },
+},{sequelize,tableName:"withdrawals"})
 
 UserModel.init({
     id:{
@@ -132,5 +166,6 @@ module.exports.UserModel = UserModel
 module.exports.Notifications = Notifications
 module.exports.Orders = Orders
 module.exports.Admin = Admin
+module.exports.Withdrawals = Withdrawals
 
 

@@ -113,7 +113,7 @@
                             </tr>
                             <% for( user of response.sellers) { %>
                             <tr >
-                              <td style="min-width: 150px;text-transform: capitalize;"><%= user.name %></td>
+                              <td style="min-width: 150px;text-transform: capitalize;"><a href="/admin/users/<%= user.username %>"><%= user.name %></a></td>
                               <td style="min-width: 150px;"><%= user.email %></td>
                               <td style="min-width: 150px;"><%= user.username %></td> 
                               <td style="min-width: 150px;"><%= user.collections.length %></td>
