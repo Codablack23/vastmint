@@ -12,6 +12,7 @@ module.exports.sequelize = new Sequelize(
     dbConfigData.password,
     {
       host:dbConfigData.host,
-      dialect:"mysql"
+      dialect:"mysql",
+      port:59127
     }
 )
